@@ -1,0 +1,38 @@
+<div *ngIf="section === 'banner'" class="banner-section swiperCont">
+    <app-swiper space-between="20" [breakpoints]="swiperBannerBreakpoints">
+        <swiper-slide class="slide-item " *ngFor="let item of data">
+            <a class="d-block w-100" [routerLink]="item.url">
+                <img class="banner-container-saffola" [src]="cloudImageUrl  + item.img" [alt]="item.title">
+            </a>
+        </swiper-slide>
+    </app-swiper>
+</div>
+
+<div *ngIf="section === 'coupon'" class="swiperCont">
+    <app-swiper space-between="20" slides-per-view="2" [breakpoints]="swiperCouponBreakpoints">
+        <swiper-slide class="slide-item" *ngFor="let item of data">
+            <a class="d-block w-100" *ngIf="item.url" [routerLink]="item.url">
+                <img class="coupon-back" [src]="cloudImageUrl + item.img" (click)="copyCoupon(item.couponCode)" />
+            </a>
+            <img *ngIf="!item.url" class="coupon-back" [src]="cloudImageUrl + item.img"
+                (click)="copyCoupon(item.couponCode)" />
+        </swiper-slide>
+    </app-swiper>
+</div>
+
+<div *ngIf="section === 'medical'" class="banner-section swiperCont">
+    <app-swiper space-between="20" [breakpoints]="swiperBannerBreakpoints">
+        <swiper-slide class="slide-item" *ngFor="let item of data">
+            <div class="banner-container-medical" [ngStyle]="{background: 'url(' + cloudImageUrl  + item.img + ')'}"
+                body>
+            </div>
+        </swiper-slide>
+    </app-swiper>
+</div>
+
+<!-- <swiper-slide class="slide-item " *ngFor="let imgItem of imagesArray">
+            <a class="banner-container-saffola"
+                [ngStyle]="{background: 'url(' + cloudImageUrl  + imgItem.thumbnail.savedName + ')'}"
+                [routerLink]="imgItem.link" routerLinkActive="router-link-active">
+            </a>
+        </swiper-slide> -->

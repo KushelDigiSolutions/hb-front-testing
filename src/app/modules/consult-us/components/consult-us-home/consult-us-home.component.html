@@ -1,0 +1,146 @@
+<div class="container width100">
+
+    @if (consultAgainLists.length > 0) {
+    <div class="mt-4 mobileWidth100">
+        <app-top-consult-specialist [productBrandTitle]="'Consult Again'" [topConsult]="consultAgainLists"
+            seeAllUrl="/consult-us/search/consult-again"></app-top-consult-specialist>
+    </div>
+    }
+
+
+    @if (topConsultLists.length > 0) {
+    <div class="mt-4 mobileWidth100">
+        <app-top-consult-specialist [productBrandTitle]="'Consult with our Top specialists'"
+            [topConsult]="topConsultLists" seeAllUrl="/consult-us/search/top-specialists"></app-top-consult-specialist>
+    </div>
+    }
+
+
+    <div class="mt-4 mobileWidth100">
+        <app-slider [data]="categoryBannersList" [section]="'banner'"></app-slider>
+    </div>
+
+    <div class="mt-4 mobileWidth100">
+        <div class="row health-concerns-categories-container pb-4">
+            <!-- d-flex flex-column justify-content-center -->
+            <div class="col-md-12 col-sm-12 col-12 mt-3 ">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <span class="health-concerns-category-label">
+                            Consult Across A.Y.U.S.H
+                        </span>
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-lg-2  col-4 health-concerns-category-card-container padding4"
+                        *ngFor="let item of ayushList; let i = index">
+                        <app-shop-category [categories]="item" [i]="i"></app-shop-category>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4 mobileWidth100">
+        <app-mini-cards-category-slider label="Consult by Speciality"
+            [data]="consultBySpecility"></app-mini-cards-category-slider>
+        <!-- <div class="row p-3 shop-health-concern-container">
+            <div class="col-md-12 col-sm-12">
+                <div class="row mb-3">
+                    <div class="col-md-12 col-sm-12  d-flex justify-content-between ">
+                        <span class="product-label">
+                            Consult by Speciality
+                        </span>
+                        <button type="button" class="btn btn-sm healthconcern-topbrand-btn-color">See all</button>
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-md-12  swiperCont">
+                        <button class="swiperNavigation swiperPrev" [disabled]="disabledPrev
+                        " (click)="onPrev()"><i class="bi bi-chevron-left"></i></button>
+                        <button class="swiperNavigation swiperNext" [disabled]="disabledNext" (click)="onNext()"><i
+                                class="bi bi-chevron-right"></i></button>
+                        <swiper-container #swiper class="mySwiper" navigation="false" slides-per-view="auto"
+                            (swiperslidechange)="onChange($event)" (swiperafterinit)="onInit($event)">
+                            <swiper-slide class="slide-item health-concern-slide"
+                                *ngFor="let healthconcern of consultBySpecility">
+                                <app-shop-health-concern style="width:100%; min-height: 165px;"
+                                    [shopByConcern]="healthconcern"></app-shop-health-concern>
+                            </swiper-slide>
+                        </swiper-container>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+    @if (consultantNearMeLists.length > 3) {
+    <div class="mt-4 mobileWidth100">
+        <app-top-consult-specialist [productBrandTitle]="'Consult near me'" [topConsult]="consultantNearMeLists"
+            seeAllUrl="/consult-us/search/consult-near-me"></app-top-consult-specialist>
+    </div>
+    }
+
+
+    <div class="mt-4 mobileWidth100">
+        <app-mini-cards-category-slider label="Consult by Health Concern"
+            [data]="consultByHealthConcern" bgColor1="#FFE9FB" bgColor2="#FFD2F8"></app-mini-cards-category-slider>
+        <!-- <div class="row p-3 consult-health-concern-container">
+            <div class="col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12  d-flex justify-content-between ">
+                        <span class="product-label">
+                            Consult by Health Concern
+                        </span>
+                        <button type="button" class="btn btn-sm consult-health-concern-btn-color">See all</button>
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-md-12  swiperCont">
+                        <button class="swiperNavigation swiperPrev" [disabled]="disabledPrev
+                        " (click)="onPrevR()"><i class="bi bi-chevron-left"></i></button>
+                        <button class="swiperNavigation swiperNext" [disabled]="disabledNext" (click)="onNextR()"><i
+                                class="bi bi-chevron-right"></i></button>
+                        [breakpoints]="swiperBreakpints"
+                        <swiper-container #swiper1 class="mySwiper" navigation="false" slides-per-view="auto"
+                            (swiperslidechange)="onChangeR($event)" (swiperafterinit)="onInitR($event)">
+                            <swiper-slide class="slide-item health-concern-slide"
+                                *ngFor="let healthconcern of consultBySpecility">
+                                <app-shop-health-concern style="width:100%; min-height: 165px;"
+                                    [shopByConcern]="healthconcern"></app-shop-health-concern>
+                            </swiper-slide>
+                        </swiper-container>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+    <div class="mt-4 mobileWidth100">
+        <div class="row ">
+            <div class="col-md-12 col-12 guidance-step-text">
+                <span class="user-step-guidance">Just 3 simple steps</span>
+            </div>
+        </div>
+        <div class="row mt-3 follow-step">
+            <div class="col-md-4 col- 12 d-flex align-items-center column-gap-2 user-steps">
+                <div class="user-steps-count">
+                    <span>01</span>
+                </div>
+                <span class="">Choose your doctor</span>
+            </div>
+            <div class="col-md-4 col-12 d-flex align-items-center column-gap-2 user-steps">
+                <div class="user-steps-count">
+                    <span>02</span>
+                </div>
+                <span class="">Pick your preferred slot</span>
+            </div>
+            <div class="col-md-4 col-12 d-flex  align-items-center column-gap-2 user-steps">
+                <div class="user-steps-count">
+                    <span>03</span>
+                </div>
+                <span class="">Checkout & Confirm booking</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,129 @@
+<div class="modal-section">
+    <div class="card-body form-container">
+        <div style="background-color: white;" class="modal-div" *ngIf="!this.isOtpScreen">
+            <div class="px-3">
+                <h5 class="card-title text-center">Bulk Herbs Enquiry</h5>
+            </div>
+            <div class="mt-4 px-3" [style]="{'position':'relative'}">
+                <label class="input-lebal">
+                    <span [style]="{'margin':'5px'}" class="required">Name</span>
+                </label>
+                <div class="input-container">
+                    <input type="text" [(ngModel)]="name" #nameInput (input)="clearError('name')" placeholder="Enter full name">
+                </div>
+                <div *ngIf="this.isError">
+                    <p class="text-danger mt-1">{{this.errors.name}}</p>
+                </div>
+            </div>
+            <div class="mt-4 px-3" [style]="{'position':'relative'}">
+                <label class="input-lebal">
+                    <span [style]="{'margin':'5px'}" class="required">Mobile No</span>
+                </label>
+                <div class="input-container">
+                    <span class="prefix">+91</span>
+                    <span class="relative">
+                        <input type="text" maxlength="10" [(ngModel)]="mobile" #mobileInput
+                            (input)="clearError('mobile')" placeholder="Enter mobile number">
+                        <button *ngIf="!this.mobileValidated" class="verify-button" (click)="sendOtp()">
+                            Get OTP
+                        </button>
+                        <span
+                            class="badge rounded-pill text-bg-success position-absolute verified-button top-50 translate-middle"
+                            *ngIf="this.mobileValidated && !this.existingNumber" style="right: 5px;">Verified</span>
+                        <span
+                            class="badge rounded-pill text-bg-success position-absolute verified-button top-50 translate-middle"
+                            *ngIf="this.mobileValidated && this.existingNumber" style="right: 5px;">Already
+                            Verified</span>
+                    </span>
+                </div>
+            </div>
+            <div *ngIf="this.isError" class="mt-1 px-3">
+                <p class="text-danger">{{this.errors.mobile}}</p>
+            </div>
+            <div class="mt-4 px-3" [style]="{'position':'relative'}">
+                <label class="input-lebal">
+                    <span [style]="{'margin':'5px'}" class="required">Quantity</span>
+                </label>
+                <!-- <div class="input-container d-flex gap-2">
+                    <input type="number" min="0" [(ngModel)]="quantity" #quantityInput (input)="clearError('quantity')" placeholder="Enter quantity">
+                </div> -->
+                <div class="d-flex gap-2">
+                    <input type="number" min="0" [(ngModel)]="quantity" #quantityInput (input)="clearError('quantity')">
+                    <!-- <label class="input-lebal">
+                        <span [style]="{'margin':'5px'}" class="required">Weight(Kg/Tonne)</span>
+                    </label> -->
+                    <button class="btn btn-light dropdown-toggle text-black unit-button" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">{{ selectedTypeLabel }}</button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" (click)="selectType('kg')">kg</a></li>
+                        <li><a class="dropdown-item" (click)="selectType('tonne')">tonne</a></li>
+                    </ul>
+                </div>
+                <div class="mt-1">
+                    <p class="text-danger">{{this.errors.quantity}}</p>
+                </div>
+            </div>
+            <div class="mt-4 px-3" [style]="{'position':'relative'}">
+                <label class="input-lebal">
+                    <span [style]="{'margin':'5px'}">Requirement Details</span>
+                </label>
+                <div class="input-container">
+                    <textarea type="text" style="resize: none;" class="w-100" rows="5" [(ngModel)]="enquiry"
+                        (input)="clearError('enquiry')" #enquiryInput placeholder="Describe your requirement"></textarea>
+                </div>
+                <div class="mt-1">
+                    <p class="text-danger">{{this.errors.enquiry}}</p>
+                </div>
+            </div>
+            <div class="mt-4 get-otp-login">
+                <button class="btn btn-primary mt-2 mb-2" (click)="this.sendEnquiry()"
+                    style="background-color: #069041; border-color: #069041; color: white;"
+                    [disabled]="!this.mobileValidated">{{this.submitting ? 'Submitting' : 'Submit'}}</button>
+            </div>
+        </div>
+        <div class="otp-modal-container" *ngIf="this.isOtpScreen">
+            <div style="background-color: white; min-height: 523px;" class="modal-div">
+                <div *ngIf="this.loading">
+                    <div class="otp-modal-title">
+                        <h5 class="card-title">Please enter the OTP sent to
+                            <br>
+                            +91{{mobile}}
+                            &nbsp;
+                            <span [style]="{'color':'#1D5CFF','cursor':'pointer','font-size':'14px'}"
+                                (click)="this.isOtpScreen = false;">Change
+                            </span>
+                        </h5>
+                    </div>
+                    <hr class="border-top">
+                    <div class="mt-4 px-3 mb-2" [style]="{'position':'relative'}">
+                        <label class="input-lebal">
+                            <span [style]="{'margin':'5px'}">Enter OTP</span>
+                        </label>
+                        <input class="otp-input" type="text" maxlength="6" [(ngModel)]="otp" #otpInput placeholder="Enter 6-digit OTP" />
+                    </div>
+                    <span class="resend-otp-title px-3">
+                        Didn't received the OTP?
+                        <span
+                            [style]="{'color':otpResending?'#999':'#1D5CFF','cursor':otpResending?'default':'pointer'}"
+                            (click)="resendOtp()">{{otpResending? 'Resending...' : 'Resend OTP'}}</span>
+                    </span>
+
+                    <div class="mt-3 submit-otp">
+                        <button class="btn btn-primary mt-2 mb-2" (click)="submitOtp()"
+                            [disabled]="otp.length != 6 || submitting">{{submitting? 'Submitting...' :
+                            'Submit'}}</button>
+                    </div>
+                </div>
+                <div style="position: absolute; top: 50%; right: 50%; transform: translateY(50%, 50%);"
+                    *ngIf="!this.loading">
+                    <div class="spinner-border text-success" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class=" cross-btn" (click)="closeVerificationModal()">
+            <app-cross-icon></app-cross-icon>
+        </button>
+    </div>
+</div>

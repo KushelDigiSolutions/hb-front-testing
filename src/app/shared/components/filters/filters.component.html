@@ -1,0 +1,103 @@
+<div class="filterCont pe-4 ">
+    <!-- <ng-container *ngTemplateOutlet="skeltonLoader;"></ng-container> -->
+    <ng-container *ngIf="loader">
+        <div class="d-flex justify-content-between py-3 px-2">
+            <h5 class="ps-3 mb-0 sub-heading-text filterTitle">Filters</h5>
+            <span class=" ps-3 pointer sub-heading-text filterTitle clearText" [style]="{'color':'#FF5454'}"
+                (click)="removeAllFilter()">Clear</span>
+        </div>
+        <hr class="mt-0 mb-1 grayBorderTop">
+        <!--For Filters-->
+        <div class="ps-3" *ngIf="categoryData">
+            <ng-container *ngFor="let item of categoryData; let i = index">
+                <div class="px-2" *ngIf="item?.name != 'Price Range'">
+                    <div class="d-flex justify-content-between mb-3">
+                        <div class="d-flex align-items-center column-gap-1">
+                            <span class="sub-heading-text"> {{ item?.name | titlecase }}</span>
+                            <img class="product-slider-heading-icon" src="/assets/images/homepage/blue-dot.svg" />
+                        </div>
+                        <div>
+                            <span *ngIf="item?.showSubCat" class="arrow-position float-right pointer"
+                                (click)="toggleFilterType(i)">
+                                <i class="bi bi-chevron-down"></i>
+                            </span>
+                            <span *ngIf="!item?.showSubCat" class=" arrow-position float-right pointer"
+                                (click)="toggleFilterType(i)">
+                                <i class="bi bi-chevron-right"></i>
+                            </span>
+                        </div>
+                    </div>
+
+
+
+                    <div [ngClass]="{'d-none': !item?.showSubCat}" class="category-search">
+                        <input #search *ngIf="item?.type != 'radio' && !item.hideSearch" type="text" class="search-bar"
+                            [placeholder]="'Search ' + item?.name" (keyup)="onSearch(search, item)" />
+                        <ul class="ps-0 px-0" id="scroll" [ngClass]="{
+              'fixed-height': item?.detail?.length > 10,
+              'pt-3': item?.type != 'radio'
+            }">
+                            <li *ngFor="let subItem of item?.detail; let j = index" class="sub-sub-heading-text pointer"
+                                [ngStyle]="{ color: activeIndex == j ? '#058F46' : '#333333' }"
+                                [ngClass]="{ 'd-none': subItem.hide }">
+                                <label *ngIf="item?.type == 'checkbox'">
+                                    <input class="pointer" type="checkbox" class="me-2"
+                                        (change)="getProductData(item?.filterName,item?.type,subItem?._id || subItem?.value,$event)" />
+                                    <span class="label pointer">
+                                        {{ subItem?.name | titlecase }}
+                                    </span>
+                                </label>
+                                <label *ngIf="item?.type == 'radio'"
+                                    [ngStyle]="{ color: j == radioActiveIndex ? '#058f46' : '' }">
+                                    <input type="radio" [name]="item?.filterName"
+                                        class=" d-inline-block me-2 align-middle pointer" (change)="
+                  getProductData(
+                    item?.filterName,
+                    item?.type,
+                    subItem?._id || subItem?.value,
+                    $event
+                  );
+                  setRadioActiveIndex(j)
+                ">
+                                    <span class="d-inline-block pointer">{{ subItem?.name | titlecase }}</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+
+
+
+                </div>
+                <!-- <hr class="grayBorderTop" *ngIf="item?.detail?.length && item?.detail?.length > 0"> -->
+            </ng-container>
+
+            <!--Range Slider-->
+            <div class="px-2 py-3" *ngIf="priceRangeFilter">
+                <hr class="underline margin-50" />
+                <p class="d-flex align-items-center column-gap-1">
+                    <span class="sub-heading-text"> Price Range</span>
+                    <img class="product-slider-heading-icon" src="/assets/images/homepage/blue-dot.svg" />
+                </p>
+                <div class="ps-2 pe-2 custom-slider">
+                    <!-- <ngx-slider *ngIf="isBrowser" [(value)]="value" [(highValue)]="highValue" [options]="options"
+                        (valueChange)="minPriceSliderFxn($event)" (highValueChange)="maxPriceSliderFxn($event)"
+                        (userChangeEnd)="onPriceChangeEnd()"></ngx-slider> -->
+                    <div>
+                        <ng-container *ngFor="let item of priceRangeData; let i = index">
+                            <div class="my-2">
+                                <input type="radio" [id]="'item-' + i" name="priceRange" [value]="selectedPriceRange"
+                                    (change)="this.selectPriceRange(item)" />
+                                <label class="mx-3 pointer" *ngIf="item?.maxPrice !== ''"
+                                    [for]="'item-' + i">{{item?.minPrice}}
+                                    -
+                                    {{item?.maxPrice}}</label><br *ngIf="item?.maxPrice !== ''">
+                                <label class="mx-3 pointer" *ngIf="item?.maxPrice === ''" [for]="'item-' + i">Above
+                                    {{item?.minPrice}}</label>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

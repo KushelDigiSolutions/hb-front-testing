@@ -1,0 +1,109 @@
+<div *ngIf="showReviewSection && reviewArray.length > 0" class="raiting-and-review mt-4" id="review">
+    <div class="stars-section d-flex flex-row justify-content-between align-items-center">
+        <div style="font-weight: 600px;">Ratings & Reviews</div>
+        <div class="d-flex flex-row justify-content-between align-items-center column-gap-2">
+            <strong style="font-size: 20px;">{{avgRating | number:'1.1-1'}}</strong>
+            <div>
+                <div class="stars">
+                    <ng-container *ngFor="let star of stars; let i = index">
+                        <span>
+                            {{ star <= avgRating ? '★' : '☆' }} </span>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-container class="user-review-section" *ngFor="let item of reviewArray">
+        <div class="review-section">
+            <div class="rating-4-plus">
+                <img src="../../../../../../assets/images/rating 4 plus.png" alt=""><span>{{item.star}}</span>
+            </div>
+            <div class="user-product-review">
+                <span>
+                    {{item.review}}
+                </span>
+            </div>
+            <div class="user-personal-details-container">
+                <span>
+                    {{item.user.firstName}} {{item.user.lastName}}
+                </span>
+            </div>
+            <hr class="grayBorderTop">
+        </div>
+    </ng-container>
+
+    <div class="review-read-more" *ngIf="reviewArray.length < reviewCount">
+        <span (click)="onLoadMore()">Read more</span>
+    </div>
+    <div class="review-read-more" *ngIf="reviewArray.length == reviewCount">
+        <span (click)="onLoadMore()">Show Less</span>
+    </div>
+</div>
+
+<!-- <div class="row pt-3 bottom-border px-md-4 review">
+            <div class="col-11 ps-0 mt-1">
+                <app-star-rating [rating]="item.star"></app-star-rating>
+                <div class="pt-2 pb-3">{{ item?.review }}</div>
+            </div>
+        </div> -->
+<!-- <div class="row mb-3 margin-0 px-md-4">
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="detail-heading">
+                        Ratings & Reviews
+                    </p>
+
+                    <p class="font-14 gray-text pt-1">
+                        ({{avgRating || 0}} Ratings & {{ reviewCount || 0 }} Reviews)
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <div *ngIf="user && canAddReview" class="float-right rate-product-button pointer"
+                        (click)="ratePoduct()">
+                        Rate {{ type }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+<!-- <div class="raiting-and-review mt-4">
+    <div class="stars-section d-flex flex-row justify-content-between align-items-center">
+        <div style="font-weight: 600px;">Ratings & Reviews</div>
+        <div class="d-flex flex-row justify-content-between align-items-center column-gap-2">
+            <strong style="font-size: 20px;">{{proReview.avgRating | number:'1.1-1'}}</strong>
+            <div>
+                <div class="stars">
+                    <ng-container *ngFor="let star of stars; let i = index">
+                        <span>
+                            {{ star <= proReview.avgRating ? '★' : '☆' }} </span>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="review-section">
+        <div class="user-review-section" *ngFor="let review of proReview.data">
+            <div class="rating-4-plus">
+                <img src="../../../../../../assets/images/rating 4 plus.png" alt=""><span>{{review.star}}</span>
+            </div>
+            <div class="user-product-review">
+                <span>
+                    {{review.review}}
+                </span>
+            </div>
+            <div class="user-personal-details-container">
+                <span>
+                    {{review.user.firstName}} {{review.user.lastName}}
+                </span>
+            </div>
+        </div>
+        <hr class="grayBorderTop">
+        <div class="review-read-more">
+            <span (click)="onLoadMore()">Read more</span>
+        </div>
+    </div>
+</div> -->

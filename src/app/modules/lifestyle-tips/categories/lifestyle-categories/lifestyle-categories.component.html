@@ -1,0 +1,73 @@
+<div class="container width100">
+  <div class="row mx-md-0">
+    @if(desktopScreen){
+    <div class="col-lg-3 col-md-4 col-sm-4 pb-3  filterCol grayBorder px-0">
+      <app-filters [loader]="isFiltersLoading" [categoryData]="filterData" [filterData]="filterUrl"
+        [priceSlider]="priceSlider" (newItemEvent)="onFilterChange($event)"
+        (removeFilter)="clearApplyFilter($event)"></app-filters>
+    </div>
+    }
+    @if (true) {
+    <!-- Description -->
+    <div class="col-lg-9 col-md-8 extended-width pe-0 grayBorder px-0">
+      <div class="row min-sm-mx-0 mx-0">
+
+        <div class="col-md-12 px-2 grayBorder">
+          <app-category-page-head [name]="name" moduleType="lifestyle" [list]="filterData"
+            (changefilters)="onFilterChange($event)"></app-category-page-head>
+        </div>
+
+        <!-- <hr class="underline mt-0" /> -->
+        <div class="col-md-12 col-sm-12  category-product-container productsSec">
+          <div class="category-container">
+            @if (blogs.length) {
+            <div class="row">
+              @for (blog of blogs; track $index;) {
+              <div class="col-xl-3 col-lg-4  col-md-6 col-sm-4 col-12">
+                <app-lifestyle-tip-card [data]="blog"></app-lifestyle-tip-card>
+              </div>
+              }
+            </div>
+            }
+            <div *ngIf="paginationConfig.totalItems > blogs.length" class="text-center pt-4 pb-2">
+              <button class="btn btn-primary fs-5 px-5 py-2" (click)="onLoadMore()"
+                [disabled]="isLoading">{{isLoading?'Loading...':'Load More'}}</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-sm-12 py-5 text-center" *ngIf="!isLoading && !blogs?.length">
+          <div>
+            <img class="img-fluid no-product-found mt-3" [src]="imgUrl + 'nothing-found.png'" />
+          </div>
+          <p class="fw-medium pt-3">
+            No Data Found
+          </p>
+        </div>
+      </div>
+    </div>
+    }
+
+    <hr class="d-none d-md-block">
+
+    <!-- <div class="mt-4 px-md-0 px-3">
+      <app-affordable-health-packages [package]="affordablePackages"
+        [productBrandTitle]="'Related Health packages'"></app-affordable-health-packages>
+    </div> -->
+
+    <!-- <div *ngIf="filters.type !== 'search'" class="mt-4 px-md-0 px-3"> -->
+    <div class="mt-4 px-md-0 px-3">
+      <app-life-style-health-card class="w-100" [productBrandTitle]="'Related Health Tips'"
+        [recentTipsData]="relatedTips"></app-life-style-health-card>
+    </div>
+
+    @if (shopNowProducts.length > 0){
+    <div class="mt-4 px-md-0 px-3">
+      <app-product-slider class="product-slider" [productData]="shopNowProducts"
+        productBrandTitle="Shop Now"></app-product-slider>
+    </div>
+    }
+
+  </div>
+
+</div>

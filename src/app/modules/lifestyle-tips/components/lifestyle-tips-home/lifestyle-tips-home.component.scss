@@ -1,0 +1,63 @@
+@import "../../../../../assets/styles/main.scss";
+
+.health-tips-categories-container {
+  // height: 237px;
+  background: radial-gradient(#d8ffe3 0%, rgba(216.11, 255, 227, 0.69) 100%);
+  padding: 0 20px;
+
+  .health-tips-category-label {
+    color: #1c1c1c;
+    font-size: 18px;
+    font-family: Inter;
+    font-weight: 600;
+  }
+
+  .health-tips-category-card-container {
+    margin: 10px 0;
+  }
+}
+
+@include max-lg {
+  .width100 {
+    width: 100%;
+    padding: 0px 25px;
+    max-width: 100%;
+  }
+}
+
+@include max-sm {
+  .coupon-code-col {
+    margin-bottom: 10px;
+  }
+  .width100 {
+    padding: 0px 0px;
+  }
+  .mobileWidth100 {
+    padding: 0px 15px;
+  }
+  .shop-categories-container {
+    // height: 237px;
+    background: radial-gradient(#f1ffd6 0%, rgba(238, 255, 205, 0.85) 100%);
+  }
+}
+
+@include max-xs {
+  .health-tips-categories-container {
+    // height: 400px;
+  }
+  .padding4 {
+    padding: 0px 4px;
+  }
+}
+
+@include max-md {
+  .health-tips-categories-container {
+    padding-left: 0px;
+  }
+}
+
+@media (max-width: 391px) {
+  .padding4 {
+    padding: 0px 2px;
+  }
+}

@@ -1,0 +1,372 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="navbar-container bg">
+        <div class="container width100">
+            <div class="navbar-upper-section">
+                <div class="d-flex align-items-center">
+                    <div class="navbar-logo">
+                        <a routerLink="/">
+                            <img class="w-100" width="100" height="50" src="/assets/images/navbar-images/logo.svg"
+                                alt="Go to home page" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="pt-1 deliver-address-location">
+                        <div class="deliver-at-container">
+                            <span>
+                                Deliver at
+                            </span>
+                        </div>
+                        <div class="pincode-container" style="cursor: pointer;">
+                            @if(!guestDeliverLocation && !userDeliverLocation){
+                            <span data-bs-toggle="modal" data-bs-target="#myModal">
+                                +Add Pincode<img src="/assets/images/navbar-images/arrow-down.png" alt="Dropdown arrow icon for navigation menu"
+                                    loading="lazy">
+                            </span>
+                            }
+                            @if(guestDeliverLocation){
+                            <span data-bs-toggle="modal" data-bs-target="#myModal">
+                                {{guestDeliverLocation.code}}, {{guestDeliverLocation.city.name}}
+
+                            </span>
+                            <img src="/assets/images/navbar-images/arrow-down.png" alt="Dropdown arrow icon for navigation menu" loading="lazy">
+                            }
+                            @if(userDeliverLocation){
+                            <span data-bs-toggle="modal" data-bs-target="#myModal">
+                                {{userDeliverLocation.pincode.code}}, {{userDeliverLocation.city.name}}
+
+                            </span>
+                            <img src="/assets/images/navbar-images/arrow-down.png" alt="Dropdown arrow icon for navigation menu" loading="lazy">
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navbar-search-bar" #formOuter>
+                    <form class="d-flex position-relative" (submit)="onSearch()">
+                        <img class="searchIcon" src="/assets/images/navbar-images/search-normal.png" alt="Search"
+                            loading="lazy">
+                        <input class="abc form-control  navbar-searchbar" #search type="text" id="search" name="search"
+                            [placeholder]="searchPlaceholder" aria-label="Search" [(ngModel)]="searchInput"
+                            (keydown)="getRelatedSearch()">
+                    </form>
+
+                    <div class="search-container" *ngIf="showArrayContainer" id="scroll">
+                        <ng-container *ngFor="let item of searchListArray; let i = index">
+                            <ng-container *ngIf="item.results.length">
+                                <div class="searchItemLabel">{{item.label}}</div>
+                                <p *ngFor="let result of item.results;"
+                                    class="search-container-text py-2 px-3 mb-0 pointer" (click)="redirectBlog(result)">
+                                    {{ result.name }} <b *ngIf="result.brandName"> - {{result.brandName}}</b> <b
+                                        *ngIf="result.consultantType && result.consultantType[0]"> -
+                                        {{result.consultantType[0].name}}</b>
+                                </p>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="d-flex flexWrap850">
+                    <div class="account-details d-flex justify-content-end">
+                        <div class="user-account-detail d-flex align-items-center">
+                            @if (isUserLoggin) {
+                            <div class="user-image dropdown">
+                                <button type="button"
+                                    class="btn  dropdown-toggle loginBtn d-flex align-items-center column-gap-1"
+                                    data-bs-toggle="dropdown">
+                                    <img [src]="userProfile?.profilePhoto? (cloudImgUrl+userProfile?.profilePhoto?.savedName) :  '/assets/images/avatar.jpg'"
+                                        [attr.alt]="userProfile?.firstName || 'Avatar'" class="user-profile"
+                                        loading="lazy">
+
+                                    @if (desktopScreen) {
+                                    <span>Account</span>
+                                    }
+
+                                </button>
+
+                                <div class="dropdown-menu pt-2 menuLinks">
+                                    <a class="b-6" [routerLink]="link.link" [queryParams]="link.params"
+                                        *ngFor="let link of userMenuLinks">
+                                        <img class="me-3" [alt]="link.title" src="{{link.icon}}" loading="lazy" />
+                                        {{ link.title }}
+                                    </a>
+                                    <div class="divider">
+                                        <a href="javascript:void(0)" class="logout" (click)="logout()">
+                                            <span class="material-icons align-middle me-3">logout</span>
+                                            Logout</a>
+                                    </div>
+                                </div>
+                                <span class="mob-acc-menu" (click)="viewSideMenu()">
+                                    <img src="/assets/images/navbar-images/bars-staggered 1.png" alt="" loading="lazy">
+                                </span>
+                            </div>
+                            } @else {
+                            <div>
+                                <button class="btn desk-acc-menu loginBtn" *ngIf="desktopScreen" (click)="login()">
+                                    Login
+                                </button>
+                                <img src="/assets/images/user-not-logged.png" alt="" (click)="login()"
+                                    *ngIf="!desktopScreen" [style]="{'margin-right': '10px'}" loading="lazy">
+                            </div>
+                            <span class="mob-acc-menu" (click)="viewSideMenu()" *ngIf="!desktopScreen">
+                                <img src="/assets/images/navbar-images/bars-staggered 1.png" alt="" loading="lazy">
+                            </span>
+                            }
+                        </div>
+                    </div>
+                    <div class="my-cart-container" [ngClass]="{disabled: activatedUrl.startsWith('/payment')}"
+                        (click)="getCartData()">
+                        <div class="my-cart">
+                            <img src="/assets/images/navbar-images/shopping-cart.png" alt="Shopping cart icon for e-commerce checkout" loading="lazy">
+                            <span class="my-cart-name">My Cart
+                                <span *ngIf="cartCount" class="badge bg-primary ms-1">{{cartCount}}</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API integration for category -->
+            <div *ngIf="category?.children?.length" class="navbar-lower-section">
+                <div class="navbar-category-container d-none d-md-block">
+
+                    <div (mouseleave)="onLeave(-1)">
+                        <!-- (mouseover)="onHover(catergory.slug)" -->
+                        <!--  -->
+                        <div class="d-flex scrollCategory">
+                            <div class="p-0 paddingRight14" *ngFor="let _category of category.children;let i = index">
+
+                                <a class="navbar-card-container" [routerLink]="_category.url" data-toggle="popover"
+                                    data-trigger="hover" (mouseover)="onHover(_category.slug)" [ngClass]="{'shop-now-background':activatedUrl == '/' &&
+                                     _category.url == '/',
+                                    'lifestyle-tips':activatedUrl == '/lifestyle-tips' && _category.url == '/lifestyle-tips',
+                                    'health-package':activatedUrl == '/health-packages' && _category.url == '/health-packages',
+                                    'consult-us':activatedUrl == '/consult-us' && _category.url == '/consult-us',
+                                    'herbs':activatedUrl == '/herbs' && _category.url == '/herbs'}">
+                                    <div class="category-container">
+                                        <span>{{_category.name}}</span>
+                                        <!-- <a>{{_category.name}}</a> -->
+                                    </div>
+                                    <img class="category-image" style="max-height: 44px; height: 100%;"
+                                        [src]="'/assets/images/navbar-images/' + (_category.url == '/'?'navbar-Shop-Now.png':_category.url == '/consult-us'?'consult-us.png':  _category.url == '/self-health-assessment'?'health-assessment.png': _category.url == '/lifestyle-tips' ? 'lifestyle-tips.png' : 'healthybazar_nav_herbs.webp')"
+                                        [alt]="_category.name" loading="lazy">
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- mobile vew -->
+                        <!-- <div class="col-4" *ngFor="let catergory of category.children;let i = index" [ngClass]="">
+                            <div class="navbar-card-container" data-toggle="popover" data-trigger="hover"
+                                (mouseover)="onHover(catergory.slug)" (click)="navigateToCategoryPage(catergory.slug)"
+                                style="cursor: pointer;" [ngClass]="{'shop-now-background':activatedUrl == '',
+                                'lifestyle-tips':activatedUrl == '/lifestyle-tips',
+                                'health-package':activatedUrl == '/health-packages',
+                                'consult-us':activatedUrl == '/consult-us'}">
+                                <div class="category-container">
+                                    <a>{{catergory.name}}</a>
+                                </div>
+                                <div class="category-image-container">
+                                    <img class="category-image"
+                                        src="/assets/images/navbar-images/navbar-Shop-Now.png" alt="">
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- mobile view -->
+                        <div class="container">
+
+                            <div class="row mega-menu-container container abc" (mouseleave)="onLeave(-1)"
+                                *ngIf="hoverIndex && menuFilteredData?.children?.length">
+                                <div class="col-md-3 category-menu" style="cursor: pointer;"
+                                    *ngIf="menuFilteredData && menuFilteredData.children.length >0">
+                                    <div class="brand-cate" [ngClass]="{'brand-cate-active': i === currBrandIndex}"
+                                        (mouseover)="getBrandItems(brand,i)"
+                                        *ngFor="let brand of menuFilteredData.children; let i=index">
+                                        <span *ngIf="!brand.isLink">
+                                            {{getMenuTitle(brand)}}
+                                            <i class="bi bi-chevron-right"></i>
+                                        </span>
+                                        <!-- <a *ngIf="brand.isLink" [routerLink]="brand.url"> -->
+                                        <a *ngIf="brand.isLink" [routerLink]="getBrandUrl(brand)">
+                                            {{getMenuTitle(brand)}}
+                                            <i class="bi bi-chevron-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-9" [ngStyle]="{'height': '100%'}">
+                                    <!--  flex-column -->
+                                    <div *ngIf="subBrandItems && subBrandItems.length>0"
+                                        class="row mega-menu-sub-brand">
+                                        <!-- code -->
+
+                                        <div class="col-lg-3 d-flex flex-column sub-brand"
+                                            *ngFor="let subBrand of subBrandItems">
+                                            <span *ngIf="!subBrand.isLink">
+                                                <b>{{getMenuTitle(subBrand)}}</b>
+                                            </span>
+                                            <!-- <a *ngIf="subBrand.isLink" [routerLink]="subBrand.url"> -->
+                                            <a *ngIf="subBrand.isLink" [routerLink]="getUrl(subBrand)">
+                                                <b>{{getMenuTitle(subBrand)}}</b>
+                                            </a>
+                                            <!-- [ngClass]="{'subBrand-active': i === currSubBrandIndex}" -->
+                                            <!-- <a [routerLink]="[getUrl(subItem.url)]" class="sub-brands-sub-item" -->
+                                            <a [routerLink]="getUrl(subItem)" class="sub-brands-sub-item"
+                                                *ngFor="let subItem of (subBrand.children.length > 10 ? subBrand.children.slice(0, 10) : subBrand.children)">
+                                                <!-- Slicing the array so that only show 10 items -->
+                                                {{getMenuTitle(subItem)}}
+                                            </a>
+                                            <a *ngIf="subBrand.children.length > 10" class="see-more-btn"
+                                                [routerLink]="['/brand-type/', subBrand._id]">
+                                                See More
+                                            </a>
+                                            <div *ngIf="!subBrand.isLink && subBrand.children && subBrand.children.length == 0"
+                                                class="font-12">No items
+                                                available</div>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="subBrandItems && subBrandItems.length == 0">
+
+                                        <ng-container *ngIf="menuFilteredData?.slug == 'shop-now'">
+                                            <a *ngIf="currentCategoryUrl == '/category/oils'"
+                                                routerLink="/category/oils">
+                                                <img src="https://cdn.healthybazar.com/images/assets/web/menu-banner-cooking-oil.webp"
+                                                    alt="Shop cooking oil" class="mega-menu-banner" loading="lazy">
+                                            </a>
+                                            <a *ngIf="currentCategoryUrl == '/category/foods'"
+                                                routerLink="/category/foods">
+                                                <img src="https://cdn.healthybazar.com/images/assets/web/menu-banner-food.webp"
+                                                    alt="Shop super food" class="mega-menu-banner" loading="lazy">
+                                            </a>
+                                            <a *ngIf="currentCategoryUrl == '/category/herbs'"
+                                                routerLink="/category/herbs">
+                                                <img src="https://cdn.healthybazar.com/images/assets/web/menu-banner-herbs.webp"
+                                                    alt="Shop herbs" class="mega-menu-banner" loading="lazy">
+                                            </a>
+                                            <a *ngIf="currentCategoryUrl == '/category/pooja'"
+                                                routerLink="/category/pooja">
+                                                <img src="https://cdn.healthybazar.com/images/assets/web/menu-banner-pooja.webp"
+                                                    alt="Shop pooja kits" class="mega-menu-banner" loading="lazy">
+                                            </a>
+
+                                        </ng-container>
+                                        <a *ngIf="menuFilteredData?.slug == 'lifestyle'"
+                                            routerLink="/lifestyle-tips"><img
+                                                src="https://cdn.healthybazar.com/images/assets/web/menu-banner-lifestyle-tips.webp"
+                                                alt="Shop super food" class="mega-menu-banner"></a>
+                                        <a *ngIf="menuFilteredData?.slug == 'consult-us'" routerLink="/consult-us"><img
+                                                src="https://cdn.healthybazar.com/images/assets/web/menu-banner-consult-us.webp"
+                                                alt="Shop herbs" class="mega-menu-banner"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- API integration for category -->
+        </div>
+    </div>
+</nav>
+
+
+<!-- location Model -->
+@if (!isSelectedLocation) {
+<div class="location-modal" #filterModal>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" #myModal>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-body-header">
+                        <span class="modal-title"><img src="/assets/images/detect_location_img.png" alt="Location detection icon for pincode entry">&nbsp;Where
+                            should we deliver your order?</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body-content mt-4" #formInner>
+                        <div class="modal-body-search-bar">
+                            <form class="modal-location-search-input">
+                                <input class="form-control" type="text" placeholder="Search pincode" aria-label="Search"
+                                    id="pincode" name="pincode" [(ngModel)]="searchPincode" #pincode
+                                    (keyup)="searchCityBasedOnPincode(searchPincode)" autocomplete="off">
+                            </form>
+                            <div class="search-pincode-container" *ngIf="searchedCityArray" id="scroll">
+                                <ng-container *ngFor="let item of searchedCityArray.codes; let i = index">
+                                    <p class="py-2 px-3 mb-0 pointer" (click)="addLocation(item)">
+                                        <b>{{item.code}}</b> ,&nbsp;{{item.city.name}}
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <!-- <div class="modal-content-search-location-seprator"><span>- OR - </span></div>
+                        <div class="modal-detect-location">
+                            <button class="btn btn-primary" (click)="getGeoLocation()" disabled>Detect my
+                                location</button>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<!-- For Mobile category open  -->
+
+<div class="right-side-menu" *ngIf="showRightSideMenu">
+    <div>
+        <div class="d-flex flex-row justify-content-end px-4 pt-3">
+            <button class="p-1 btn btn-close" (click)="closeSideMenu()"></button>
+        </div>
+        <hr class="mb-0" style="border: none;" />
+        <div class="px-3" *ngIf="rightSideNavMenuFilteredData">
+            <div class="accordion" id="accordionRightMenu">
+                <div *ngFor="let item of rightSideNavMenuFilteredChildernData" class="accordion-item mb-3">
+                    <div class="accordion-header">
+                        <button
+                            class="accordion-button d-flex justify-content-between align-items-center blueColorButton"
+                            [class.redColorButton]="!item?.children?.length"
+                            [ngClass]="{ 'collapsed': isCollapsed(item.id) }" (click)="onItemClick(item)">
+                            <span>{{ getMenuTitle(item) }}</span>
+
+                        </button>
+                    </div>
+
+                    <div [ngbCollapse]="isCollapsed(item.id)" class="accordion-collapse">
+                        <div class="accordion-body">
+                            <div *ngIf="item.children?.length">
+                                <div *ngFor="let subBrand of rightSideSubBrandItems; let j = index"
+                                    class="accordion-item">
+                                    <div class="accordion-header">
+                                        <button
+                                            class="accordion-button inner-div d-flex justify-content-between align-items-center"
+                                            (click)="toggleSubmenu('brands_' + j)"
+                                            [ngClass]="{ 'collapsed': isSubMenuCollapsed('brands_' + j) }">
+                                            <span>{{ getMenuTitle(subBrand) }}</span>
+
+                                        </button>
+                                    </div>
+
+                                    <div [ngbCollapse]="isSubMenuCollapsed('brands_' + j)" class="accordion-collapse">
+                                        <div class="accordion-body subItemBody">
+                                            <div *ngFor="let subItem of subBrand.children" class="sub-brands-sub-item">
+                                                <span (click)="getMobUrl(item, subItem)">
+                                                    {{ getMenuTitle(subItem) }}
+                                                </span>
+                                            </div>
+                                            <div *ngIf="!subBrand.children?.length">No items available</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="!item.children?.length">No items available</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<app-login-popup *ngIf="isLoginModal" (close)="isLoginModal = false"></app-login-popup>

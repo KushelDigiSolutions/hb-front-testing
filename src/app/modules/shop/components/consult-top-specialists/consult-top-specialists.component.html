@@ -1,0 +1,22 @@
+<!-- new code create start -->
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-12">
+        <div class="row">
+            <div class="col-md-10 col-sm-10 col-8 d-flex">
+                <span class="all-swiper-heading">{{productBrandTitle}}</span>
+            </div>
+            <div *ngIf="seeAllUrl" class="col-md-2 col-sm-2 col-4 d-flex justify-content-end align-items-center">
+                <button class="product-swiper-explore-btn-text" [routerLink]="seeAllUrl">See all</button>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-md-12 swiperCont">
+                <app-swiper space-between="8">
+                    <swiper-slide class="slide-item" *ngFor="let consult of topConsult">
+                        <app-consultant-card [data]="consult" (book)="addToCheckout(consult.id)"></app-consultant-card>
+                    </swiper-slide>
+                </app-swiper>
+            </div>
+        </div>
+    </div>
+</div>

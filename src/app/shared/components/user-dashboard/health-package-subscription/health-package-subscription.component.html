@@ -1,0 +1,257 @@
+<div class="row">
+    <div class="col-md-12 pt-3">
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <span class="heading-text">My Subscriptions</span>
+            </div>
+        </div>
+        <div class="container-div my-3 px-3 px-md-4 py-3">
+            <ng-select class="healthInput" [items]="list" bindLabel="name" placeholder="Select Subscribed Package"
+                (change)="onChangePackage($event)" [ngModel]="selectedPackage">
+            </ng-select>
+            <hr>
+            <div class="overlay"
+                [ngClass]="{cancelled: selectedPackage && (selectedPackage?.isCancel || !selectedPackage?.isActive), notActive: selectedPackage && !selectedPackage?.isActive}">
+                <mat-tab-group *ngIf="selectedPackage" animationDuration="0ms"
+                    (selectedIndexChange)="selectedTabIndex = $event">
+
+                    <mat-tab label="ALERTS">
+                        <div class="d-flex justify-content-between pb-2 tabHead">
+                            <div class="b-5 title">ALERTS</div>
+                            <div class="d-inline-block datePickerInput">
+                                <div class="view" (click)="showDatePicker(picker)">{{datePreview}}</div>
+                                <input readonly [matDatepicker]="picker" (dateChange)="onDateChange()"
+                                    [(ngModel)]="date">
+                                <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                            <ul class="timelinesList">
+                                <li class="container-fluid" *ngFor="let noti of notifications">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <img *ngIf="(noti.templateId || noti).image"
+                                                [src]="imgBase + (noti.templateId || noti).image?.savedName"
+                                                class="img-fluid" />
+                                            <img *ngIf="!(noti.templateId || noti).image"
+                                                src="/assets/images/Image15.png" class="img-fluid" />
+                                        </div>
+
+                                        <div class="col subBox">
+                                            <h5 class="subTitle pointer" (click)="onClickNotification(noti)">
+                                                <!-- {{(noti.templateId || noti).title}} -->
+                                                {{noti}}
+                                            </h5>
+                                            <p class="subText">
+                                                {{(noti.templateId || noti).message || noti.description}}
+                                            </p>
+                                            <!-- <form *ngIf="noti.notificationType == 'healthPackage_survey'"
+                                                (submit)="onSubmitSurvey(noti)">
+                                                <div class="align-list">
+                                                    <label class="quesLabel">
+                                                        <input type="radio" name="answer" value="true"
+                                                            [checked]="noti.survey?.answer === true"
+                                                            (change)="noti.userAnswer = $event.target.value"
+                                                            [disabled]="noti.survey" />
+                                                        YES
+                                                    </label>
+                                                </div>
+                                                <div class="align-list">
+                                                    <label class="quesLabel">
+                                                        <input type="radio" name="answer" value="false"
+                                                            [checked]="noti.survey?.answer === false"
+                                                            (change)="noti.userAnswer = $event.target.value"
+                                                            [disabled]="noti.survey" />
+                                                        NO
+                                                    </label>
+                                                </div>
+                                                <div class="align-list">
+                                                    <button type="submit" class="btn sbmit"
+                                                        [disabled]="noti.userAnswer === undefined || noti.survey">
+                                                        {{noti.survey? 'Submitted': 'Submit'}}
+                                                        <i *ngIf="!noti.survey"
+                                                            class="material-icons align-middle font-16">chevron_right</i>
+                                                    </button>
+                                                </div>
+                                            </form> -->
+                                            <p class="subTime">
+                                                {{format24to12(noti.time)}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="APPOINTMENTS">
+                        <div class="d-flex justify-content-between pb-2 tabHead">
+                            <div class="b-5 title">APPOINTMENTS</div>
+                        </div>
+                        <div class="py-4">
+                            <p *ngIf="!selectedPackage.appointments.length"
+                                class="text-muted pt-4 pb-3 mb-0 text-center">No
+                                Appointment Booked Yet!</p>
+                            <ul class="timelinesList font-14">
+                                <li *ngFor="let appt of selectedPackage.appointments">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-4">
+                                            <div class="font-11 text-muted mb-1">DATE &amp; TIME</div>
+                                            {{appt.date | date:"dd MMM, yyyy"}} | {{appt.slot}}
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="font-11 text-muted mb-1">CONSULTANT NAME</div>
+                                            <!-- {{appt.consultantId | consultant:"fullname"}} -->
+                                            {{appt.consultantId}}
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="font-11 text-muted mb-1">STATUS</div>
+                                            {{appt.status}}
+                                        </div>
+                                    </div>
+                                    <a [routerLink]="['/my-account/appointments', appt._id]"
+                                        class="color-green font-11 b-5">VIEW DETAILS
+                                        <i class="material-icons font-16 align-middle">chevron_right</i></a>
+                                </li>
+                            </ul>
+                            <div *ngIf="!selectedPackage.isCancel && selectedPackage.usedAppointments < selectedPackage.totalAppointments"
+                                class="text-center mt-3">
+                                <a [routerLink]="['/consult-us/doctor/',selectedPackage.consultant.slug,'book']"
+                                    [queryParams]="{healthPackageBuyId: selectedPackage._id}"
+                                    class="btn btn-primary py-2 font-14">Book
+                                    Appointment</a>
+                            </div>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab *ngIf="selectedPackage.testProducts.length" label="LAB TESTS">
+                        <div class="d-flex justify-content-between pb-2 tabHead">
+                            <div class="b-5 title">LAB TESTS</div>
+                        </div>
+                        <div class="py-4">
+                            <ul class="timelinesList font-14 diagnosticsList">
+                                <li class="container-fluid" *ngFor="let test of selectedPackage.testProducts">
+                                    <div class="row">
+                                        <div class="col-auto pe-0">
+                                            <img src="/assets/images/diagnostic-card.png" class="img-fluid" />
+                                        </div>
+                                        <div class="col">
+                                            <div class="row no-gutters justify-content-between subBox">
+                                                <div class="col-sm-7">
+                                                    <div class="text-muted font-11">TEST NAME</div>
+                                                    <div>{{test.name}}</div>
+                                                    <a [routerLink]="['/lab-tests',test.testProductId?.slug]"
+                                                        class="color-green font-12 b-5">VIEW
+                                                        DETAILS</a>
+                                                    <ng-container *ngIf="test.diagnosticBookingId">
+                                                        | <a [routerLink]="['/my-account/lab-tests', test.diagnosticBookingId._id]"
+                                                            class="color-green font-12 b-5">VIEW BOOKING</a>
+                                                    </ng-container>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="row no-gutters">
+                                                        <div class="col-6">
+                                                            <div class="me-5">
+                                                                <div class="text-muted font-11">Status</div>
+                                                                {{test.diagnosticBookingId?.status || 'NA'}}
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div>
+                                                                <ng-container *ngIf="test.diagnosticBookingId">
+                                                                    <div class="text-muted font-11">DATE</div>
+                                                                    {{test.diagnosticBookingId.ApptDate |
+                                                                    date:"ddMMM,y"}}
+                                                                </ng-container>
+                                                                <a *ngIf="!test.diagnosticBookingId"
+                                                                    [routerLink]="['/lab-tests', test.testProductId?.slug, 'booking']"
+                                                                    [queryParams]="{healthPackageBuyId: selectedPackage._id}"
+                                                                    class="color-green mt-2 d-inline-block b-5">Book Now
+                                                                    <i
+                                                                        class="material-icons align-middle font-16">chevron_right</i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="INSIGHTS">
+                        <div class="d-flex justify-content-between pb-2 tabHead">
+                            <div class="b-5 title">INSIGHTS</div>
+                        </div>
+                        <div class="py-4">
+                            <div class="font-12 mb-2">PACKAGE VAILDITY</div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center font-12 mb-3">
+                                        <span>Subscription valid till
+                                            <span class="b-5">{{selectedPackage.expirayDate |date:"dd MMM,yyyy"}}</span>
+                                        </span>
+                                        <a [routerLink]="['/my-account/health-packages', selectedPackage._id]"
+                                            class="color-green">VIEW
+                                            DETAILS <i class="material-icons font-16 align-middle">chevron_right</i></a>
+                                    </div>
+                                    <div class="progress" style="height:10px">
+                                        <div class="progress-bar" style="height:10px"
+                                            [ngStyle]="{'width.%': selectedPackage.expirationProgress}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="selectedTabIndex == (3 - (selectedPackage.testProducts.length?0:1))"
+                                class="row no-gutters chartsRow">
+                                <div class="col-md-6 mb-4" *ngFor="let insightsChart of insightsCharts">
+                                    <app-insights-chart [data]="insightsChart"></app-insights-chart>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+
+            <div *ngIf="selectedPackage" class="pt-3 consultantDetail">
+                <h5 *ngIf="selectedPackage.consultant" class="Dtext mb-3">
+                    Consultant Details
+                </h5>
+                <div class="d-flex align-items-center">
+                    <div class="d-flex flex-grow-1">
+                        <ng-container *ngIf="selectedPackage.consultant">
+                            <div>
+                                <img [src]="imgBase + selectedPackage.consultant.profilePhoto?.savedName"
+                                    class="docAvatar" />
+                            </div>
+                            <div class="subBox">
+                                <h5 class="subTitle mt-1">
+                                    {{selectedPackage.consultant.firstName }} {{ selectedPackage.consultant.lastName}}
+                                </h5>
+                                <p class="text-muted subText">
+                                    {{selectedPackage.consultant.designation}}
+                                </p>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a [routerLink]="['/my-account/health-packages', selectedPackage._id]"
+                            class="btn btn-outline-primary py-2 px-4 font-14">View Order</a>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!selectedPackage" class="align-center py-5 text-muted">
+                Select package to view the details
+            </div>
+        </div>
+        <div class="text-right pt-2 pb-4">
+            <span class="helpLink d-inline-block text-left">
+                <span>Need help</span>?<br><span class="text-muted">{{email}}</span>
+            </span>
+        </div>
+    </div>
+
+</div>

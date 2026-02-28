@@ -1,0 +1,83 @@
+.banner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 180px;
+  background-size: cover !important;
+  border-radius: 16px;
+}
+
+.promotion-label {
+  padding-left: 25px;
+  padding-top: 18px;
+}
+
+.promotion-sublabel {
+  padding-left: 25px;
+  padding-top: 18px;
+}
+
+img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+
+
+// .banner-container {
+//   display: block;
+//   aspect-ratio: 40 / 7;
+//   width: 100%;
+//   border-radius: 16px;
+//   overflow: hidden;
+// }
+// /* Keep your original text styles */
+// .promotion-label {
+//   padding-left: 25px;
+//   padding-top: 18px;
+// }
+
+// .promotion-sublabel {
+//   padding-left: 25px;
+//   padding-top: 18px;
+// }
+
+// .banner-wrapper {
+//   display: block;
+//   width: 100%;
+//   max-width: 100%;
+//   aspect-ratio: 40 / 7;
+//   overflow: hidden;
+//   border-radius: 10px;
+//   position: relative;
+// }
+
+// .banner-wrapper img {
+//   width: 100%;
+//   height: 100%;
+//   object-fit: fill; /* or 'fill' if you want no empty space */
+//   border-radius: 10px;
+//   display: block;
+// }
+
+
+
+
+/* New wrapper to preserve aspect ratio and avoid CLS */
+// .banner-wrapper {
+//   display: block;
+//   width: 100%;
+//   aspect-ratio: 40 / 9; /* Replace with your actual banner ratio if different */
+//   max-height: 180px;
+//   overflow: hidden;
+//   border-radius: 10px;
+// }
+
+// /* Image now fills its wrapper responsively */
+// .banner-wrapper img {
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+//   border-radius: 10px;
+//   display: block;
+// }

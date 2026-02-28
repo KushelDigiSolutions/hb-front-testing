@@ -1,0 +1,138 @@
+@import "../../../../../assets/styles/main.scss";
+
+.tCard {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 30px 0;
+}
+.head {
+    border-bottom: 1px solid #ccc;
+}
+.backBtn {
+    background-color: rgba($color-primary, 0.3);
+    color: $color-primary;
+    border-radius: 3px;
+    vertical-align: super;
+}
+.moreItems {
+    color: $color-primary;
+}
+.pName {
+    color: #666;
+    font-weight: 500;
+    font-size: 15px;
+}
+.aDate {
+    font-size: 18px;
+}
+.tTrackShippment {
+    color: $color-primary;
+    font-weight: 500;
+    font-size: 14px;
+}
+.label,
+.value {
+    font-size: 13px;
+}
+.label {
+    color: #666;
+}
+.value {
+    font-weight: 500;
+}
+.progressCont {
+    background-color: #f3f3f3;
+    border-radius: 6px;
+    position: relative;
+    .loadingStatus,
+    .loadingStatusError {
+        position: absolute;
+        display: none;
+    }
+    .loadingStatusError {
+        padding-left: 35px;
+        i {
+            left: 0;
+            position: absolute;
+            vertical-align: top;
+        }
+    }
+    &.loading {
+        > * {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loadingStatus {
+            opacity: 1;
+            pointer-events: all;
+            display: block;
+        }
+    }
+    &.loadingError {
+        > * {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loadingStatusError {
+            opacity: 1;
+            pointer-events: all;
+            display: block;
+        }
+    }
+}
+.progress {
+    height: 10px;
+}
+.progress-bar {
+    background-color: $color-primary;
+}
+.sStatus {
+    font-size: 14px;
+    font-weight: 600;
+}
+.date {
+    color: #666;
+    font-size: 13px;
+}
+.active {
+    .sStatus {
+        color: $color-primary;
+    }
+}
+.tracker {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+.shippingInfo {
+    font-size: 14px;
+    color: #555;
+    b {
+        font-weight: 400;
+        color: #666;
+    }
+    .name {
+        font-weight: 500;
+        color: #222;
+    }
+}
+@include max-sm {
+    .progressCont {
+        display: flex;
+        height: 350px;
+    }
+    .progress.vertical {
+        height: 100%;
+        .progress-bar {
+            width: 10px;
+        }
+    }
+
+    .progressStatus {
+        flex-direction: column;
+        padding-left: 30px;
+        > div {
+            padding: 30 0;
+        }
+    }
+}

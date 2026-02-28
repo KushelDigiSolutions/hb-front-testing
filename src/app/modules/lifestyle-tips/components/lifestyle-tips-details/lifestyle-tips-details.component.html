@@ -1,0 +1,66 @@
+<div class="container">
+    <app-lifestyle-tips-details-desk *ngIf="!showNotFound" [tipsDetail]="lifestyleTipDetails"
+        [tipRelatedBolg]="lifestyleTipDetailsRelatedBlog" [tenSecReadBlogs]="tenSecBlogs"
+        [consultList]="topConsultLists" [shopNowProductsData]="shopNowProducts" [relatedArticle]="relatedArticles"
+        [banner]="detailsPromostionalBanner"></app-lifestyle-tips-details-desk>
+    <app-error-404 *ngIf="showNotFound" />
+    <!-- <app-lifestyle-tips-details-desk [tipsDetails]="lifestyleTipDetails" [tenSecReadBlogs]="tenSecBlogs"
+        [banner]="detailsPromostionalBanner" [products]="recommendedProducts" [consultList]="topConsultLists"
+        [relatedArticle]="relatedArticles" [shopNowProductsData]="shopNowProducts"></app-lifestyle-tips-details-desk> -->
+
+    <!-- @if (desktopScreen == false) {
+    <div>
+        <div class="lifestyle-tips-image">
+            <div class="tips-header-mob">
+                <div class="back-fn" (click)="navigateToHomePage()">
+                    <img src="/assets/images/life-style-tips-mob/back-arrow.png" alt="">
+                    <span>Back</span>
+                </div>
+                <div class="watchlist-share-container">
+                    <div class="watchlist-container">
+                        <img src="/assets/images/life-style-tips-mob/watch-list.png" alt="">
+                    </div>
+                    <div class="share-container">
+                        <img src="/assets/images/life-style-tips-mob/share-fn.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips-description mt-3">
+            <span [innerHTML]="paragraphBeforeProductList[0]"></span>
+        </div>
+        <div class="mt-4">
+            <app-product-slider class="product-slider" [productData]="recommendedProducts"
+                [productBrandTitle]="'Recommended Products'"></app-product-slider>
+        </div>
+        <div class="tips-description mt-3">
+            <span [innerHTML]="paragraphBeforeProductList[1]">
+            </span>
+        </div>
+        <div class="mt-3">
+            <app-slider [data]="detailsPromostionalBanner" [section]="'medical'"></app-slider>
+        </div>
+        <div class="tips-description mt-3">
+            <span>
+                Fruits: After pollination, Agnimantha produces small, rounded fruits. When mature, the fruits are
+                typically black and may have one or many seeds. The plant's reproductive cycle is helped by these
+                fruits.
+            </span>
+        </div>
+        <div class="mt-4">
+            <app-life-style-health-card [productBrandTitle]="'Recent Tips'"
+                [recentTipsData]="tenSecBlogs"></app-life-style-health-card>
+        </div>
+        <div class="mt-3">
+            <app-slider [data]="detailsPromostionalBanner" [section]="'medical'"></app-slider>
+        </div>
+        <div class="mt-4 ">
+            <app-top-consult-specialist [productBrandTitle]="'Consult with our Top specialists'"
+                [topConsult]="topConsultLists"></app-top-consult-specialist>
+        </div>
+
+    </div>
+    } -->
+
+</div>

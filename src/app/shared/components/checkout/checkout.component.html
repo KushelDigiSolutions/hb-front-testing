@@ -1,0 +1,322 @@
+<!-- payment
+<ng-container *ngIf="step == 'payment' && paymentSessionActive">
+    <section class="px-3 mb-3">
+        <div class="row mt-4">
+            <div class="col-md-12 background-white">
+                <div class="row">
+                    <div class="
+                col-md-12
+                py-3
+                ps-3
+                background-white background-green
+              ">
+                        <h2 class="m-0 fs22">
+                            <span class="ps-3 pointer color-white">
+                                {{ "checkout.paymentOption" | translate }}
+                            </span>
+                        </h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="
+                col-md-12
+                py-4
+                ps-4 ps-xl-5
+                background-white
+                payment-border
+              " [ngClass]="{ 'd-none': !item.active }" *ngFor="let item of paymentMethod; let i = index">
+                        <div class="radioClassPayment">
+                            <label>
+                                <input type="radio" name="darkPayment"
+                                    (click)="choosePaymentOption($event, item.name, i)" />
+                                <span class="designPayment"></span>
+                                <span class="bold-text me-3">{{ item.name }}</span>
+                            </label>
+                        </div>
+                        <div class="font-12 color-green" *ngIf="
+                  paymentOption == 'Cash On Delivery' &&
+                  activePaymentIndex == i
+                ">
+                            *Additional charges upto &#8377;50 may apply
+                        </div>
+                        <div class="ps-4 py-2" *ngIf="
+                  paymentOption == 'UPI' && activePaymentIndex == i
+                ">
+                            <form *ngIf="!UPIVerified" (submit)="validateVPA(vpa)" class="flex align-items-start"
+                                style="max-width: 400px">
+                                <div class="flex-grow-1 me-2">
+                                    <input type="text" name="vpa" #vpa="ngModel" ngModel
+                                        class="ms-1 checkout-inputs no-outline"
+                                        placeholder="{{ 'checkout.upiId' | translate }}" required (blur)="trim(vpa)" />
+                                    <div class="formError" *ngIf="vpa.touched || proceedPaymentSubmitted">
+                                        <span *ngIf="vpa.invalid">This field is required</span>
+                                    </div>
+                                </div>
+                                <button class="px-4 py-2 ms-1 verify-button no-outline">
+                                    {{ "checkout.verify" | translate }}
+                                </button>
+                            </form>
+                            <div class="d-flex align-items-center varifiedUPI" *ngIf="UPIVerified">
+                                <div class="me-4">
+                                    <span class="material-icons color-green me-2">verified</span>
+                                    {{ UPIVerified }}
+                                </div>
+                                <button class="btn py-1" type="button" (click)="changeUPI()">
+                                    Change
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="
+                  paymentOption == 'Credit/Debit/ATM Card' &&
+                  activePaymentIndex == i
+                ">
+                            <div class="col-md-8">
+                                <ul *ngIf="savedCards.length" class="list-unstyled py-2 savedCards">
+                                    <li class="pointer" [ngClass]="{ active: selectedCard == i }"
+                                        *ngFor="let card of savedCards; let i = index" (click)="chooseCard(i)">
+                                        <div class="d-flex align-items-center">
+                                            <img class="flex-shrink-0 me-3" [src]="
+                            cardIconPath +
+                            card.channelCode.toLowerCase() +
+                            '.png'
+                          " alt="master" />
+                                            <div class="flex-grow-1">
+                                                <span class="d-flex number">
+                                                    <span>{{ card.cardStart }}</span>
+                                                    <span>XXXX</span>
+                                                    <span>XXXX</span>
+                                                    <span>{{ card.cardEnd }}</span>
+                                                </span>
+                                                <span class="
+                              d-flex
+                              justify-content-between
+                              align-items-center
+                            ">
+                                                    <p class="mb-0 name">
+                                                        {{ card.cardholderName }}
+                                                    </p>
+                                                    <div class="flex-shrink-0 validTill">
+                                                        <span>VALID<br />THRU</span>
+                                                        {{ card.expiry }}
+                                                    </div>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="cvv" [(ngModel)]="cvv" class="checkout-inputs cvvIP"
+                                            placeholder="CVV" />
+                                    </li>
+                                    <li class="addNew pointer" [ngClass]="{ active: newCard }" (click)="addNewCard()">
+                                        <span *ngIf="!newCard">Add new card</span>
+                                        <span *ngIf="newCard" class="d-block mb-3">Enter Card Details</span>
+                                        <form *ngIf="newCard" [formGroup]="creditCardForm">
+                                            <div class="form-group">
+                                                <div class="cardNoInput">
+                                                    <img *ngIf="
+                                cardBin[cardBin.active] &&
+                                cardBin[cardBin.active].iconFullUrl
+                              " [src]="
+                                cardBin[cardBin.active].iconFullUrl
+                              " [alt]="
+                                cardBin[cardBin.active].binDetail
+                                  .channelCode
+                              " />
+                                                    <input type="tel" class="
+                                checkout-inputs checkout-input-card
+                              " placeholder="{{
+                                'checkout.cardNumber' | translate
+                              }}" formControlName="creditCard" id="cc-number" autocomplete="cc-number" ccNumber />
+                                                </div>
+                                                <div *ngIf="
+                              (creditCardForm.get('creditCard')
+                                .touched ||
+                                proceedPaymentSubmitted) &&
+                              creditCardForm.get('creditCard').invalid
+                            " class="font-12 text-danger">
+                                                    <span *ngIf="
+                                creditCardForm.get('creditCard').errors
+                                  ?.ccNumber
+                              ">Please enter valid card number</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-5 pe-0">
+                                                    <input type="tel" class="
+                                checkout-inputs
+                                checkout-input-card-month
+                              " placeholder="{{
+                                'checkout.cardExpiry' | translate
+                              }}" formControlName="expirationDate" id="cc-exp-date" autocomplete="cc-exp" ccExp />
+                                                    <div *ngIf="
+                                (creditCardForm.get('expirationDate')
+                                  .touched ||
+                                  proceedPaymentSubmitted) &&
+                                creditCardForm.get('expirationDate')
+                                  .invalid
+                              " class="font-12 text-danger">
+                                                        <span *ngIf="
+                                  creditCardForm.get('expirationDate')
+                                    .errors?.expDate
+                                ">Please enter valid expiry</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <input type="tel" class="
+                                checkout-inputs checkout-input-card-cvv
+                                no-outline
+                              " placeholder="{{
+                                'checkout.cvv' | translate
+                              }}" id="cc-cvc" formControlName="cvc" autocomplete="off" ccCvc />
+                                                    <div *ngIf="
+                                (creditCardForm.get('cvc').touched ||
+                                  proceedPaymentSubmitted) &&
+                                creditCardForm.get('cvc').invalid
+                              " class="font-12 text-danger">
+                                                        <span *ngIf="creditCardForm.get('cvc').errors">Please enter
+                                                            valid CVV</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="align-items: baseline">
+                                                <label><input type="checkbox" formControlName="saveCard" class="me-2" />
+                                                    {{ "checkout.saveCard" | translate }}</label>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                                <form [formGroup]="creditCardForm" class="newCardForm">
+                                    <div class="newCardValues">
+                                        <div class="cardNoInput" [ngClass]="{
+                          hasCardBin:
+                            cardBin[cardBin.active] &&
+                            cardBin[cardBin.active].iconUrl
+                        }">
+                                            <img *ngIf="
+                            cardBin[cardBin.active] &&
+                            cardBin[cardBin.active].iconUrl
+                          " [src]="cardBin[cardBin.active].iconUrl" [alt]="
+                            cardBin[cardBin.active].binDetail
+                              .channelCode
+                          " />
+                                            <input type="tel" class="checkout-inputs checkout-input-card" placeholder="{{
+                            'checkout.cardNumber' | translate
+                          }}" formControlName="creditCard" id="cc-number" autocomplete="cc-number" ccNumber />
+                                        </div>
+                                        <div class="p-0 cardExpiryInput">
+                                            <input type="tel" class="
+                            checkout-inputs checkout-input-card-month
+                          " placeholder="{{
+                            'checkout.cardExpiry' | translate
+                          }}" formControlName="expirationDate" id="cc-exp-date" autocomplete="cc-exp" ccExp />
+                                            
+                                        </div>
+                                        <div class="p-0 cardCVVInput">
+                                            <input type="tel" class="
+                            checkout-inputs checkout-input-card-cvv
+                            no-outline
+                          " placeholder="{{ 'checkout.cvv' | translate }}" id="cc-cvc" formControlName="cvc"
+                                                autocomplete="off" ccCvc />
+                                           
+                                        </div>
+                                    </div>
+                                    <div *ngIf="
+                        ((creditCardForm.get('creditCard').touched &&
+                          creditCardForm.get('expirationDate')
+                            .touched &&
+                          creditCardForm.get('cvc').touched) ||
+                          proceedPaymentSubmitted) &&
+                        creditCardForm.invalid
+                      " class="font-12 mt-1 text-danger">
+                                        <span>Please enter valid card details</span>
+                                    </div>
+                                   
+                                </form>
+                            </div>
+                        </div>
+                        <div class="ps-4 py-2" style="align-items: baseline" *ngIf="
+                  paymentOption == 'Paytm' && activePaymentIndex == i
+                ">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form *ngIf="!paytmLoginOtpSent" #sendPaytmOTPForm="ngForm"
+                                        (submit)="sendPayTmOTP(sendPaytmOTPForm)">
+                                        <app-phone-input name="mobileNumber" ngModel placeholder="Enter Paytm number"
+                                            required pattern="^(\+91[\-\s]?)?(91)?[789]\d{9}$"></app-phone-input>
+                                        <button class="btn btn-primary px-4 py-2 mt-3"
+                                            [disabled]="sendPaytmOTPForm.invalid" type="submit">
+                                            Login
+                                        </button>
+                                    </form>
+                                    <form *ngIf="paytmLoginOtpSent && !paytmLogin" #validatePaytmForm="ngForm"
+                                        (submit)="validatePayTmOTP(validatePaytmForm)">
+                                        <input type="text" name="otp" ngModel class="form-control"
+                                            placeholder="Enter OTP" required />
+                                        <button class="btn btn-primary px-4 py-2 mt-3"
+                                            [disabled]="validatePaytmForm.invalid" type="submit">
+                                            Submit
+                                        </button>
+                                    </form>
+                                    <p *ngIf="paytmBalanceInfo">
+                                        <b>Available Balance:</b>
+                                        {{ paytmBalanceInfo.currency }}
+                                        {{ paytmBalanceInfo.value }}
+                                    </p>
+                                    <p *ngIf="
+                        paytmBalanceInfo &&
+                        paytmBalanceInfo.value <
+                          processOrderDetails.amount
+                      " class="text-danger font-12">
+                                        Insufficient balance for this purchase
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ps-4 py-2 flex flex-wrap" style="align-items: baseline" *ngIf="
+                  paymentOption == 'Net Banking' &&
+                  activePaymentIndex == i
+                ">
+                            <ng-container *ngFor="
+                    let option of getPayChannelMode(item.paymentMode)
+                      .payChannelOptions;
+                    let nbIndex = Index
+                  ">
+                                <div class="radioClassNetBanking">
+                                    <label>
+                                        <input type="radio" #radio [(ngModel)]="netBankingRadioButton"
+                                            name="darkNetBanking" value="{{ option.channelCode }}"
+                                            (click)="netBankSelect(option.channelCode)" />
+                                        <span class="designNetBanking"></span>
+                                        <img class="bankIcon" [src]="
+                          paymentOptionsBody.iconBaseUrl +
+                          option.iconUrl
+                        " [alt]="option.channelCode" />
+                                        <span class="bold-text me-3">{{
+                                            option.channelCode
+                                            }}</span>
+                                    </label>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="ps-4 py-2 flex flex-wrap" style="align-items: baseline" *ngIf="
+                  paymentOption == 'Net Banking' &&
+                  activePaymentIndex == i
+                ">
+                            <select name="otherBank" [(ngModel)]="otherBank" class="checkout-inputs my-2 no-outline"
+                                (change)="selectBank($event.target.value)">
+                                <option value="">
+                                    {{ "checkout.selectBank" | translate }}
+                                </option>
+                                <option [value]="option.channelCode" *ngFor="
+                      let option of getPayChannelMode(item.paymentMode)
+                        .otherPayChannelOptions || []
+                    ">
+                                    {{ option.channelName }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</ng-container> -->

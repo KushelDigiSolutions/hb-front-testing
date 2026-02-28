@@ -1,0 +1,162 @@
+.background-thankyou-page {
+  background-color: #e0f3e7;
+}
+.background-white {
+  background-color: #fff;
+}
+.bold-text {
+  font-weight: 600;
+  color: #058f46;
+  padding-top: 4rem !important;
+  line-height: 30px;
+}
+.thnk-img {
+  text-align: right;
+  right: 40px;
+}
+.text2 {
+  font-size: 16px;
+  line-height: 1.8;
+}
+.thnk-down {
+  display: none;
+}
+.thank-txt {
+  color: #000;
+  font-weight: 400;
+  line-height: 32px;
+}
+.thnk-p {
+  color: #888888;
+  font-weight: 300;
+  font-size: 16px;
+}
+.background-view {
+  background-color: #eeeeee;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 15px;
+}
+.background-home {
+  background-color: #058f46;
+  color: #fff;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 15px;
+}
+.thnk-detail {
+  padding-top: 2rem !important;
+}
+.hide {
+  display: none;
+}
+.thnk-mob {
+  display: none;
+}
+
+.continue-button {
+  border: 1px solid #058f46;
+  background-color: #fff;
+  color: #058f46;
+  display: inline-block;
+}
+.continue-button-active {
+  border: 1px solid #058f46;
+  background-color: #058f46;
+  color: #fff;
+}
+.survey-button {
+  border: 1px solid #e5e5e5;
+  background-color: #e5e5e5;
+  color: #333333;
+}
+.survey-button-active {
+  border: 1px solid #333333;
+  background-color: #333333;
+  color: #fff;
+}
+.explore-button {
+  border: 1px solid #ef6955;
+  background-color: #fff;
+  color: #ef6955;
+}
+.explore-button-active {
+  border: 1px solid #ef6955;
+  background-color: #ef6955;
+  color: #fff;
+}
+.related-article-text {
+  font-size: 22px;
+}
+.card-container {
+  box-shadow: 0 2px 4px rgb(0, 0, 0, 0.25), 0 2px 4px rgb(0, 0, 0, 0.25);
+}
+.img-container {
+  display: flex;
+  align-items: center;
+}
+.apptIllus {
+  max-width: 260px;
+}
+
+@media screen and (max-width: 991px) {
+  .thnk-img {
+    text-align: center;
+    right: 0;
+  }
+}
+@media screen and (max-width: 767px) {
+  .background-white {
+    padding-bottom: 0rem !important;
+  }
+  .thnk-down {
+    display: block;
+  }
+  .show {
+    display: none;
+  }
+  .hide {
+    display: block;
+    margin-top: 1.5rem !important;
+  }
+  .thank-txt {
+    padding-top: 0rem !important;
+    font-size: 21px;
+  }
+  .thnk-img {
+    text-align: center;
+    right: 0px;
+  }
+  .thnk-detail {
+    display: none;
+  }
+  .thnk-icns {
+    display: none;
+  }
+  .bold-text {
+    text-align: center;
+    padding-top: 1rem !important;
+    font-size: 21px;
+    font-weight: 500;
+  }
+  .text2 {
+    text-align: center;
+    padding-top: 0.55rem !important;
+  }
+  .vertical_icn {
+    position: relative;
+    top: 8px;
+  }
+  .thnk-mob {
+    text-align: center;
+    display: block;
+  }
+  .thnk-mob .btn {
+    font-size: 16px;
+    border-radius: 4px;
+  }
+  .thnk-mob .btn:active {
+    background-color: #058f46 !important;
+    border-color: #058f46 !important;
+  }
+}

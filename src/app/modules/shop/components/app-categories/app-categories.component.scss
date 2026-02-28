@@ -1,0 +1,69 @@
+@import ".././../../../../assets/styles/main.scss";
+
+.categories-body {
+  display: flex;
+  height: 100%;
+}
+.categories-back {
+  height: 122px;
+  border-radius: 12px;
+  width: 100%;
+}
+.categories-container {
+  display: flex;
+  background-size: cover !important;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 20px;
+}
+
+.categoty-label {
+  width: 45%;
+  padding-left: 12px;
+}
+
+.categories-sublabel {
+  width: auto;
+}
+
+@include max-sm {
+  .categories-container {
+    display: flex;
+    background-size: cover !important;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+    height: 81px;
+  }
+  .categoty-label {
+    // width: 45%;
+    padding-left: 2px;
+  }
+}
+
+@include max-xs {
+  .categories-container {
+    // height: 81px;
+  }
+  .categories-back {
+    height: 90px !important;
+  }
+}
+@include max-lg {
+  .categories-back {
+    height: 105px;
+    border-radius: 12px;
+    width: 100%;
+  }
+  .categoty-label {
+    width: 60%;
+  }
+}
+@include max-md {
+  .categories-back {
+    height: 155px;
+  }
+  .categoty-label {
+    width: 60%;
+  }
+}

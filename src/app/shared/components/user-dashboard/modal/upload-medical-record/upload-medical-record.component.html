@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row file-upload-modal">
+        <div class="col-auto">
+            <label for="file" class="custom-file-upload">
+                <input type="file" id="file" accept=".jpg,.jpeg,.png,.pdf" (change)="PhotoUpload($event)" />
+                UPLOAD DOCUMENT
+            </label>
+            <div class="font-12 text-muted">Accepts: .JPG, .JPEG, .PNG, .PDF</div>
+        </div>
+        <div *ngIf="addMedicalRecord" class="col mb-2 align-self-center text-muted oneLine">
+            {{file?.name}}
+        </div>
+        <div class="col-12" *ngIf="addMedicalRecord">
+            <a [href]="filePath" target="blank">
+                <img *ngIf="filePath" [src]="filePath" onerror="this.src='assets/images/pdf.png'" />
+            </a>
+        </div>
+        <div class="col-12 col-lg-12 mt-3 w-65">
+            <input type="text" class="form-control" placeholder="Title eg. ECG report" [(ngModel)]="title" />
+
+            <p class="font-14 mb-0 pt-1" *ngIf="data.type=='Product'">*This product can be sold only after the
+                prescription from a Doctor.</p>
+
+        </div>
+
+        <div class="col-12 col-lg-12 mt-3">
+            <button class="btn btn-primary px-4 py-2" [disabled]="!file" (click)="uploadMedicalRecord()">
+                Submit
+            </button>
+        </div>
+    </div>
+</div>

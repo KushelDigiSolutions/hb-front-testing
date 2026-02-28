@@ -1,0 +1,39 @@
+.cont {
+  position: relative;
+  padding-top: 15px;
+}
+label {
+  position: absolute;
+  color: #333;
+  background-color: #fff;
+  top: 15px;
+  left: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  transform: translateY(-50%);
+  padding: 0 6px;
+}
+.inputCont {
+  border: 1px solid #79747e;
+  background-color: #fff;
+  border-radius: 4px;
+  height: 48px;
+  align-items: center;
+}
+
+.prefix {
+  padding: 0 10px;
+}
+
+input {
+  width: 100%;
+  border: 0;
+  background-color: transparent;
+  height: 100%;
+  padding: 0;
+
+  &:focus {
+    border: 0;
+    outline: 0;
+  }
+}

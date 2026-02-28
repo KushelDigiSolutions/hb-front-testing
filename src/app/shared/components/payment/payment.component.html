@@ -1,0 +1,239 @@
+<div class="container">
+    <div class="row background-cart-page py-3 justify-content-center">
+        <div class="col-md-11 col-12">
+            <div class="row py-3">
+                <div class="col-xl-8 col-lg-7">
+                    <app-payment-error-box
+                        *ngIf="payStatus.resultStatus == 'TXN_FAILURE' || payStatus.resultStatus == 'PENDING'"
+                        [data]="payStatus" (close)="closePayStatus()"></app-payment-error-box>
+                    <!--Payment Section-->
+                    <ng-container>
+                        <section class="px-3 mb-3">
+                            <div class="row mt-4">
+                                <div class="col-md-12 background-white">
+                                    <div class="row">
+                                        <div class="
+                          col-md-12
+                          py-3
+                          ps-3
+                          background-white background-green
+                        ">
+                                            <h2 class="m-0 fs22">
+                                                <span class="ps-3 pointer color-white">
+                                                    Payment Option
+                                                </span>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="
+                          col-md-12
+                          py-4
+                          ps-4 ps-xl-5
+                          background-white
+                          payment-border
+                        " *ngFor="let item of paymentMethod; let i = index">
+
+                                            <div class="radioClassPayment">
+                                                <label>
+                                                    <input type="radio" name="darkPayment"
+                                                        (click)="choosePaymentOption($event, item.name, i)" />
+                                                    <span class="designPayment"></span>
+                                                    <span class="bold-text me-3">{{ item.displayName }}</span>
+                                                    <!-- <span class="bold-text me-3">{{ item.name }}</span> -->
+                                                </label>
+                                            </div>
+                                            @if(item.name == 'cod' && selectedPaymentMode == 'cod'){
+                                            <div class="font-12 color-green">
+                                                *Additional charges upto &#8377;50 may apply
+                                            </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </ng-container>
+
+                    <div class="row" *ngIf="!paymentSessionActive">
+                        <div class="offset-1 col-md-11">
+                            <div class="text-center p-5 pSessionExpired">
+                                <span class="material-icons">hourglass_bottom</span>
+                                <p class="my-4">Your payment session has expired.</p>
+                                <button class="btn btn-primary py-2 px-4" type="button" (click)="reCreateOrder()">
+                                    Try Again
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="background-white py-3 px-sm-3">
+                                <div *ngIf="!data">
+                                    <ngx-skeleton-loader count=" 1" animation="progress" [theme]="{
+                                width: '300px',
+                                height: '100px',
+                                margin: '10px 25px',
+                                'text-align': 'center',
+                                'align-items': 'center',
+                                'justify-content': 'center'
+                              }"></ngx-skeleton-loader>
+                                    <ngx-skeleton-loader count="1" animation="progress" [theme]="{
+                                width: '300px',
+                                margin: '10px 25px',
+                                'text-align': 'center',
+                                'align-items': 'center',
+                                'justify-content': 'center'
+                              }"></ngx-skeleton-loader>
+                                    <ngx-skeleton-loader count="1" animation="progress" [theme]="{
+                                width: '300px',
+                                margin: '10px 25px',
+                                'text-align': 'center',
+                                'align-items': 'center',
+                                'justify-content': 'center'
+                              }"></ngx-skeleton-loader>
+                                    <ngx-skeleton-loader count="1" animation="progress" [theme]="{
+                                width: '300px',
+                                margin: '10px 25px',
+                                'text-align': 'center',
+                                'align-items': 'center',
+                                'justify-content': 'center'
+                              }"></ngx-skeleton-loader>
+                                    <ngx-skeleton-loader count="1" animation="progress" [theme]="{
+                                width: '300px',
+                                margin: '10px 25px',
+                                'text-align': 'center',
+                                'align-items': 'center',
+                                'justify-content': 'center'
+                              }"></ngx-skeleton-loader>
+                                </div>
+                                <div *ngIf="cartOrderDetail">
+                                    <!-- <div *ngIf="data"> -->
+                                    <div class="row mx-2">
+                                        <div class="col-md-12 pt-sm-3">
+                                            <p class="gray-text bold-text font-18">
+                                                Price Details
+                                            </p>
+                                        </div>
+                                        <div class="col-md-12 pricing-section py-3">
+                                            <p>
+                                                <span>Price ({{cartOrderDetail.products.length}} item)</span>
+                                                <!-- <span>Price ({{data.itemsCount}} item)</span> -->
+                                                <span class="float-right">&#8377;
+                                                    {{ (cartOrderDetail.totalMrp)?.toFixed(2)}}</span>
+                                            </p>
+
+                                            <p>
+                                                <span>Delivery Charges
+                                                    <span class="material-icons align-middle"
+                                                        mdbTooltip="The charges depend on the delivery address and payment type; prepaid or postpaid."
+                                                        placement="top" style="font-size: 18px;">help</span>
+                                                </span>
+                                                <span class="float-right">&#8377;{{
+                                                    cartOrderDetail.shippingCharges?.toFixed(2)
+                                                    }}</span>
+                                                <!-- <span *ngIf="data.shippingCharge ||data.shippingCharge == 0"
+                                                    class="float-right">&#8377;{{
+                                                    data.shippingCharge?.toFixed(2)
+                                                    }}</span> -->
+                                            </p>
+
+                                            <p>
+                                                <span>Discount</span>
+                                                <span class="float-right color-green">{{cartOrderDetail.totalSavings?
+                                                    ' - ':''}} &#8377; {{
+                                                    cartOrderDetail.totalSavings?
+                                                    cartOrderDetail.totalSavings.toFixed(2): 0}}</span>
+                                                <!-- <span class="float-right color-green">{{data.discount?'-':''}}&#8377;{{
+                                                    data.discount? data.discount.toFixed(2):0}}</span> -->
+                                            </p>
+
+                                            <p *ngIf="cartOrderDetail.couponDiscount">
+                                                <span>Coupon Discount</span>
+                                                <span
+                                                    class="float-right color-green">{{cartOrderDetail.couponDiscount?'-':''}}&#8377;{{cartOrderDetail.couponDiscount.toFixed(2)}}</span>
+                                            </p>
+                                            <!-- <p *ngIf="data.couponDiscount">
+                                                <span>Coupon Discount</span>
+                                                <span
+                                                    class="float-right color-green">{{data.couponDiscount?'-':''}}&#8377;{{data.couponDiscount.toFixed(2)}}</span>
+                                            </p> -->
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p class="pt-3 d-flex justify-content-between">
+                                                <span class="bold-text color-black font-18">Total Amount</span>
+                                                <span class="float-right">
+                                                    &#8377;{{cartOrderDetail.totalPayableAmount?.toFixed(2)}}
+                                                </span>
+                                                <!-- <span class="float-right">
+                                                    &#8377;{{data.totalPayableAmt?.toFixed(2)}}
+                                                </span> -->
+                                            </p>
+                                            <p class="font-12 color-green">*Price is incluisve of all taxes </p>
+
+                                            <button (click)="onProceedToPay(cartOrderDetail.totalPayableAmount)"
+                                                [disabled]="!isPaymentOption || isLoading" class="btn btn-primary w-100"
+                                                type="button">{{paymentProceedText}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="appointmentDetail">
+                                    <!-- <div *ngIf="data"> -->
+                                    <div class="row mx-2">
+                                        <div class="col-md-12 pt-sm-3">
+                                            <p class="gray-text bold-text font-18">
+                                                Price Details
+                                            </p>
+                                        </div>
+                                        <div class="col-md-12 pricing-section py-3">
+                                            <p>
+                                                <span>Price (1 item)</span>
+                                                <span class="float-right">&#8377;
+                                                    {{ (appointmentDetail.actualFess)?.toFixed(2)}}</span>
+                                            </p>
+
+                                            <!-- <p>
+                                                <span>Discount</span>
+                                                <span class="float-right color-green">{{appointmentDetail.totalSavings?
+                                                    ' - ':''}} &#8377; {{
+                                                    appointmentDetail.totalSavings?
+                                                    appointmentDetail.totalSavings.toFixed(2): 0}}</span>
+                                            </p>
+
+                                            <p *ngIf="appointmentDetail.couponDiscount">
+                                                <span>Coupon Discount</span>
+                                                <span
+                                                    class="float-right color-green">{{appointmentDetail.couponDiscount?'-':''}}&#8377;{{appointmentDetail.couponDiscount.toFixed(2)}}</span>
+                                            </p> -->
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p class="pt-3 d-flex justify-content-between">
+                                                <span class="bold-text color-black font-18">Total Amount</span>
+                                                <span class="float-right">
+                                                    &#8377;{{appointmentDetail.fee?.toFixed(2)}}
+                                                </span>
+                                            </p>
+                                            <p class="font-12 color-green">*Price is incluisve of all taxes </p>
+
+                                            <button (click)="onProceedToPay(appointmentDetail.fee)"
+                                                [disabled]="!isPaymentOption" class="btn btn-primary w-100"
+                                                type="button">{{paymentProceedText}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex my-3 align-items-center">
+                        <img class="flex-shrink-0img-fluid" [src]="imgUrl + 'checkout-authenticator.png'" />
+                        <p class="flex-grow-1 safeProductText">
+                            Safe and Secure Payments. Easy Returns and 100% Authentic Products.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

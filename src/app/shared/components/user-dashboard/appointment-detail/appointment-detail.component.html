@@ -1,0 +1,321 @@
+<div class="container">
+    <div class="row mx-0">
+        <div class="col-12 col-lg-12 px-0">
+            <!-- <app-breadcrumb [shadeBack]="'light'" [breadcrumb]="breadCrumbData">
+            </app-breadcrumb> -->
+        </div>
+    </div>
+
+    <div *ngIf="appointmentDetail" class="py-3">
+        <div class="row mx-0">
+            <div class="offset-lg-1 col-12 col-lg-10">
+                <mat-tab-group [selectedIndex]="activeTab" mat-stretch-tabs
+                    class="example-stretched-tabs mat-elevation-z4">
+                    <mat-tab label="Details">
+                        <div class="row mx-0 my-4">
+                            <div class="col-12 col-lg-7 col-xl-8 divContainer2">
+                                <div class="row divContainer ps-lg-4 pt-4 generalDetails">
+                                    <div class="col-12 col-md-4">
+                                        <p class="font-weight-bold">Appointment Date</p>
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                        <p class="gray-text">
+                                            {{ appointmentDetail.date | date: "mediumDate" }} |
+                                            {{ appointmentDetail.primaryTimeSlot12 }}
+                                        </p>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <p class="font-weight-bold">Booking Date</p>
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                        <p class="gray-text">
+                                            {{ appointmentDetail.createdAt | date: "mediumDate" }}
+                                        </p>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <p class="font-weight-bold">Fee</p>
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                        <p class="gray-text">₹{{ appointmentDetail.actualFess || appointmentDetail.fee
+                                            || 0 }}</p>
+                                    </div>
+                                    <ng-container *ngIf="appointmentDetail.couponDiscount">
+                                        <div class="col-12 col-md-4">
+                                            <p class="font-weight-bold">Coupon Discount</p>
+                                        </div>
+                                        <div class="col-12 col-md-8">
+                                            <p class="gray-text">₹{{ appointmentDetail.couponDiscount }}</p>
+                                        </div>
+                                    </ng-container>
+                                    <div class="col-12 col-md-4">
+                                        <p class="font-weight-bold">Amount Paid</p>
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                        <p class="gray-text">₹{{ appointmentDetail.fee }}</p>
+                                    </div>
+
+                                    <div class="col-12 col-md-4">
+                                        <p class="font-weight-bold">Phone</p>
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                        <p class="gray-text">
+                                            <span>{{
+                                                appointmentDetail.phone
+                                                ? appointmentDetail.phone
+                                                : appointmentDetail.userId.phone
+                                                }}</span>
+                                            <span class="float-right">
+                                                <!-- <button
+                              class="btn btn-warning py-1"
+                              *ngIf="appointmentDetail.status == 'Completed'"
+                            >
+                              Download Invoice
+                            </button> -->
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <p class="font-weight-bold">DOB</p>
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                        <p class="gray-text">
+                                            {{ appointmentDetail.userId.DOB | date: "mediumDate" }}
+                                        </p>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <p class="font-weight-bold">Email</p>
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                        <p class="gray-text text-truncate">
+                                            {{
+                                            appointmentDetail.email
+                                            ? appointmentDetail.email
+                                            : appointmentDetail.userId.email
+                                            }}
+                                        </p>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <p class="font-weight-bold">Weight</p>
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                        <p class="gray-text">
+                                            {{ appointmentDetail.userId.weight }}
+                                            {{ appointmentDetail.userId.weightUnit }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-5 col-xl-4 divContainer2">
+                                <div class="divContainer px-lg-3 pb-2">
+                                    <app-doctor-card [appointment]="appointmentDetail" [doctorDetail]="appointmentDetail.consultantId"></app-doctor-card>
+                                    <!-- <div class="row">
+                                        <div class="col-lg-9 offset-lg-3 col-8 offset-4"
+                                            *ngIf="appointmentDetail.canReschedule">
+                                            <button class="reschedule-button px-4 py-2"
+                                                (click)="rescheduleAppointment(appointmentDetail)">
+                                                Reschedule Appointment
+                                            </button>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab [label]="'Follow up ('+followUpAppointments.length+')'">
+                        <div class="row mx-0 my-4 pb-3">
+                            <div *ngIf="followUpAppointments.length" class="col-12 col-lg-12 table-border">
+                                <table class="">
+                                    <tr class="bottom-border">
+                                        <th class="mob-d-none">#</th>
+                                        <th class="">Date</th>
+                                        <th class="d-none d-sm-table-cell">Slot</th>
+                                        <th>Fee</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+
+                                    <tr class="bottom-border" *ngFor="let item of followUpAppointments; let i = index">
+                                        <td class="py-3 mob-d-none">
+                                            {{ i + 1 }}
+                                        </td>
+                                        <td class="py-3">
+                                            {{ item.date | date: "mediumDate" }}
+                                            <span class="d-block d-sm-none mt-1 dSlot">{{ item.primaryTimeSlot12
+                                                }}</span>
+                                        </td>
+                                        <td class="py-3 d-none d-sm-table-cell">{{ item.primaryTimeSlot12 }}</td>
+                                        <td class="py-3">₹{{ item.fee }}</td>
+                                        <td class="py-3">
+                                            <span class="badge badge-pill" [ngClass]="{
+                              'badge-success': item.status == 'Confirmed' || item.status == 'Re-scheduled',
+                              'badge-danger': item.status == 'Cancelled',
+                              'badge-light': item.status == 'Closed',
+                              'badge-warning': item.status == 'Payment-Awaited' || (item.status == 'Re-scheduled' && item.fee && item.paymentType != 'free' && item.paymentStatus != 'accepted')
+                            }">
+                                                {{ item.status }}
+                                            </span>
+                                        </td>
+                                        <!-- <td class="py-3 text-right">
+                                            <a *ngIf="item.canPayFee" routerLink="/payments"
+                                                [queryParams]="{ appointmentId: item._id }"
+                                                class="btn btn-primary py-2 ms-2">Pay Now</a>
+                                            <button type="button" *ngIf="item.canReschedule"
+                                                class="btn btn-primary py-2 ms-2 d-none d-md-inline-block"
+                                                (click)="rescheduleFollowup(item)">Reschedule</button>
+                                            <a *ngIf="item.canCancel" (click)="cancelAppointment(item._id)"
+                                                class="btn btn-outline-danger py-2 ms-2 d-none d-md-inline-block">Cancel</a>
+
+                                            <button *ngIf="
+                            (item.status != 'Completed' &&
+                            item.status != 'Closed' &&
+                            item?.status != 'Cancelled')
+                            &&
+                            (item.status != 'Payment-Awaited' &&
+                            ((item.fee && item.paymentStatus == 'accepted') ||
+                            item.paymentType == 'free'))
+                            || 
+                            ((item.fee && item.paymentStatus == 'accepted') ||
+                            item.paymentType == 'free')
+                        " class="btn btn-outline-light text-dark flex-shrink-0 px-2 py-1 d-md-none"
+                                                [matMenuTriggerFor]="menu"><i
+                                                    class="material-icons">more_vert</i></button>
+                                            <mat-menu #menu="matMenu">
+                                                <a mat-menu-item *ngIf="item.canReschedule"
+                                                    (click)="rescheduleFollowup(item)">
+                                                    <i class="material-icons align-middle me-2">edit_calendar</i>
+                                                    Reschedule</a>
+                                                <button mat-menu-item *ngIf="item.canCancel"
+                                                    (click)="cancelAppointment(item._id)"><i
+                                                        class="material-icons align-middle me-2">close</i>
+                                                    Cancel</button>
+                                            </mat-menu>
+                                        </td> -->
+
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-12 col-lg-12" *ngIf="!followUpAppointments.length">
+                                <h4 class="py-4 align-center">No Follow Up Found</h4>
+                            </div>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab [label]="'Prescription ('+prescriptionsCount+')'">
+                        <div class="row mx-0 my-4 pb-3">
+                            <div class="col-12 col-lg-12 table-border" *ngIf="prescriptionList.length">
+                                <table class="">
+                                    <tr class="bottom-border">
+                                        <th class="mob-d-none">#</th>
+                                        <th class="mob-d-none">Date</th>
+                                        <th>Title</th>
+                                        <th>Created By</th>
+                                        <th></th>
+                                    </tr>
+
+                                    <tr class="bottom-border" *ngFor="let item of prescriptionList; let i = index">
+                                        <td class="py-1 mob-d-none">
+                                            {{ i + 1 }}
+                                        </td>
+                                        <td class="py-1 mob-d-none">
+                                            {{ item.createdAt | date: "mediumDate" }}
+                                        </td>
+                                        <td class="py-1">{{ item.title }}</td>
+                                        <td class="py-1">
+                                            <div class="d-flex font-14 py-2">
+                                                <span>
+                                                    <img [width]="75" class="me-2 consultantImage" [src]="
+                                  imgUrl + item.consultantId.profilePhoto.savedName
+                                " />
+                                                </span>
+                                                <span style="align-self: center">
+                                                    <p class="mb-0 font-weight-bold">
+                                                        {{
+                                                        item.consultantId.firstName + ' ' +
+                                                        item.consultantId.lastName || ""
+                                                        }}
+                                                    </p>
+                                                    <p class="font-12 gray-text">
+                                                        {{ item.consultantId.designation }}
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td class="py-1">
+
+                                        </td>
+                                        <td>
+                                            <span class="material-icons pointer" *ngIf="item.medicines.length"
+                                                (click)="viewPrescription(item)">chevron_right</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-12 col-lg-12" *ngIf="!prescriptionList.length">
+                                <h4 class="py-4 align-center">No Prescription Found</h4>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button *ngIf="prescriptionList.length < prescriptionsCount" type="button"
+                                class="btn btn-primary py-2" (click)="loadPrescriptions()">Load More</button>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab [label]="'Medical Records ('+medicalRecordsCount+')'">
+                        <div class="row mx-0">
+                            <div class="col-12 col-lg-12">
+                                <div class="float-right px-3 pt-3 pb-1 d-flex justify-content-end">
+                                    <button class="custom-file-upload" (click)="uploadMedicalRecord()">
+                                        ADD MEDICAL RECORD
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mx-0 my-2 pb-3" *ngIf="medicalRecordList.length">
+                            <div class="col-12 col-lg-12 table-border">
+                                <table>
+                                    <tr class="bottom-border">
+                                        <th class="mob-d-none">#</th>
+                                        <th class="mob-d-none">Date</th>
+                                        <th>Description</th>
+                                        <th>Uploaded By</th>
+                                        <th>Attachment</th>
+                                        <th>Action</th>
+                                    </tr>
+
+                                    <tr class="bottom-border" *ngFor="let item of medicalRecordList; let i = index">
+                                        <td class="py-3 mob-d-none">
+                                            {{ i + 1 }}
+                                        </td>
+                                        <td class="py-3 mob-d-none">
+                                            {{ item.createdAt | date: "mediumDate" }}
+                                        </td>
+                                        <td class="py-3">
+                                            {{ item.description || "" }}
+                                        </td>
+                                        <td class="py-3">{{ item.by || "" }}</td>
+                                        <td class="py-3">
+                                            <a [href]="imgUrl + item.attachment.savedName" download>
+                                                <span class="downloadButton px-3 py-2">Download</span>
+                                            </a>
+                                        </td>
+                                        <td class="py-3">
+                                            <span class="material-icons deleteMedicalRecord pointer"
+                                                *ngIf="item.by != 'Doctor'"
+                                                (click)="deleteMedicalRecord(item._id)">delete_outline</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button *ngIf="medicalRecordList.length < medicalRecordsCount" type="button"
+                                class="btn btn-primary py-2" (click)="loadMoreRecords()">Load More</button>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+</div>

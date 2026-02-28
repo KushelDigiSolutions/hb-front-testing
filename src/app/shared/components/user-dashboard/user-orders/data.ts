@@ -1,0 +1,16 @@
+export const status = {
+    placed: "Placed",
+    hold: "Hold",
+    processing: "Processing",
+    dispatched: "Dispatched",
+    delivered: "Delivered",
+    cancelled: "Cancelled",
+    completed: "Completed",
+    paymentAwaited: "Payment Awaited",
+    failed: "Failed",
+    refunded: "Refunded",
+    partialRefunded: "Partial Refunded",
+    refundInitiated: "Refund Initiated",
+    partialRefundInitiated: "Partial Refund Initiated",
+    outForDelivery: "Out For Delivery",
+}

@@ -1,0 +1,382 @@
+<div class="manage-address-container">
+    <div class="row">
+        <div class="col-md-12 pt-3">
+            <div class="row mb-2">
+                <div class="col-md-12 mb-3 mb-md-0">
+                    <span class="material-icons d-lg-none backBtn pointer" routerLink="/my-account">arrow_back</span>
+                    <span class="heading-text">My Address</span>
+                </div>
+            </div>
+            <div class="container-div px-3 px-md-4 py-4 mb-3">
+                <div class="px-3">
+                    <div class="row">
+                        <div class="col-md-12 py-2 add-address-section-heading pointer d-flex"
+                            (click)="openAddAddressSection()">
+                            <span class="material-icons pe-3"> <i class="bi bi-plus-lg"></i> </span>
+                            Add New Address
+                        </div>
+                        <div class="col-md-12 pt-2">
+                            <ng-container *ngIf="addAddress">
+                                <form [formGroup]="form" (ngSubmit)="addNewAddress()">
+                                    <div class="row pt-2 pb-4">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="required">Name</label>
+                                            <input class="address-inputs-address no-outline" type="text"
+                                                formControlName="name" placeholder="" />
+                                            <div *ngIf="form.get('name')?.errors &&form.get('name')?.touched">
+                                                <span class="text-danger font-14"
+                                                    *ngIf="form.get('name')?.errors?.['required']">
+                                                    Name is required
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="required">Mobile Number</label>
+                                            <app-phone-input class="d-block" formControlName="phoneNo"
+                                                placeholder=""></app-phone-input>
+                                            <div *ngIf=" form.get('phoneNo')?.errors && form.get('phoneNo')?.touched">
+                                                <span class="text-danger font-14" *ngIf="
+                                form.get('phoneNo')?.errors?.['required']
+                              ">
+                                                    Enter valid number
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="required">Pincode</label>
+                                            <input class="address-inputs-address no-outline" type="text"
+                                                formControlName="pinCode" maxlength="6" placeholder=""
+                                                (change)="getUserAddressArea()" />
+                                            <div *ngIf="form.get('pinCode')?.invalid &&form.get('pinCode')?.touched"
+                                                class="text-danger font-14">
+                                                Enter valid pincode
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="required">Flat, House Number</label>
+                                            <input class="address-inputs-address no-outline" type="text"
+                                                formControlName="houseNumber" placeholder="" />
+                                            <div
+                                                *ngIf="form.get('houseNumber')?.errors && form.get('houseNumber')?.touched">
+                                                <span class="text-danger font-14" *ngIf="
+                                form.get('houseNumber')?.errors?.['required']
+                              ">
+                                                    This field is required
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="required">Area, Colony, Street</label>
+                                            <input class="address-inputs-address no-outline" type="text"
+                                                formControlName="line1" placeholder="" />
+                                            <div *ngIf="
+                              form.get('line1')?.errors &&
+                              form.get('line1')?.touched
+                            ">
+                                                <span class="text-danger font-14"
+                                                    *ngIf="form.get('line1')?.errors?.['required']">
+                                                    This field is required
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="required">Counrty</label>
+                                            <select class="address-inputs-address no-outline" formControlName="country">
+                                                <option disabled value="">
+                                                    country
+                                                </option>
+                                                <option [value]="form.get('country')?.value">
+                                                    {{form.get('country')?.value}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="required">State</label>
+                                            <select class="address-inputs-address no-outline" formControlName="state">
+                                                <option value="" disabled>
+                                                    state
+                                                </option>
+                                                <option [value]="form.get('state')?.value">
+                                                    {{form.get('state')?.value}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="required">City</label>
+                                            <input class="address-inputs-address no-outline" type="text"
+                                                formControlName="city" placeholder="" />
+                                            <div *ngIf="form.get('city')?.errors && form.get('city')?.touched">
+                                                <span class="text-danger font-14"
+                                                    *ngIf="form.get('city')?.errors?.['required']">
+                                                    This field is required
+                                                </span>
+                                            </div>
+                                            <!-- <select class="address-inputs-address no-outline"
+                                                formControlName="city">
+                                                <option value="" disabled>
+                                                    city
+                                                </option>
+                                                <option [value]="form.get('city')?.value">
+                                                    {{form.get('city')?.value}}
+                                                </option>
+                                            </select> -->
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="required">Landmark</label>
+                                            <input class="address-inputs-address no-outline" type="text"
+                                                formControlName="landmark" placeholder="" />
+                                            <div *ngIf="form.get('landmark')?.errors && form.get('landmark')?.touched">
+                                                <span class="text-danger font-14"
+                                                    *ngIf="form.get('landmark')?.errors?.['required']">
+                                                    This field is required
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="mb-1">Address Type</label>
+                                            <div class="radioClassAddress">
+                                                <ng-container *ngFor="let item of userAddressType; let i = index">
+                                                    <label class="fancyRadio">
+                                                        <input type="radio" name="type" [value]="item.addressType"
+                                                            formControlName="type" [style]="{'margin-right':'10px'}" />
+                                                        <!-- <span class="designAddress"></span> -->
+                                                        <span class="text">{{
+                                                            item.addressType | titlecase
+                                                            }}</span>
+                                                    </label>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span>
+                                                <button [disabled]="checkIfValid('add')" type="submit"
+                                                    class="save-deliver-button no-outline mt-2 me-3" [ngClass]="{
+                                'save-deliver-button-active': saveHovered
+                              }" [ngStyle]="{
+                                border: buttonDisabled
+                                  ? '1px solid #e5e5e5'
+                                  : '1px solid #058f46',
+                                color: buttonDisabled ? '#e5e5e5' : ''
+                              }" (mouseover)="buttonHovered('save')" (mouseout)="buttonHoveredOut('save')">
+                                                    Save
+                                                </button>
+                                            </span>
+                                            <span class="bold-text gray-text ps-4 pointer"
+                                                (click)="cancelAddressAddition('add')">cancel</span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <ng-container *ngFor="let item of dataArray; let i = index">
+                            <div class="col-md-12 address-container mt-3">
+                                <div class="row">
+                                    <div class="col-md-12 d-flex justify-content-between">
+                                        <span class="color-black">{{ item?.name }}</span>
+                                        <span class="default-button px-2 py-1" *ngIf="item?.default">Default</span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span class="color-black">{{ item?.phoneNo }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mt-1">
+                                        <p class="mb-1">
+                                            {{ item?.houseNumber+', ' + item?.line1 }}
+                                        </p>
+                                        <p class="mb-1">{{ item?.city }}, {{ item?.state }}</p>
+                                        <p class="mb-1">{{ item?.pinCode }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mt-3">
+                                        <label *ngIf="!item?.default" class="ps-2 pointer"><input type="checkbox"
+                                                (change)="setDefault($event,item,i)" /> Set as default address</label>
+                                        <div class="float-right">
+                                            <span class="material-icons color-green pe-2 pointer"
+                                                (click)="editAddressClicked(i,item)">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </span>
+                                            <span class="material-icons text-danger pointer"
+                                                (click)="removeAddress(item?._id)">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-container *ngIf="editAddress && editAddressIndex == i">
+                                    <form [formGroup]="editForm" (ngSubmit)="updateAddress(item._id)">
+                                        <div class="row pt-2 pb-4">
+                                            <div class="col-md-6">
+                                                <label class="required">Name</label>
+                                                <input formControlName="name"
+                                                    class="address-inputs-address my-2 no-outline" type="text"
+                                                    placeholder="" />
+                                                <div *ngIf="
+                                editForm.get('name')?.errors &&
+                                editForm.get('name')?.touched
+                              ">
+                                                    <span class="text-danger font-14" *ngIf="
+                                  editForm.get('name')?.errors?.['required']
+                                ">
+                                                        This field is required
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="required">Mobile Number</label>
+                                                <app-phone-input class="my-2 d-block" formControlName="phoneNo"
+                                                    placeholder=""></app-phone-input>
+                                                <div *ngIf="
+                                editForm.get('phoneNo')?.errors &&
+                                editForm.get('phoneNo')?.touched
+                              ">
+                                                    <span class="text-danger font-14" *ngIf="
+                                  editForm.get('phoneNo')?.errors?.['required']
+                                ">
+                                                        Enter valid number
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="required">Pincode</label>
+                                                <input class="address-inputs-address my-2 no-outline" type="text"
+                                                    formControlName="pinCode" maxlength="6" placeholder=""
+                                                    (change)="changeUserAddressArea(item)" />
+                                                <div class="text-danger font-14" *ngIf="
+                                editForm.get('pinCode')?.invalid &&
+                                editForm.get('pinCode')?.touched
+                              ">
+                                                    Enter valid pincode
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="required">Flat, House Number</label>
+                                                <input class="address-inputs-address my-2 no-outline" type="text"
+                                                    formControlName="houseNumber" placeholder="" />
+                                                <!-- <div *ngIf="editForm.get('houseNumber')?.errors && editForm.get('houseNumber')?.touched">
+                                                    <span class="text-danger font-14" *ngIf="editForm.get('houseNumber')?.errors?['required']">
+                                                        This field is required
+                                                    </span>
+                                                </div> -->
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="required">Area, Colony, Street</label>
+                                                <input class="address-inputs-address my-2 no-outline" type="text"
+                                                    formControlName="line1" placeholder="" />
+                                                <div
+                                                    *ngIf="editForm.get('line1')?.errors && editForm.get('line1')?.touched">
+                                                    <span class="text-danger font-14" *ngIf="
+                                  editForm.get('line1')?.errors?.['required']
+                                ">
+                                                        This field is required
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="required">Counrty</label>
+                                                <select class="address-inputs-address my-2 no-outline"
+                                                    formControlName="country">
+                                                    <option disabled value="">
+                                                        country
+                                                    </option>
+                                                    <option class="gray-text" value="{{ item.country }}">
+                                                        {{ item.country }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="required">State</label>
+                                                <select class="address-inputs-address my-2 no-outline"
+                                                    formControlName="state">
+                                                    <option value="" disabled>
+                                                        state
+                                                    </option>
+                                                    <option class="gray-text" value="{{ item.state }}">
+                                                        {{ item.state }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="required">City</label>
+                                                <!-- <select class="address-inputs-address my-2 no-outline"
+                                                    formControlName="city">
+                                                    <option value="" disabled>
+                                                        city
+                                                    </option>
+                                                    <option class="gray-text" value="{{ item.city }}">
+                                                        {{ item.city }}
+                                                    </option>
+                                                </select> -->
+                                                <input class="address-inputs-address no-outline" type="text"
+                                                    formControlName="city" placeholder="" />
+                                                <div
+                                                    *ngIf="editForm.get('city')?.errors && editForm.get('city')?.touched">
+                                                    <span class="text-danger font-14"
+                                                        *ngIf="editForm.get('city')?.errors?.['required']">
+                                                        This field is required
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="required">Landmark</label>
+                                                <input class="address-inputs-address my-2 no-outline" type="text"
+                                                    formControlName="landmark" placeholder="" />
+                                                <div *ngIf="
+                                editForm.get('landmark')?.errors &&
+                                editForm.get('landmark')?.touched
+                              ">
+                                                    <span class="text-danger font-14" *ngIf="
+                                  editForm.get('landmark')?.errors?.['required']
+                                ">
+                                                        This field is required
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="mb-1">Address Type</label>
+                                                <div class="radioClassAddress flex">
+                                                    <ng-container
+                                                        *ngFor="let subItem of userAddressType; let j = index">
+                                                        <label class="fancyRadio">
+                                                            <input type="radio" name="type" formControlName="type"
+                                                                [value]="subItem.addressType"
+                                                                [style]="{'margin-right':'10px'}" />
+                                                            <span class="designAddress"></span>
+                                                            <span class="text me-3">{{subItem.addressType |
+                                                                titlecase}}</span>
+                                                        </label>
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span>
+                                                    <button [disabled]="checkIfValid('edit')" type="submit"
+                                                        class="save-deliver-button no-outline mt-2" [ngClass]="{
+                                  'save-deliver-button-active': saveHovered
+                                }" [ngStyle]="{
+                                  border: buttonDisabled
+                                    ? '1px solid #e5e5e5'
+                                    : '1px solid #058f46',
+                                  color: buttonDisabled ? '#e5e5e5' : ''
+                                }" (mouseover)="buttonHovered('save')" (mouseout)="buttonHoveredOut('save')">
+                                                        Update Address
+                                                    </button>
+                                                </span>
+                                                <span class="bold-text gray-text ps-4 pointer"
+                                                    (click)="cancelAddressAddition('edit')"
+                                                    [style]="{'margin-left':'10px'}">cancel</span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

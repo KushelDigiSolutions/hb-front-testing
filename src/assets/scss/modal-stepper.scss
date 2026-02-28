@@ -1,0 +1,131 @@
+@import "../styles/main.scss";
+
+.stepperControls {
+  background-color: $color-primary;
+  padding: 15px 20px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  min-height: 100%;
+  @include max-sm {
+    flex-direction: row-reverse;
+  }
+  @include max-xs {
+    padding: 15px 5px;
+  }
+}
+.control {
+  position: relative;
+  padding: 20px 25px 20px 35px;
+  cursor: pointer;
+  .check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 1px;
+    position: absolute;
+    top: 33px;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    background: darken($color-primary, 10);
+    .material-icons {
+      font-weight: 600;
+      font-size: 14px;
+      display: none;
+    }
+    .material-icons.edit {
+      font-size: 12px;
+    }
+  }
+  .bar {
+    position: absolute;
+    height: calc(100% - 35px);
+    top: 56px;
+    left: 7px;
+    border-left: 1px solid #fff;
+    display: none;
+  }
+  &.active,
+  &.active ~ .control {
+    .check {
+      background: #fff;
+      color: $color-primary;
+    }
+  }
+  &.active {
+    .check {
+      .material-icons.edit {
+        display: block;
+      }
+    }
+  }
+  &.active ~ .control {
+    .check {
+      background: #fff;
+      color: $color-primary;
+      .material-icons.done {
+        display: block;
+      }
+    }
+    .bar {
+      display: block;
+    }
+  }
+  &:first-of-type.active {
+    .check {
+      background: #fff;
+      color: $color-primary;
+      .material-icons.edit {
+        display: none;
+      }
+      .material-icons.done {
+        display: block;
+      }
+    }
+  }
+  .label,
+  .title {
+    font-size: 12px;
+  }
+  .label {
+    font-weight: 500;
+    color: lighten($color-primary, 20);
+  }
+  .title {
+    color: #fff;
+  }
+  @include min-md {
+    width: 100% !important;
+  }
+  @include max-sm {
+    text-align: center;
+    padding: 40px 10px 10px 10px;
+    flex-shrink: 0;
+    .check {
+      top: 10px;
+      left: 50%;
+    }
+    .bar {
+      top: 18px;
+      left: calc(50% + 7px);
+      height: auto;
+      width: calc(100% - 4px);
+      border-top: 1px solid #fff;
+      border-left: 0;
+    }
+  }
+}
+.fieldsCont {
+  background-color: #f9f7f7;
+  padding: 40px 30px;
+  border-radius: 6px;
+  min-height: 170px;
+  @include max-sm {
+    padding: 30px 15px;
+  }
+}
+

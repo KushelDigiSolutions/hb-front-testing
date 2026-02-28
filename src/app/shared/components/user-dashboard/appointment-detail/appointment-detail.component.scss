@@ -1,0 +1,183 @@
+@import "../../../../../assets/styles/main.scss";
+
+.prescriptions {
+  li {
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  .srNo {
+    min-width: 30px;
+    height: 30px;
+    background-color: #058f46;
+    color: #fff;
+    border-radius: 23px;
+    margin-right: 10px;
+  }
+}
+.table > :not(caption) > * > * {
+  border: 0;
+}
+.tableDivider {
+  span {
+    border-bottom: 2px solid #d2d2d2;
+    display: block;
+  }
+  > *,
+  & + tr > * {
+    border: 0;
+  }
+}
+ckeditor {
+  ::ng-deep {
+    .ck-editor {
+      border: 1px solid #ced4da !important;
+    }
+  }
+}
+.medicineGroup {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+.addMore {
+  font-weight: 500;
+}
+.variationQty {
+  span {
+    display: inline-block;
+  }
+}
+
+.consultantImage {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+.avatar {
+  img {
+    width: 70px;
+    height: 70px;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+}
+.custom-file-upload {
+  background-color: #ef8b1e;
+  border: 1px solid #ef8b1e;
+  color: #fff;
+  display: inline-block;
+  padding: 10px 15px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+}
+input[type="file"] {
+  display: none;
+}
+.btn-soft-info {
+  background-color: #ef8b1e;
+}
+.divContainer {
+  border: 1px solid #ced4da;
+  border-radius: 10px;
+  min-height: 100%;
+}
+
+.gray-text {
+  color: #808080;
+}
+.reschedule-button {
+  background-color: #ef8b1e;
+  color: #fff;
+  border: none;
+}
+.mat-elevation-z4 {
+  box-shadow: none;
+}
+::ng-deep {
+  .mat-ink-bar {
+    background-color: #058f46 !important;
+    height: 5px !important;
+  }
+  .mat-tab-label {
+    color: #000;
+    font-weight: 700;
+    font-size: 18px;
+  }
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  color: #808080;
+  font-weight: 400;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.table-border {
+  border: 1px solid #0000001f;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.bottom-border {
+  border-bottom: 1px solid #0000001f;
+}
+.downloadButton {
+  background-color: rgba(239, 139, 30, 0.1);
+  color: rgb(239, 139, 30);
+}
+.addToCartButton {
+  background-color: rgba(5, 143, 70, 0.1);
+  color: #058f46;
+  border-radius: 10px;
+}
+.deleteMedicalRecord {
+  color: #ef6955;
+}
+.downloadPrescription {
+  color: #ef8b1e;
+}
+.cancel-appointment {
+  border-radius: 50px;
+  background-color: #e5e5e5;
+  color: #ef8b1e;
+}
+.dSlot {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.75);
+}
+::ng-deep {
+  .mat-tab-body-content {
+    overflow: hidden !important;
+  }
+}
+@media (min-width: 320px) and (max-width: 993px) {
+  .divContainer {
+    border-radius: none;
+    border: none;
+  }
+  .divContainer2 {
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    margin-top: 1rem;
+  }
+}
+@media (max-width: 767px) {
+  th {
+    font-size: 12px;
+  }
+  .mob-d-none {
+    display: none;
+  }
+}
+@include max-sm {
+  .generalDetails {
+    .font-weight-bold {
+      margin-bottom: 0;
+    }
+  }
+}

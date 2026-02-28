@@ -1,0 +1,82 @@
+@import "../../../../../assets/styles/main.scss";
+
+.col-4 {
+  flex: 0 0 85px;
+  max-width: 85px;
+}
+.col-8 {
+  flex: 0 0 calc(100% - 85px);
+  max-width: calc(100% - 85px);
+}
+.avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+.doctorsName {
+  font-weight: 600;
+  font-size: 20px;
+  color: #212529;
+}
+.background-green {
+  background-color: #058f46;
+  color: #fff;
+  padding: 0.1rem 0.4rem;
+}
+.appointmentCharges {
+  font-weight: 600;
+  font-size: 20px;
+}
+.alignTop {
+  vertical-align: top;
+}
+.table-spacing {
+  border-collapse: separate;
+  border-spacing: 0 0.5em;
+}
+.doctor-text {
+  font-weight: 500;
+  font-size: 18px;
+  color: #808080;
+}
+.gray-text {
+  color: #808080;
+}
+.star-size {
+  font-size: 12px;
+}
+
+@media (min-width: 1100px) and (max-width: 1367px) {
+  .detail-container {
+    left: 0.4rem;
+  }
+  .background-green {
+    padding: 0.1rem 0.1rem;
+    font-size: 10px !important;
+  }
+  .star-size {
+    font-size: 7px;
+  }
+}
+@media (min-width: 1100px) and (max-width: 1199px) {
+  .rating-text {
+    padding-left: 3px !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1099px) {
+  .detail-container {
+    left: 0.8rem;
+  }
+  .background-green {
+    padding: 0.1rem 0.1rem;
+    font-size: 10px !important;
+  }
+  .star-size {
+    font-size: 7px;
+  }
+  .rating-text {
+    font-size: 10px;
+    padding-left: 1px !important;
+  }
+}

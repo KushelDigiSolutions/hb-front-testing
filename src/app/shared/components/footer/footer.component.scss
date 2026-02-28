@@ -1,0 +1,84 @@
+@import "../../../../assets/styles/main.scss";
+
+.footer-branding {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 50px 0px 50px 0px;
+}
+
+.shop-home-footer {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f8f9fa; // or your desired color
+}
+
+@media (max-width: 768px) {
+  .shop-home-footer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+.footer-tagline {
+  color: #bababa;
+  font-size: 18px;
+  font-family: Inter;
+  font-weight: 600;
+  word-wrap: break-word;
+}
+
+.footer-manufacture {
+  // height: 30px;
+  // font-size: 10px;
+  margin-top: 24px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #434343;
+  // align-items: end;
+}
+
+.footer-category-container {
+  height: 375px;
+  width: 100%;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+}
+
+.category-footer {
+  border-bottom: 1px solid #bababa;
+}
+
+.footer-category-sections {
+  color: #878787;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.footer-category-list {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.healthy-bazar-promotion-footer {
+  height: 83px;
+  border-bottom: 1px solid #bababa;
+  display: flex;
+  align-items: center;
+}
+
+@include max-sm {
+  
+  .footer-branding {
+    padding-bottom: 50px;
+  }
+}
+
+@include max-xs {
+  .footer-branding {
+    padding-bottom: 50px;
+  }
+}
+

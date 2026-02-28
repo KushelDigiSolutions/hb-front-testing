@@ -1,0 +1,116 @@
+.limitTextHeight {
+  //   height: 10%;
+  overflow: hidden;
+}
+
+.products-cart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 12px;
+  background-color: #fff;
+  padding: 6px;
+  border-radius: 10px;
+
+  .cart-product-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    border: 1px solid rgba(119, 119, 119, 0.2);
+    padding: 6px 0px;
+
+    img {
+      border-radius: 8px;
+      object-fit: contain;
+    }
+  }
+
+  .product-cart-price-inc-dec-container {
+
+    .product-increment-decrement-container {
+      background-color: #1d5cff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+      padding: 5px;
+      color: #fff;
+      // font-weight: 500;
+      width: 58px;
+      height: 27px;
+      border-radius: 4px;
+    }
+  }
+
+  .cart-product-details-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+  }
+}
+
+.stock {
+  font-size: 10px;
+  font-weight: 600;
+  color: #ff5454;
+
+  >.material-icons {
+    margin-top: -3px;
+  }
+}
+
+.sp {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.mrp {
+  text-decoration: line-through;
+  font-weight: 400;
+  color: #888;
+}
+
+.remove {
+  font-size: 10px;
+  cursor: pointer;
+  color: #444444
+}
+
+@media (max-width: 768px) {
+  .products-cart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+
+    .cart-product-image {
+      width: 54px;
+      height: 54px;
+      border-radius: 8px;
+      // background-color: #777;
+    }
+
+    .product-cart-price-inc-dec-container {
+
+      .product-increment-decrement-container {
+        background-color: #1d5cff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        padding: 5px;
+        color: #fff;
+        // font-weight: 500;
+        width: 58px;
+        height: 27px;
+        border-radius: 4px;
+      }
+    }
+
+    .cart-product-details-container {
+      margin-left: 10px;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+<div class="bulk-success-wrapper">
+    <div class="bulk-success-card">
+        <div class="bulk-success-content text-center">
+            <div class="bulk-success-icon" aria-hidden="true">
+                <!-- simple check icon -->
+                <svg width="72" height="72" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="12" fill="#079a46" />
+                    <path d="M7.5 12.5L10.2 15.1L16.5 8.8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h2 class="title mb-2">Thank you for reaching out to HealthyBazar</h2>
+
+            <p>We’ve successfully received your enquiry and truly appreciate your interest in our products.</p>
+            <p>Our team is already reviewing your request and will get in touch with you within 2-4 working hours. </p>
+
+            <p class="contact mb-3">For urgent queries, contact us at <a href="tel:+919119008008">+91 9119008008</a> or <a href="tel:+919412316450">+91 9412316450</a>, or mail us at <a href="mailto:support&#64;healthybazar.com">support&#64;healthybazar.com</a>.</p>
+
+            <p class="mb-3">Continue browsing our exclusive range of <a class="link" href="/herbs">Bulk Herbs</a></p>
+
+            <div class="ref-row">
+                <div class="ref-label">Ref ID</div>
+                <div class="ref-wrap">
+                    <div class="ref-container px-3 py-2">
+                        <span class="ref-id">{{ refId || '—' }}</span>
+                    </div>
+
+                    <button type="button" class="copy-btn" (click)="copyRef()" aria-label="Copy reference id">
+                        <!-- clipboard icon -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M16 4H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z" stroke="#3b4a5a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 8h8" stroke="#3b4a5a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+
+                    <div class="copy-feedback" *ngIf="copied">Copied!</div>
+                </div>
+            </div>
+
+            <div class="signature mt-3">
+                <div class="team">Team HealthyBazar</div>
+                <div class="tagline">Your trusted source for authentic Ayurvedic Herbs & Products</div>
+            </div>
+        </div>
+    </div>
+</div>

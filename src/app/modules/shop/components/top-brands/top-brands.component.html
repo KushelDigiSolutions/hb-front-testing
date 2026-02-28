@@ -1,0 +1,10 @@
+<a [routerLink]="'/brand/' + brands.slug">
+    <div class="brands-container" body>
+        <div class="image-container">
+            <img class="product-img" [src]="cloudeImagePath  + brands.brandLogoURL" alt="">
+        </div>
+        <div class="product-heading justify-content-center text-center">
+            <span class="pt-2 twoLines">{{brands.brandName}}</span>
+        </div>
+    </div>
+</a>

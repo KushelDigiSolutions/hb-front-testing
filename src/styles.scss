@@ -1,0 +1,234 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import "bootstrap/scss/bootstrap";
+@import "./assets/styles/screen-sizes.scss";
+
+* {
+  // border: 1px solid red;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif !important;
+  background-color: #fafafa !important;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+// .mySwiper {
+//   height: 100% !important;
+//   width: 100% !important;
+//   > div {
+//     background-color: red;
+//   }
+//   [class~="swiper-button-next"] {
+//     background-color: white;
+//   }
+// }
+
+// html,
+// body {
+//   height: 100%;
+// }
+
+a {
+  text-decoration: none;
+}
+
+body {
+  // font-family: Roboto, "Helvetica Neue", sans-serif;
+  @for $i from 10 through 24 {
+    .fs-#{$i} {
+      font-size: #{$i}px;
+    }
+  }
+
+  .btn-primary {
+    background-color: #1d5cff;
+    border-radius: 5px;
+  }
+}
+
+.minVPH {
+  min-height: calc(100vh - 128px);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+label.required::after {
+  content: "*";
+  color: red;
+  margin-left: 2px;
+}
+
+.mySwiper {
+  .swiper-button-next {
+    background-color: green;
+  }
+}
+
+swiper-container {
+  display: flex;
+  overflow: hidden;
+  column-gap: 10px;
+}
+
+.swiperCont {
+  position: relative;
+}
+
+.swiperNavigation {
+  border: 0;
+  background-color: #fff;
+  border-radius: 100%;
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  &:disabled {
+    opacity: 0.4;
+  }
+}
+
+.swiperPrev {
+  left: -14px;
+}
+
+.swiperNext {
+  right: -14px;
+}
+
+.grayBorderTop {
+  border-top: 1px solid rgba(152, 152, 152, 0.5);
+}
+
+.oneLine,
+.threeLines,
+.twoLines {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.threeLines,
+.twoLines {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.threeLines {
+  -webkit-line-clamp: 3;
+}
+
+.color-green {
+  color: #058f46;
+}
+
+.productBS {
+  .mat-bottom-sheet-container {
+    background: transparent;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.svgIcon {
+  width: 1em;
+  height: 1em;
+}
+
+.staticPageContent {
+  padding-top: 20px;
+
+  h3 {
+    font-size: 1.35rem;
+    font-weight: 400;
+
+    strong {
+      font-weight: 400;
+    }
+  }
+
+  h4 {
+    font-size: 1.15rem;
+    font-weight: 400;
+
+    strong {
+      font-weight: 400;
+    }
+  }
+}
+
+body {
+  padding-top: 32px;
+  transition: padding-top 0.3s ease;
+}
+
+@include max-lg {
+  .shop-categories-container {
+    // padding-left: 0px;
+  }
+
+  .width100 {
+    width: 100%;
+    padding: 0px 25px;
+    max-width: 100%;
+  }
+}
+
+@include max-sm {
+  .width100 {
+    padding: 0px 0px;
+  }
+
+  .toast-bottom-right {
+    bottom: 92px;
+  }
+}
+
+/* screenWidth <= 480 */
+@media (max-width: 480px) {
+  body {
+    padding-top: 24px;
+  }
+}
+
+/* screenWidth > 480 and <= 768 */
+@media (min-width: 481px) and (max-width: 768px) {
+  body {
+    padding-top: 28px;
+  }
+}
+
+/* screenWidth >= 1200 */
+@media (min-width: 1200px) {
+  body {
+    padding-top: 36px;
+  }
+}
+
+/* Mobile Landscape Override */
+/* (screenWidth <= 768 AND height < width) */
+@media (max-width: 768px) and (orientation: landscape) {
+  body {
+    padding-top: 20px;
+  }
+}

@@ -1,0 +1,129 @@
+@import "../../../assets/styles/main.scss";
+
+.container-fluid {
+  min-height: calc(100vh - 128px);
+}
+
+.data-container,
+.container-div {
+  background: #fff;
+  border-radius: 8px;
+}
+
+.data-container {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15), 0px 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.container-div {
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15), 0px 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.fixed-top {
+  position: sticky;
+}
+
+.fixed-height {
+  max-height: 30rem;
+}
+
+.heading-text {
+  color: #808080;
+  font-size: 22px;
+  font-weight: 600;
+
+  @include max-sm {
+    color: #333;
+    font-weight: 400;
+  }
+}
+
+.font-16 {
+  font-size: 16px;
+}
+
+.custom-file-upload {
+  background-color: #ef8b1e;
+  border: 1px solid #ef8b1e;
+  color: #fff;
+  display: inline-block;
+  padding: 6px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.gray-text {
+  color: #808080;
+}
+
+.btn-primary {
+  background-color: #058f46;
+  color: #fff;
+  border: 1px solid #058f46;
+}
+
+.doctorName {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.mandatory {
+  color: #ff3547;
+}
+
+.profileImage {
+  border-radius: 50px;
+}
+
+.bold-text {
+  font-weight: 600;
+}
+
+.continue-button {
+  border: 1px solid #058f46;
+  background-color: #fff;
+  color: #058f46;
+  display: inline-block;
+
+  &:hover {
+    border: 1px solid #058f46;
+    background-color: #058f46;
+    color: #fff;
+  }
+}
+
+::ng-deep {
+  .app-container {
+    padding-left: 0px;
+  }
+
+  @media (min-width: 1200px) {
+    .app-container {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 994px) {
+  .fixed-height {
+    max-height: max-content;
+  }
+
+  .fixed-top {
+    position: relative;
+  }
+}
+
+@include max-sm {
+  .width100 {
+    padding: 0px 0px;
+  }
+
+  .mobileWidth100 {
+    padding: 0px 15px;
+  }
+}

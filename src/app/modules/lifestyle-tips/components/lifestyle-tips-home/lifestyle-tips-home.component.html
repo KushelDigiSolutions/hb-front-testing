@@ -1,0 +1,42 @@
+<div class="container width100">
+
+    <div class="mt-4 mobileWidth100">
+        <app-life-style-health-card [productBrandTitle]="'Recent Tips'" [recentTipsData]="recentTips"
+            seeAllUrl="/lifestyle-tips/search/recent-tips"></app-life-style-health-card>
+    </div>
+
+    <div class="mt-4 mobileWidth100">
+        <div class="row health-tips-categories-container pb-4">
+            <!-- d-flex flex-column justify-content-center -->
+            <div class="col-md-12 col-sm-12 col-12 mt-3 ">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <span class="health-tips-category-label">
+                            Health Tips by Category
+                        </span>
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-lg-2  col-4 health-tips-category-card-container padding4"
+                        *ngFor="let healthTipsByCategory of healthTipsByCategoryListsItem; let i = index">
+                        <app-shop-category [categories]="healthTipsByCategory" [i]="i"></app-shop-category>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4 mobileWidth100">
+        <app-slider [data]="categoryBannersList" [section]="'banner'"></app-slider>
+    </div>
+
+    <div class="mt-4 mobileWidth100">
+        <app-life-style-health-card [productBrandTitle]="'10 Seconds Read'" [recentTipsData]="tenSecReadBlog"
+            seeAllUrl="/lifestyle-tips/search/10-seconds-read"></app-life-style-health-card>
+    </div>
+
+    <!-- <div class="mt-4 mobileWidth100">
+        <app-affordable-health-packages [package]="affordablePackages"
+            [productBrandTitle]="'Affordable Health Package'"></app-affordable-health-packages>
+    </div> -->
+</div>

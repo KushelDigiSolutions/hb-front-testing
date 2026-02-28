@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-12">
+        <div class="row">
+            <div class="col-md-10 col-sm-10 col-8 d-flex">
+                <span class="all-swiper-heading">{{productBrandTitle}}</span>
+            </div>
+            <div class="col-md-2 col-sm-2 col-4 d-flex justify-content-end align-items-center">
+                <button class="product-swiper-explore-btn-text">See all</button>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-md-12">
+                <swiper-container class="mySwiper" space-between="5" navigation="true" slides-per-view="auto"  [breakpoints]="swiperBreakpints">
+                    <swiper-slide class="slide-item" *ngFor="let productItem of package">
+                        <app-card class="product-card">
+                            <div class="container product-body" body>
+                                <div class="image-container" style="cursor: pointer;" (click)="redirectHealthPackageDetails(productItem.slug)">
+                                    <img class="product-img" src="{{cloudImgUrl + productItem.imageURl}}" alt="">
+                                </div>
+                                <div class="description-container px-1">
+                                    <div class="product-heading" style="cursor: pointer;">
+                                        {{productItem.packageName}}
+                                    </div>
+                                    <div class="product-subheading pt-1 d-flex">
+                                        
+                                        <div class="d-flex align-items-center " style="column-gap: 2px;">
+                                            <img src="assets/images/duration.png" alt="">
+                                            <span >Duration</span>
+                                        </div>
+                                        <div class="duration-container">
+                                            <span class="duration"> {{productItem.packageDurationLabel}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- footer -->
+                                <div class="product-footer-container px-1">
+                                    <div class="product-price-container">
+                                        
+                                        <div class="product-price">
+                                            ₹{{productItem.packageSellingPrice}}
+                                            <!-- <span class="temp-consultation-section">/Consultation</span> -->
+                                        </div>
+                                        
+                                        <div class="product-discount-price">
+                                            <span class="product-original-price">
+                                                ₹{{productItem.packageMRP}}
+                                            </span>
+                                            <span class="product-discount">
+                                                {{productItem.discount+'% OFF'}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="product-footer-action-container d-flex align-items-center">
+                                        <button type="button" class="btn btn-outline-primary btn-sm add-btn">
+                                            BOOK
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </app-card>
+                    </swiper-slide>
+                </swiper-container>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <app-slider [favProduct]="productsList"></app-slider> -->

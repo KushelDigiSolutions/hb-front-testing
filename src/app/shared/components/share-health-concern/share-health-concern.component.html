@@ -1,0 +1,50 @@
+<div class="row pt-5 pb-5">
+    <div class="col-md-12">
+        <p class="font-weight-bold font-14">
+            Share your health concerns to help us serve better
+        </p>
+    </div>
+
+    <div class="col-md-12 d-contents">
+        <ng-container *ngFor="let item of topHealthConcern">
+            <p class="health-concern-inactive px-3 py-1 mx-2 mt-2 pointer"
+                [ngClass]="{ 'health-concern-active': item.active }" (click)="toggleTopConcern(item)">
+                <span>{{ item.name }}</span>
+                <span *ngIf="item.active" class="material-icons cancel"> close </span>
+            </p>
+        </ng-container>
+    </div>
+
+    <!-- <div class="col-md-10 mt-3">
+        <ng-select [items]="OHCList" [multiple]="true" bindLabel="name" bindValue="_id" [closeOnSelect]="false"
+            [searchable]="true" [placeholder]="searchPlace" [(ngModel)]="selectedOtherHC"
+            (add)="onChangeOtherConcerns($event, 'add')" (remove)="onChangeOtherConcerns($event, 'remove')"
+            (clear)="onChangeOtherConcerns($event, 'clear')">
+        </ng-select>
+    </div> -->
+
+    <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="selectedItem" (input)="filterItems()"
+            placeholder="Search...">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false"></button>
+        <ul class="dropdown-menu">
+            <li *ngFor="let item of filteredItems">
+                <a class="dropdown-item" href="#" (click)="selectItem(item)">{{ item }}</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <!-- <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="selectedItem" (input)="filterItems()"
+            placeholder="Search...">
+        <div class="input-group-append" *ngIf="filteredItems.length > 0">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" *ngFor="let item of filteredItems" (click)="selectItem(item)">{{ item }}</a>
+            </div>
+        </div>
+    </div> -->
+</div>

@@ -1,0 +1,52 @@
+@import "../../../../../../assets/styles/main.scss";
+@import "../../../../../../assets/scss/modal-stepper.scss";
+
+.otp-button {
+  border: none;
+  background-color: transparent;
+  font-weight: 600;
+  padding: 7px 12px;
+  text-transform: uppercase;
+  &:hover,
+  &:active {
+    background-color: #f2f2f2;
+  }
+}
+.color-orange {
+  color: #ef8b1e;
+}
+.save-button {
+  background-color: #058f46;
+  color: #fff;
+  border: 1px solid #058f46;
+}
+.profile-inputs {
+  padding: 0.5em 3em 0.5em 3em;
+  background-color: #fff;
+  padding-left: 1rem;
+  border: 1px solid #808080;
+  font-size: 14px;
+  color: #000;
+}
+app-phone-input {
+  width: calc(100% - 100px);
+  max-width: 270px;
+  ::ng-deep {
+    .wrapper {
+      border: 1px solid #aaa;
+      background-color: #fff;
+      border-radius: 3px;
+    }
+    input {
+      padding: 4px 15px !important;
+      height: 41px !important;
+    }
+  }
+}
+.otp-container {
+  border-radius: 5px;
+  border: 1px solid #b6b6b6;
+  width: 35px;
+  color: #000;
+  margin-right: 2px;
+}

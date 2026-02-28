@@ -1,0 +1,127 @@
+.discount-strip {
+  background-color: #079a46;
+  color: white;
+  text-align: center;
+  padding: 4px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 32px;
+  line-height: 1.4;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  
+  // Initial state - hidden above viewport
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  
+  // Visible state
+  &.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.discount-strip strong {
+  margin: 0 4px;
+  font-weight: 600;
+}
+
+.close-btn {
+  margin-left: 16px;
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0; // Prevent shrinking on small screens
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  // Touch-friendly on mobile
+  @media (max-width: 768px) {
+    padding: 4px 8px;
+    margin-left: 8px;
+  }
+}
+
+// Enhanced mobile responsive styles
+@media (max-width: 768px) {
+  .discount-strip {
+    font-size: 11px;
+    padding: 6px 12px;
+    min-height: 28px;
+    flex-wrap: wrap;
+    gap: 2px;
+    
+    // Ensure text doesn't overflow
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .close-btn {
+    font-size: 14px;
+  }
+}
+
+// Extra small screens (phones in portrait)
+@media (max-width: 480px) {
+  .discount-strip {
+    font-size: 10px;
+    padding: 4px 8px;
+    min-height: 24px;
+    
+    // Allow text wrapping on very small screens
+    white-space: normal;
+    line-height: 1.2;
+  }
+  
+  .discount-strip strong {
+    margin: 0 2px;
+  }
+  
+  .close-btn {
+    margin-left: 6px;
+    font-size: 12px;
+    padding: 2px 4px;
+  }
+}
+
+// Large screens optimization
+@media (min-width: 1200px) {
+  .discount-strip {
+    font-size: 14px;
+    padding: 6px 20px;
+    min-height: 36px;
+  }
+  
+  .close-btn {
+    margin-left: 20px;
+    font-size: 18px;
+  }
+}
+
+// Landscape phone optimization
+@media (max-width: 768px) and (orientation: landscape) {
+  .discount-strip {
+    min-height: 20px;
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+  
+  .close-btn {
+    font-size: 12px;
+    padding: 1px 3px;
+  }
+}

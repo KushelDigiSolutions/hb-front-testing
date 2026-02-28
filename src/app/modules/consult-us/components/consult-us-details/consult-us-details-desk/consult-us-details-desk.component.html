@@ -1,0 +1,146 @@
+<div class="container-fluid">
+    <div class="row" *ngIf="consultant">
+        <div class="col-lg-2 col-md-5 col-sm-12 col-12 consultant-details-image-container">
+            <app-card class="product-details-card prod-img-sticky">
+                <!-- *ngIf="product" -->
+                <div body class="consultant-details-card-body">
+                    <div class="consultant-image">
+                        <img src="{{cloudImgUrl + consultant.profilePhoto.savedName}}" alt="">
+                    </div>
+                </div>
+            </app-card>
+        </div>
+
+        <div class="col-lg-10 col-md-5 col-sm-12 col-12 consultant-container mt-2">
+            <div class="page-route">
+                <!-- <span>Home/Category/Triphala churan sital cough syrup</span> -->
+                <app-breadcrumb [data]="breadcrumb"></app-breadcrumb>
+            </div>
+            <div class="consultant-details">
+                <div class="consultant-name">
+                    <span>{{consultant.firstName}}{{consultant.lastName}}</span>
+                </div>
+                <!-- <div class="consultant-designation">
+                    <span>{{consultant.consultantType[0].name}}</span>
+                </div> -->
+                <div class="consultant-details-container mt-2">
+                    <div class="consultant-details-section constultant-type">
+                        <!-- <span *ngFor="let consultantType of consultant.consultantType">{{consultantType}}</span> -->
+                        <span>{{consultant.consultantType[0].name}}</span>
+                    </div>
+                    <div *ngIf="consultant.experience" class="consultant-details-section constultant-year-exp">
+                        <span>{{consultant.experience}} Yrs of Exp.</span>
+                    </div>
+                    <div *ngIf="consultant.avgRating" class="consultant-details-section constultant-rating">
+                        <span><img src="assets/images/rate.png" alt="Star rating icon for product reviews">&nbsp;{{consultant.avgRating}}</span>
+                    </div>
+                    <div *ngIf="consultant.isTopConsultant" class="consultant-details-section constultant-rated">
+                        <span>Top rated</span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="product-price-cart-container d-flex ">
+                <div class="product-price-container">
+                    <div class="product-price">
+                        <span class="product-discount-price">₹{{consultant.fee}}</span>&nbsp;
+                    </div>
+                    <div class="product-size">
+                        <span>/Consultation</span>
+                    </div>
+                </div>
+                <div class="product-add-cart">
+                    <button type="button" class="btn btn-primary product-add-cart-btn"
+                        (click)="addToCheckout(consultant._id)">Book Now</button>
+                </div>
+            </div>
+            <hr>
+            <div class="mt-2">
+                <div
+                    *ngIf="consultant?.appointmentMode?.isVideo || consultant?.appointmentMode?.isAudio || consultant?.appointmentMode?.isChat">
+                    <h5>Available consultation mode(s)</h5>
+                    <div *ngIf="consultant?.appointmentMode?.isVideo" class="d-inline-block me-3">
+                        <i class="bi bi-camera-video"></i> Video Call
+                    </div>
+                    <div *ngIf="consultant?.appointmentMode?.isAudio" class="d-inline-block">
+                        <i class="bi bi-telephone"></i> Audio Call
+                    </div>
+                    <div *ngIf="consultant?.appointmentMode?.isChat" class="d-inline-block">
+                        <i class="bi bi-chat-left-dots"></i> Chat
+                    </div>
+
+                </div>
+                <div *ngIf="consultant.designation" class="mt-4">
+                    <div class="product-headings">
+                        <span>Bio</span>
+                    </div>
+                    <div>
+                        <span class="consultant-discriptions">
+                            {{consultant.designation}}
+                        </span>
+                    </div>
+                </div>
+                <div *ngIf="consultant.description" class="mt-4">
+                    <div class="product-headings">
+                        <span>About the expert</span>
+                    </div>
+                    <div>
+                        <p [ngClass]="{'limitTextHeight': isReadMore}" class="consultant-discriptions">
+                            {{consultant.description}}
+                        </p>
+                        <div class="review-read-more">
+                            <p class="read-more" (click)="showText()"
+                                *ngIf="(consultant?.description?.split('. ')).length > 1">{{
+                                isReadMore ? 'Read More': 'Read Less' }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="consultant.language" class="mt-4">
+                    <div class="product-headings">
+                        <span>Speaks</span>
+                    </div>
+                    <div>
+                        <span class="consultant-discriptions">{{consultant.language}}</span>
+                    </div>
+                </div>
+                <div *ngIf="consultant.specialization?.length" class="mt-4">
+                    <div class="product-headings">
+                        <span>Specialization</span>
+                    </div>
+                    <div class="consultant-specialization">
+                        <span class="consultant-discriptions"
+                            *ngFor="let specialization of consultant.specialization">{{specialization.name +
+                            ','}}</span>
+                    </div>
+                </div>
+                <div *ngIf="consultant.speciality?.length" class="mt-4 pb-4">
+                    <div class="product-headings">
+                        <span>Health Concerns</span>
+                    </div>
+                    <div class="consultant-specialization">
+                        <span class="consultant-discriptions"
+                            *ngFor="let speciality of consultant.speciality">{{speciality.name + ','}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4">
+        <app-top-consult-specialist [productBrandTitle]="'Related Consultants'"
+            [topConsult]="ConsultantRelatedConsultants"></app-top-consult-specialist>
+    </div>
+
+    <div class="mt-4">
+        <app-product-slider class="product-slider" [productData]="shopNowProduct"
+            [productBrandTitle]="'Shop now'"></app-product-slider>
+    </div>
+    <!-- <div class="mt-4">
+        <app-affordable-health-packages [package]="healthPackages"
+            [productBrandTitle]="'Related Health Packages'"></app-affordable-health-packages>
+    </div> -->
+
+    <div class="mt-4">
+        <app-life-style-health-card [productBrandTitle]="'Recent Tips'" [recentTipsData]="recentTipsData"
+            seeAllUrl="/lifestyle-tips/search/recent-tips"></app-life-style-health-card>
+    </div>
+</div>

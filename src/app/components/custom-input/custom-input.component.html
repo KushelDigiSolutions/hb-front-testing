@@ -1,0 +1,8 @@
+<div class="cont">
+  <label>{{label}}</label>
+  <div class="d-flex inputCont">
+    <div *ngIf="prefix" class="prefix">{{prefix}}</div>
+    <input class="flex-grow-1 pe-3" [ngClass]="{'ps-3': !prefix}" type="text" [ngModel]="value" (input)="onInput($event)"
+      [type]="type" [placeholder]="placeholder" [maxlength]="maxlength">
+  </div>
+</div>

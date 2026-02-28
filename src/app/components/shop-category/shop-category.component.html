@@ -1,0 +1,23 @@
+<!-- <a [routerLink]="'/' + categories.url" class="catCard">
+    <div class="category-image" [ngStyle]="{'background-color': getColor(i)}">
+        <img [src]="imageCloudPath  + categories.imageURL" alt="">
+    </div>
+    <div class="twoLines category-name">{{categories.categoryName}}</div>
+</a> -->
+
+
+<a [routerLink]="'/' + item.url" class="catCard">
+    @if (!item.logo) {
+    <div class="category-image" [ngStyle]="{'background-color': getColor(i)}">
+        <img [src]="imageCloudPath  + item.img" alt="">
+    </div>
+    <div class="twoLines category-name">{{item.label}}</div>
+    }
+
+    @if (item.logo) {
+    <div class="category-image" [ngStyle]="{'background-color': getColor(i)}">
+        <img [src]="imageCloudPath  + item.logo.savedName" alt="">
+    </div>
+    <div class="twoLines category-name">{{item.name}}</div>
+    }
+</a>

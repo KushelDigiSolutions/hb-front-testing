@@ -1,0 +1,58 @@
+<h1 class="tips-heading h2 mb-2">{{blog.title}}</h1>
+<div class="d-sm-flex justify-content-between fs-12 mb-3">
+    <div>Published On: {{ blog.createdAt | date:'mediumDate'}}</div>
+    <div>Last Updated: {{blog.updatedAt | date:'mediumDate'}}</div>
+</div>
+@if (blog.featuredImage) {
+<img class="img-fluid mb-4" [src]="cdnBase + blog.featuredImage.savedName" [alt]="blog.title">
+}
+<p *ngIf="blog.isShortLength && !showFullBlog">{{blog.excerpt}}</p>
+<div class="text-center">
+    <button *ngIf="blog.isShortLength && !showFullBlog" class="btn btn-success" (click)="showFullBlog = true">Read Full Blog</button>
+</div>
+<ng-container *ngIf="!blog.isShortLength || showFullBlog">
+    <div class="tips-description mt-2" [innerHTML]="paragraphBeforeProductList[0]"></div>
+
+    @if(blog?.products){
+    <app-product-slider class="product-slider" [productData]="blog.products"
+        productBrandTitle="Recommended Products"></app-product-slider>
+    }
+
+    <div *ngIf="paragraphBeforeProductList[1]" class="tips-description mt-2"
+        [innerHTML]="paragraphBeforeProductList[1]">
+    </div>
+</ng-container>
+
+@if (blog.author) {
+
+  <div class="my-4">
+      <h5 class="fs-16 mb-3">This article is written/approved by:</h5>
+      <div class="d-flex">
+          <!-- <a class="doctor-card" [routerLink]="['/consult-us/doctor',blog.author.slug]">
+            <img class="flex-shrink-0 me-3 avatar" [src]="cdnBase + blog.author.profilePhoto?.savedName" />
+          </a> 
+        -->
+
+          <a *ngIf="blog.author?.slug; else fallbackDoctorLink" class="doctor-card" [routerLink]="['/consult-us/doctor', blog.author.slug]" style="color: black; text-decoration: none;">
+              <img class="flex-shrink-0 me-3 avatar" [src]="cdnBase + blog.author.profilePhoto?.savedName"/>
+          </a>
+          <div class=" flex-grow-1">
+              <a *ngIf="blog.author?.slug; else fallbackDoctorLink" class="doctor-card" [routerLink]="['/consult-us/doctor', blog.author.slug]" style="color: black; text-decoration: none;">
+              <h5 class="fs-14">{{blog.author.firstName}} {{blog.author.lastName}}</h5>
+              </a>
+              <a *ngIf="blog.author?.slug; else fallbackDoctorLink" class="doctor-card" [routerLink]="['/consult-us/doctor', blog.author.slug]" style="color: black; text-decoration: none;">
+              <p class="fs-12">{{blog.author.description}}</p>
+              </a>
+          </div>
+      </div>
+  </div>
+}
+
+<ng-template #fallbackDoctorLink>
+  <a class="doctor-card" [routerLink]="['/consult-us']">
+    <img
+      class="flex-shrink-0 me-3 avatar"
+      [src]="cdnBase + blog.author.profilePhoto?.savedName"
+    />
+  </a>
+</ng-template>

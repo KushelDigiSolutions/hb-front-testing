@@ -1,0 +1,146 @@
+@import "../../../assets/styles/main.scss";
+
+.time-slot-btn {
+  margin-left: 8px;
+  margin-top: 12px;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 12px;
+  color: #727272;
+  border: 1px solid #d4d4d4;
+  font-weight: 500;
+  padding: 6px 20px;
+
+  &.selected {
+    background-color: #E5ECFF;
+    border-color: #1D5CFF;
+    color: #1D5CFF;
+  }
+}
+
+.slot-name {
+  font-size: 10px;
+  color: #848484;
+}
+
+.select-slot-calender {
+  display: flex;
+  align-items: center;
+  height: 45px;
+}
+
+.input-lebal {
+  left: 10px;
+  position: absolute;
+  top: -10px;
+  background: white;
+}
+
+.slot-submit-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+
+  .bookslotbtn {
+    padding: 11px 56px 11px 56px;
+    background: #1d5cff;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+
+mat-calendar {
+  margin: 0 -22px;
+
+  ::ng-deep {
+    .mat-calendar-controls {
+      margin: 0 0 10px;
+    }
+
+    .mat-calendar-table-header-divider {
+      display: none;
+    }
+
+    .mat-calendar-table-header th {
+      padding-bottom: 0;
+    }
+
+    .mat-calendar-body-selected {
+      background-color: $color-primary;
+    }
+
+    .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+      background-color: rgba($color-primary, 0.3) !important;
+    }
+  }
+}
+
+.slots {
+  overflow-y: scroll;
+  // height: 330px;
+  height: 195px;
+
+  li {
+    >span {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    .confirm {
+      display: none;
+    }
+
+    &:hover:not(.active) {
+      border-color: $color-primary;
+      background-color: $color-primary;
+      color: #fff;
+    }
+
+    &.active.showContinueButton {
+      display: flex;
+
+      >span {
+        display: block;
+        width: 100%;
+      }
+
+      .value {
+        background-color: #eee;
+        pointer-events: none;
+      }
+
+      .confirm {
+        background-color: $color-primary;
+        border-color: $color-primary;
+        color: #fff;
+      }
+    }
+
+    &.active:not(.showContinueButton) {
+      .value {
+        background-color: $color-primary;
+        border-color: $color-primary;
+        color: #fff;
+      }
+    }
+  }
+}
+
+#slots::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #d3dae4;
+}
+
+#slots::-webkit-scrollbar {
+  width: 5px;
+  background-color: #d3dae4;
+}
+
+#slots::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #ececec;
+}

@@ -1,0 +1,105 @@
+@import "../../../../../assets/styles/main.scss";
+@import "../../../consult-us/components/consult-us-details/consult-us-details-desk/consult-us-details-desk.component.scss";
+
+@media (min-width: 424px) and (max-width: 767px) {
+  .product-details-image-container {
+    width: 100%;
+  }
+
+  .product-details-single-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 390px;
+    height: 240px;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 9px;
+    }
+  }
+}
+
+.health-package-details {
+  .package-name {
+  }
+
+  .health-package-discription {
+    .duration {
+    }
+    .duration-time-container {
+    }
+  }
+}
+.health-package-details {
+  display: flex;
+  flex-direction: column;
+  margin-top: 14px;
+
+  .package-name {
+    height: 24px;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+  }
+
+  .health-package-discription {
+    display: flex;
+    column-gap: 12px;
+    .duration {
+      font-size: 10px;
+      img {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    .duration-time-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 18px;
+      width: 58px;
+      background-color: #fff2e3;
+      color: #ca7715;
+      font-size: 10px;
+      font-weight: 400;
+      border-radius: 23px;
+    }
+  }
+}
+
+.package-price-cart-container {
+  height: 25px;
+  align-items: center;
+  justify-content: space-between;
+
+  .package-price-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .package-price {
+      width: 175px;
+      height: 17px;
+      display: flex;
+      align-items: center;
+
+      .package-discount-price {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .package-original-price {
+        font-size: 10px;
+        color: #535353;
+        text-decoration: line-through #ff5454;
+      }
+
+      .package-discount {
+        font-size: 10px;
+        color: #ff5454;
+      }
+    }
+
+  }
+}

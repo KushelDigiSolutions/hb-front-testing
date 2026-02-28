@@ -1,0 +1,115 @@
+@import "../../../assets/styles/main.scss";
+
+.app-container {
+  width: 100%;
+  height: 100%;
+}
+.calendarCont {
+  background-color: #fff;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.time-slot-title-container {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  .time-slot-title {
+    margin: 24px 12px 16px 16px;
+  }
+}
+
+.time-slot-devider {
+  border: 1px solid gray;
+}
+
+.goBack {
+  i {
+    width: 34px;
+    height: 34px;
+    border-radius: 23px;
+    background: #eee;
+    text-align: center;
+    padding: 9px 12px;
+    font-size: 18px;
+  }
+}
+mat-calendar {
+  margin: 0 -22px;
+  ::ng-deep {
+    .mat-calendar-controls {
+      margin: 0 0 10px;
+    }
+    .mat-calendar-table-header-divider {
+      display: none;
+    }
+    .mat-calendar-table-header th {
+      padding-bottom: 0;
+    }
+    .mat-calendar-body-selected {
+      background-color: $color-primary;
+    }
+    .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
+      .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+      background-color: rgba($color-primary, 0.3) !important;
+    }
+  }
+}
+.slots {
+  overflow-y: scroll;
+  height: auto;
+  // height: 280px;
+  li {
+    > span {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    .confirm {
+      display: none;
+    }
+    &:hover:not(.active) {
+      border-color: $color-primary;
+      background-color: $color-primary;
+      color: #fff;
+    }
+    &.active {
+      display: flex;
+      > span {
+        display: block;
+        width: 100%;
+      }
+      .value {
+        background-color: #eee;
+        pointer-events: none;
+      }
+      .confirm {
+        background-color: $color-primary;
+        border-color: $color-primary;
+        color: #fff;
+      }
+    }
+  }
+}
+#slots::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #d3dae4;
+}
+
+#slots::-webkit-scrollbar {
+  width: 5px;
+  background-color: #d3dae4;
+}
+
+#slots::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #ececec;
+}
+
+.consultation-mode {
+  margin-right: 15px;
+}

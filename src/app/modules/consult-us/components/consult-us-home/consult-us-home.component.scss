@@ -1,0 +1,178 @@
+@import "../../../../../assets/styles/main.scss";
+
+.shop-health-concern-container {
+  // background: radial-gradient(#d8ffe3 100%, #d8ffe3 69%);
+  background: #ffeddc;
+}
+.slide-item {
+  display: flex;
+  margin-right: 10px;
+}
+.consult-health-concern-container {
+  background: #ffe9fb;
+}
+
+.product-label {
+  color: #1c1c1c;
+  font-size: 18px;
+  font-family: Inter;
+  font-weight: 600;
+}
+
+.healthconcern-topbrand-btn-color {
+  background-color: white;
+  color: #c5690c;
+  border-radius: 6px;
+}
+
+.consult-health-concern-btn-color {
+  background-color: white;
+  color: #94068e;
+  border-radius: 6px;
+}
+.health-concern-slide {
+  width: 100px !important;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+///////////////
+.user-step-guidance {
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 40px;
+}
+
+.guidance-step-text {
+  display: flex;
+  justify-content: center;
+}
+
+.follow-step {
+  display: flex;
+  column-gap: 50px;
+  justify-content: center;
+}
+.user-steps {
+  color: #a15005;
+  font-weight: 600;
+  font-size: 14px;
+  width: auto;
+}
+
+.user-steps-count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-image: url("../../../../../assets/images/consult-us/consult-us-user-guidance-steps-bkg.png");
+  height: 48.92px;
+  width: 48.96px;
+}
+
+.swiperCont {
+  position: relative;
+}
+
+.swiperNavigation {
+  border: 0;
+  background-color: #fff;
+  border-radius: 100%;
+
+  position: absolute;
+  top: 40%;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  &:disabled {
+    display: none;
+  }
+}
+
+.swiperPrev {
+  left: -14px;
+}
+
+.swiperNext {
+  right: -14px;
+}
+
+///////////////
+// health concern category
+.health-concerns-categories-container {
+  // height: 237px;
+  background: radial-gradient(#d8ffe3 0%, rgba(216.11, 255, 227, 0.69) 100%);
+  padding: 0 20px;
+
+  .health-concerns-category-label {
+    color: #1c1c1c;
+    font-size: 18px;
+    font-family: Inter;
+    font-weight: 600;
+  }
+
+  .health-concerns-category-card-container {
+    margin: 10px 0;
+  }
+}
+
+@include max-lg {
+  .width100 {
+    width: 100%;
+    padding: 0px 25px;
+    max-width: 100%;
+  }
+}
+
+@include max-md {
+  .health-concerns-categories-container {
+    padding-left: 0px;
+  }
+}
+
+@include max-sm {
+  .user-step-guidance {
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 5px;
+  }
+  .guidance-step-text {
+    justify-content: flex-start;
+  }
+  .follow-step {
+    display: flex;
+    row-gap: 20px;
+    justify-content: flex-start;
+  }
+  .width100 {
+    padding: 0px 0px;
+  }
+  .mobileWidth100 {
+    padding: 0px 15px;
+  }
+}
+
+@include max-xs {
+  .padding4 {
+    padding: 0px 4px;
+  }
+}
+
+@media (max-width: 391px) {
+  .padding4 {
+    padding: 0px 2px;
+  }
+}

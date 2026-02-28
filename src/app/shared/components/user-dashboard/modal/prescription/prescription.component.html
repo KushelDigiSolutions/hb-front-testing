@@ -1,0 +1,140 @@
+<div class="p-4">
+  <h2 mat-dialog-title class="h5">{{data.title}} <i class="material-icons pointer float-right" mat-dialog-close>close</i></h2>
+  <mat-dialog-content>
+    <div [innerHTML]="data._prescriptionHtml"></div>
+    <div *ngIf="false" class="resPres overflow-auto">
+      <div class="pres" id="presCont">
+        <div class="row">
+          <div class="col-6 logoCont">
+            <img src="/assets/images/logo.png" />
+            <p class="fw-500">Tatvamasmi Consulting Pvt. Ltd.</p>
+          </div>
+          <div class="col-6 text-right">
+            <div class="d-inline-block text-left">
+              <ul class="list-unstyled reach mt-3 mb-0">
+                <li>
+                  <a href="https://healthybazar.com"><i class="material-icons align-middle">language</i>
+                    www.healthybazar.com</a>
+                </li>
+                <li>
+                  <a href="mailto:contact@healthybazar.com"><i class="material-icons align-middle">email</i>
+                    contact&#64;healthybazar.com</a>
+                </li>
+                <li>
+                  <a href="tel:+919119008008"><i class="material-icons align-middle">call</i> +91 9119008008</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <table class="table table-borderless docInfo borderLessTable">
+          <tbody>
+            <tr>
+              <td>
+                <p class="fw-500 mb-1">
+                  {{
+                  data.consultantId.firstName +
+                  " " +
+                  data.consultantId.lastName || ""
+                  }}
+                </p>
+                <p class="mb-0">
+                  {{ data.consultantId.designation }}
+                </p>
+                <p class="mb-0">{{ data.consultantId.email }}</p>
+              </td>
+              <td style="width: 225px;">
+                <p class="mb-1">
+                  <b>Appointment ID:</b>
+                  {{ data.appointmentId.appointmentId }}
+                </p>
+                <p class="mb-1">
+                  <b>Prescription No.:</b>
+                  {{ data.prescriptionNo }}
+                </p>
+                <p class="mb-1">
+                  <b>Date:</b>
+                  {{ data.createdAt | date: "mediumDate" }}
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="divider" colspan="2">
+                <div></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p class="mb-1">
+                  <b>Patient Name:</b>
+                  {{
+                  (data.userId.firstName || '') +' '+
+                  (data.userId.lastName || "")
+                  }}
+                </p>
+                <p class="mb-1"><b>Age:</b> 26</p>
+              </td>
+              <td>
+                <p class="mb-1"><b>Gender:</b> Male</p>
+                <p class="mb-1"><b>Weight:</b> 64</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="divider" colspan="2">
+                <div></div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <table class="table table-sm borderLessTable">
+                  <thead>
+                    <tr>
+                      <th class="pe-2">SN.</th>
+                      <th class="pe-3">PRODUCT NAME</th>
+                      <th class="pe-3">DAYS</th>
+                      <th class="pe-3">DOSAGE</th>
+                      <th>TIME</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="
+                          let item of data.medicines;
+                          let i = index
+                        ">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ item.name }}</td>
+                      <td>{{ item.days }}</td>
+                      <td>{{ item.dosage }} <span *ngIf="item.repeat">({{item.repeat}})</span></td>
+                      <td>
+                        {{ item.meal }} (<span *ngFor="let time of item.time; let j = index">{{ time
+                          }}<span *ngIf="j < item.time.length - 1">, </span></span>)
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr *ngIf="data.note">
+              <td class="divider" colspan="2">
+                <div></div>
+              </td>
+            </tr>
+            <tr *ngIf="data.note">
+              <td colspan="2">
+                <b>Note: </b>
+                <div [innerHTML]="data.note"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="presFooter">
+          Reg 405, New Shivpuri, Hapur, 245101, Uttar Pradesh
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="pt-4" align="center">
+    <button class="btn btn-light mr-2 py-2" (click)="downloadPrescription()">Download</button>
+    <!-- <button class="btn btn-primary py-2" mat-dialog-close="viewProducts">View Products</button> -->
+  </mat-dialog-actions>
+</div>

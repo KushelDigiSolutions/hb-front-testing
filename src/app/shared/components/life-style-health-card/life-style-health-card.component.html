@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-12">
+        <div class="row">
+            <div class="col-md-10 col-sm-10 col-8 d-flex">
+                <span class="all-swiper-heading">{{productBrandTitle}}</span>
+            </div>
+            <div class="col-md-2 col-sm-2 col-4 d-flex justify-content-end align-items-center">
+                <a *ngIf="seeAllUrl" [routerLink]="seeAllUrl" class="seeAll">See all</a>
+            </div>
+        </div>
+        <div class="row pt-2 mt-2">
+            <div class="col-md-12">
+                <app-card>
+                    <div class="swiperCont" body>
+                        <app-swiper space-between="8">
+                            <swiper-slide class="slide-item" *ngFor="let productItem of recentTipsData">
+                                <app-lifestyle-tip-card [data]="productItem"></app-lifestyle-tip-card>
+                            </swiper-slide>
+                        </app-swiper>
+                    </div>
+                </app-card>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<app-card >
+    <div class="categories-body" body>
+        <div class="categories-back categories-container" [ngStyle]="{background: 'url(' + appcategories.image + ')'}">
+            <div class="categoty-label">
+                <ng-content select="[label]"></ng-content>
+            </div>
+            <div class="categories-sublabel">
+                <ng-content select="[button]"></ng-content>
+            </div>
+        </div>
+    </div>
+</app-card>

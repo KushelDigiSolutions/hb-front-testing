@@ -1,0 +1,69 @@
+<div class="row pt-3">
+  <div class="col-4 pe-0">
+    <!-- <img
+        class="img-fluid"
+        [src]="imgUrl + doctorDetail.profilePhoto.savedName"
+      /> -->
+    <img [routerLink]="['/consult-us/doctor', doctorDetail._id]" class="avatar pointer"
+      [src]="imgUrl + doctorDetail.profilePhoto.savedName" />
+  </div>
+  <div class="col-8 detail-container">
+    <a [routerLink]="['/consult-us/doctor', doctorDetail._id]" class="doctorsName mb-0">
+      {{doctorDetail.firstName || "Consultant" + " " + doctorDetail.lastName || ""}}
+    </a>
+    <p class="mb-2 font-12 gray-text">{{ doctorDetail.experience }} years experience</p>
+    <!-- <div class="d-flex mb-3" style="align-items: center">
+        <div class="font-12 background-green">
+          4.7
+          <span class="material-icons star-size font-12"> star </span>
+        </div>
+        <span class="font-12 ps-3 rating-text">({{doctorDetail.totalReviews}} Ratings and Reviews)</span>
+      </div> -->
+    <p class="mb-0">
+      <span *ngIf="doctorDetail.fee" class="appointmentCharges">&#8377;{{ doctorDetail.fee }}/
+      </span>{{doctorDetail.fee?'per':'Free'}} consultation
+    </p>
+    <div>
+      <table class="table-spacing">
+        <tbody>
+          <tr>
+            <td class="alignTop">
+              <span class="me-2"><img src="/assets/images/Consultation_ayurvedic.png" /></span>
+            </td>
+            <td>
+              <span *ngIf="doctorDetail.consultantType" class="doctor-text">{{
+                doctorDetail.consultantType[0].name
+                }}</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="alignTop" colspan="2">
+              <a *ngIf="appointment?.event?.link && appointment?.status == 'Confirmed'" href="#" class="btn btn-success rounded-5 pt-1 pb-1"
+              (click)="joinCall($event, appointment)">Join Call</a>
+            </td>
+          </tr>
+          <!-- <tr>
+              <td class="alignTop">
+                <span class="me-2"
+                  ><img src="/assets/images/doctor_availability.png"
+                /></span>
+              </td>
+              <td>
+                <span class="doctor-text"
+                  >Next available slot: 04:30 PM, 25 June, 2021</span
+                >
+              </td>
+            </tr> -->
+          <!-- <tr>
+              <td class="alignTop">
+                <span class="me-2"><img src="/assets/images/doctor_language.png" /></span>
+              </td>
+              <td>
+                <span class="doctor-text">Hindi, English</span>
+              </td>
+            </tr> -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

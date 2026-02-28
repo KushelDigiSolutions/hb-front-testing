@@ -1,0 +1,77 @@
+<div [style]="{'height':'100%'}">
+    <div class="mt-4 select-slot-calender">
+
+        <mat-form-field [style]="{'width':'100%'}">
+            <mat-label>Select Date</mat-label>
+            <input matInput [matDatepicker]="picker" [min]="today" (dateChange)="onChangeSlotDate($event)"
+                [formControl]="currentDatevalue">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div [style]="{'max-height':'100%'}" class="mt-2">
+        <div class="mt-2">
+            <span [style]="{'font-size': '12px','font-weight': '500','color':'#212121'}">Available time slots </span>
+        </div>
+
+        <div *ngFor="let availableTimeSlots of slots">
+            <div>
+                <label for="slot-name" class="slot-name">{{availableTimeSlots.time}}</label>
+            </div>
+
+            <div>
+                @if (availableTimeSlots.timeSlots.length) {
+                <div [style]="{'margin-bottom':'16px'}">
+                    <button class="btn default time-slot-btn" *ngFor="let slot of availableTimeSlots.timeSlots"
+                        [class.selected]="selectedSlot === slot" (click)="onSelectSlot(slot)"
+                        [style]="{'margin-left':'8px'}" #selectedSlotFromUser>
+                        {{slot.startTime12}} - {{slot.endTime12}}
+                    </button>
+                </div>
+                }
+            </div>
+
+            <div>
+                @if (!availableTimeSlots.timeSlots.length) {
+                <div [style]="{'margin-bottom':'16px'}">
+                    <button class="btn default time-slot-btn" [style]="{'margin-left':'8px',}">
+                        No slots avaiable
+                    </button>
+                </div>
+                }
+            </div>
+        </div>
+
+        <div class="slot-submit-btn-container">
+            <button type="button" class='bookslotbtn' (click)="onContinue()" [disabled]="!selectedSlot">Submit</button>
+            <!-- <button class='bookslotbtn' [disabled]="!selectedSlotFromUser" (click)="onContinue()">Submit</button> -->
+        </div>
+
+
+
+        <!-- <ul class="list-unstyled slots mt-2" id=" slots" *ngIf="slots.length">
+            <li class="text-center mb-1 me-2"
+                [ngClass]="{active: selectedSlot == slot, showContinueButton: config.showContinueOnSelectSlot}"
+                *ngFor="let slot of slots">
+                <span class="p-3 pointer d-block value" (click)="onSelectSlot(slot)">{{slot.label}}</span>
+                <span class="p-3 pointer ms-2 confirm" (click)="onContinue()">{{config.continueButtonText}}</span>
+            </li>
+        </ul> -->
+        <ul class="list-unstyled mt-4" *ngIf=" !slots.length">
+            <li class="text-center mb-2 ">
+                <p><img [width]="120" src="../../../assets/images/no_slots-available.png" /></p>
+                <p class="color-green">No Slot Found</p>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<!-- <mat-calendar [selected]="selectedDate" [minDate]="config.minDate" [maxDate]="config.maxDate"
+            (selectedChange)="onChangeDate($event)">
+        </mat-calendar> -->
+<!-- <h6 class="my-3 selectedDate">{{selectedDate | date:'EEEE, MMM d'}} <ng-container *ngIf="selectedSlot">
+            -
+            {{selectedSlot.label}}</ng-container>
+    </h6> -->

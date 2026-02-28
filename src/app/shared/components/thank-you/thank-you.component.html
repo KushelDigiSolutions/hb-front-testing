@@ -1,0 +1,126 @@
+<div class="container">
+  <div class="row thankyou-web">
+    <div class="col-md-12 px-md-5">
+      <div class="row mx-0 background-white my-4 pb-3">
+        <div class="col-lg-5 col-md-5 align-center thnk-img">
+          <!-- <img *ngIf="paymentFor == 'order'" class="img-fluid show" src="{{ imgUrl + 'thankyou.png' }}" /> -->
+          <img class="img-fluid show mt-5 apptIllus" src="/assets/images/illus/Group-1112.svg" />
+        </div>
+        <div class="col-lg-7 col-md-7 py-4">
+          <h4 class="pt-5 bold-text">
+            <ng-container *ngIf="paymentFor == 'order'">Your order is placed successfully</ng-container>
+            <ng-container *ngIf="paymentFor == 'appointment'">Your appointment is booked
+              successfully</ng-container>
+            <ng-container *ngIf="paymentFor == 'diagnostic'">Thank you for choosing HealthyBazar for your
+              diagnostic services</ng-container>
+          </h4>
+          <p class="" *ngIf="paymentFor == 'diagnostic'">
+            Your request has been recieved, our representative will get in touch with you to confirm the
+            order and time
+          </p>
+          <h6 class="pt-1 text2" *ngIf="paymentFor == 'appointment'">
+            <span style="color: #888888;font-weight: 400;">Appointment ID:</span> #{{shortOrderID}}
+          </h6>
+          <h6 class="pt-1 text2" *ngIf="paymentFor == 'order'">
+            <span style="color: #888888;font-weight: 400;">Order ID:</span> #{{shortOrderID}}
+          </h6>
+          <div class="row justify-content-center thnk-img">
+            <!-- <img *ngIf="paymentFor == 'order'" class="img-fluid hide" src="{{ imgUrl + 'thankyou.png' }}" /> -->
+            <img class="img-fluid hide mt-5 apptIllus" src="/assets/images/illus/Group-1112.svg" />
+          </div>
+
+          <div class="row mx-1 pt-2 thnk-icns">
+            <!-- <h4 class="thank-txt" [ngClass]="{'pt-4': paymentFor != 'diagnostic', 'pt-1': paymentFor == 'diagnostic'}">
+              Download the <span style="font-weight: 500;">HealthyBazar Mobile app.</span>
+            </h4> -->
+            <!-- <p class="thnk-p" *ngIf="paymentFor == 'order' || paymentFor == 'diagnostic'">
+              Download our app for better management of your orders, order summary and to track your
+              order.
+            </p>
+            <p class="thnk-p" *ngIf="paymentFor == 'appointment'">
+              Download our app for audio-video consultation and a better user experience. it's mandatory
+              for safety and privacy issues.
+            </p> -->
+            <p class="thnk-p" *ngIf="paymentFor == 'order'">
+              You can track your orders from the <a routerLink="/my-account/orders" [queryParams]="{view: true}">My Orders</a> section
+              under your profile; for any issues related to orders or for enquiry of any product please drop an email at
+              <a href="mailto:support@healthybazar.com">support&#64;healthybazar.com</a>
+            </p>
+            <p class="thnk-p" *ngIf="paymentFor == 'appointment'">
+              You can join your appointment from the <a routerLink="/my-account/appointments" [queryParams]="{view: true}">My
+                Appointments</a> section in your profile. In case you are not available due to an urgency, you can even
+              Reschedule / Cancel your appointment from there.
+            </p>
+            <!-- <div class="">
+              <a href="https://play.google.com/store/apps/details?id=com.healthybazar" target="blank">
+                <img class="img-fluid pointer" src="/assets/images/Group-1125.png" />
+              </a>
+            </div> -->
+            <!-- <div class="mx-3">
+                <a href="https://apps.apple.com/in/app/apple-store/id375380948" target="blank">
+                  <img class="img-fluid pointer" src="/assets/images/Group-1127.png" />
+                </a>
+              </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="row mx-1 pt-4 pb-4 justify-content-center thnk-detail">
+        <div class=""></div>
+        <div class="col-md-7 offset-md-5" [style]="{'display': 'flex','column-gap': '15px'}">
+          <a *ngIf="paymentFor == 'order'" [routerLink]="['/my-account/orders']" class="btn background-view me-3">
+            View Details
+          </a>
+          <a *ngIf="paymentFor == 'appointment'" [routerLink]="['/my-account/appointments',orderId]"
+            class="btn background-view me-3">
+            View Details
+          </a>
+          <a *ngIf="paymentFor == 'diagnostic'" [routerLink]="['/my-account/lab-tests',orderId]"
+            class="btn background-view me-3">
+            View Booking
+          </a>
+          <a routerLink="/" class="btn background-home">
+            Homepage <i class="material-icons align-middle">arrow_right_alt</i>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-6 align-center thnk-down">
+        <!-- <h4 class="pt-4 thank-txt">
+          Download the <span style="font-weight: 500;">HealthyBazar Mobile app.</span>
+        </h4> -->
+        <!-- <p class="thnk-p" *ngIf="paymentFor == 'order'">
+          Download our app for better management of your orders, order summary and to track your order.
+        </p>
+        <p class="thnk-p" *ngIf="paymentFor == 'appointment'">
+          Download our app for audio-video consultation and a better user experience. it's mandatory for
+          safety and privacy issues.
+        </p> -->
+        <p class="thnk-p" *ngIf="paymentFor == 'order'">
+          You can track your orders from the <a [routerLink]="['/my-account/orders']" [queryParams]="{view: true}">My
+            Orders</a> section under your profile; for any issues related to orders or for enquiry of any product please
+          drop an email at <a href="mailto:support@healthybazar.com">support&#64;healthybazar.com</a>
+        </p>
+        <p class="thnk-p" *ngIf="paymentFor == 'appointment'">
+          You can join your appointment from the <a [routerLink]="['/my-account/appointments']"
+            [queryParams]="{view: true}">My
+            Appointments</a> section in your profile. In case you are not available due to an urgency, you can even
+          Reschedule / Cancel your appointment from there.
+        </p>
+      </div>
+      <div *ngIf="OS == 'Android'" class="row justify-content-center thnk-mob pt-3 pb-5">
+        <button class="btn btn-primary py-2" (click)="downloadApp()">
+          <span _ngcontent-serverapp-c154="" class="material-icons align-middle pe-2 pointer no-outline" tabindex="0"
+            ng-reflect-router-link="vertical_align_bottom">
+            vertical_align_bottom
+          </span>
+          Download
+        </button>
+      </div>
+      <!-- <div class="text-center thnk-mob pb-5">
+        <a *ngIf="OS != 'Android'" class="me-3" href="https://play.google.com/store/apps/details?id=com.healthybazar"
+          target="blank">
+          <img class="img-fluid pointer" src="../../../../assets/images/Group-1125.png" />
+        </a>
+      </div> -->
+    </div>
+  </div>
+</div>

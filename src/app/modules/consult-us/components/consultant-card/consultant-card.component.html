@@ -1,0 +1,90 @@
+<a class="consultantCard" [routerLink]="['/consult-us/doctor', data.slug]">
+    <div class="row g-0">
+        <div class="col-1">
+            <img (click)="redirectToConsultUsDetailsPage()" class="avatar" src="{{cloudImageUrl  + data.imageURL}}"
+                alt="">
+        </div>
+        <div class="col-11">
+            <div class="doctor-name" (click)="redirectToConsultUsDetailsPage()">
+                {{data.firstName}} {{data.lastName}}
+            </div>
+            <div class="mainDetails pt-1">
+                <div class="deparment-details-container" *ngIf="data.type">
+                    <span class="subtitle">{{data.type}}</span>
+                </div>
+                <div class="consult-experience">
+                    <span>{{data.experience}} Yrs of Exp.</span>
+                </div> <br>
+                <div *ngIf="data.isTopConsultant" class="top-rated">
+                    <span class="subtitle">Top Rated</span>
+                </div>
+                <div *ngIf="data.rating" class="rating">
+                    <span><img src="/assets/images/rate.png" alt="Star rating icon for product reviews">&nbsp;{{data.rating}}</span>
+                </div>
+            </div>
+            <!-- <div class="location">Amritsar, Delhi</div> -->
+        </div>
+    </div>
+    <div class="footer">
+        <div class="product-price">
+            ₹{{data.fee}} <span class="product-discount">/Consultation</span>
+        </div>
+        <div class="product-footer-action-container">
+            <button type="button" class="btn btn-outline-primary add-btn" (click)="addToCheckout($event, data.id)">
+                BOOK
+            </button>
+        </div>
+    </div>
+</a>
+<!-- <div class="product-card">
+    <div class="container product-body">
+        <div (click)="redirectToConsultUsDetailsPage()">
+            <div class="image-container" style="cursor: pointer;">
+                <img class="product-img" src="{{cloudImageUrl  + data.imageURL}}" alt="">
+            </div>
+            <div class="description-container px-1" style="cursor: pointer;">
+                <div class="doctor-name">
+                    <span>{{data.firstName}} {{data.lastName}}</span>
+                </div>
+                <div style="min-height: 50px;">
+                    <div class="department-experience-container pt-1">
+                        <div class="deparment-details-container" *ngIf="data.type">
+                            <span class="subtitle">{{data.type}}</span>
+                        </div>
+                        <div class="consult-experience">
+                            <span>{{data.experience}} Yrs of Exp.</span>
+                        </div>
+                    </div>
+
+                    <div class="department-experience-container pt-1">
+                        <div *ngIf="data.isTopConsultant" class="top-rated">
+                            <span class="subtitle">Top Rated</span>
+                        </div>
+                        <div *ngIf="data.rating" class="rating">
+                            <span><img src="/assets/images/rate.png" alt="">&nbsp;{{data.rating}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-footer-container px-1">
+            <div class="product-price-container">
+                <div class="product-price">
+                    <span>₹{{data.fee}}</span>
+
+                </div>
+                <div class="consulation-container">
+                    <span class="product-discount">
+                        /Consultation
+                    </span>
+                </div>
+            </div>
+            <div class="product-footer-action-container" (click)="addToCheckout(data.id)">
+                <button type="button" class="btn btn-outline-primary btn-sm add-btn">
+                    BOOK
+                </button>
+            </div>
+        </div>
+    </div>
+</div> -->

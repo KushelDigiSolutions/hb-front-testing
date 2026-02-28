@@ -1,0 +1,148 @@
+@import "../../../assets/styles/main.scss";
+.stars {
+  display: flex;
+}
+
+.stars span {
+  font-size: 2rem;
+  cursor: pointer;
+  color: gold;
+  user-select: none;
+}
+
+.stars span:hover,
+.stars span:hover ~ span {
+  color: lightgray;
+}
+
+///////////////////////
+.raiting-and-review {
+  .stars-section {
+    background-color: #fff7d8;
+    padding: 25px;
+    border-radius: 12px;
+    height: 61px;
+  }
+
+  .review-section {
+    margin-top: 16px;
+  }
+}
+
+.rating-4-plus {
+  width: 50px;
+  // height: 23px;
+  background-color: #daffea;
+  border-radius: 23px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 3px 6px;
+
+  & > span {
+    font-size: 14px;
+    color: #1b8a4d;
+    font-weight: 500;
+    margin-left: 2px;
+  }
+}
+
+.rating-3-below {
+  width: 50px;
+  // height: 23px;
+  background-color: #ffe9d9;
+  border-radius: 23px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 3px 6px;
+
+  & > span {
+    font-size: 14px;
+    color: #ff5454;
+    font-weight: 500;
+    margin-left: 2px;
+  }
+}
+
+.user-product-review {
+  font-size: 14px;
+  font-style: italic;
+  color: #5d5d5d;
+}
+
+.user-personal-details-container {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111111;
+}
+
+.review-read-more {
+  margin-top: 16px;
+  margin-bottom: 32px;
+  
+  & span {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #1d5cff;
+  }
+}
+
+/////////////////// Satinder Sir//////////////
+
+.detail-heading {
+  font-size: 22px;
+  font-weight: 700;
+}
+.gray-text {
+  color: #666666;
+}
+.rate-product-button {
+  padding: 3% 6%;
+  background-color: #e5e5e5;
+  color: #000000;
+}
+.bottom-border {
+  border-bottom: 1px solid #e5e5e5;
+}
+.avatar {
+  width: 63px;
+  height: 63px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+.review {
+  .col-1 {
+    max-width: calc(63px + 30px);
+  }
+  .col-11 {
+    max-width: calc(100% - 63px - 30px);
+  }
+}
+.verified {
+  color: #058f46;
+}
+.notverified {
+  color: #d0d0d0;
+}
+
+@include max-sm {
+  .rate-product-button {
+    float: initial !important;
+    display: inline-block;
+  }
+  .avatar {
+    width: 34px;
+    height: 34px;
+  }
+  .review {
+    .col-1 {
+      max-width: calc(34px + 30px);
+    }
+    .col-11 {
+      max-width: calc(100% - 34px - 30px);
+    }
+  }
+}

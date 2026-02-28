@@ -1,0 +1,136 @@
+@import "../../../../../assets/styles/main.scss";
+
+.backBtn {
+  vertical-align: sub;
+  margin-right: 15px;
+  padding: 4px;
+}
+.heading-text {
+  color: #808080;
+  font-size: 18px;
+  font-weight: 600;
+  @include max-sm {
+    color: #333;
+    font-weight: 400;
+  }
+}
+.table-width {
+  width: 100%;
+}
+.container-div {
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15), 0px 2px 6px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+}
+
+.brand-name {
+  color: #808080;
+}
+.doctor-name,
+.date {
+  color: #000;
+  font-size: 18px;
+  font-weight: 500;
+}
+.grayText {
+  color: #808080;
+}
+.medium {
+  font-weight: 500;
+}
+.status {
+  border-radius: 5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  @include max-xs {
+    font-size: 12px;
+  }
+}
+.iconBtn {
+  vertical-align: middle;
+}
+.Confirmed-appointment {
+  background-color: rgba(5, 143, 7, 0.1);
+  color: rgba(5, 143, 7);
+}
+.Cancelled-appointment {
+  background-color: rgba(239, 105, 85, 0.1);
+  color: rgb(239, 105, 85);
+}
+.Follow-up-appointment {
+  background-color: rgba(239, 139, 30, 0.1);
+  color: rgb(239, 139, 30);
+}
+.Re-scheduled-appointment {
+  background-color: rgba(5, 143, 7, 0.1);
+  color: rgba(5, 143, 7);
+}
+.awaitedPayment {
+  background-color: #ef8b1e;
+  color: #fff;
+  border: 1px solid #ef8b1e;
+}
+.scheduleAppointment {
+  background-color: #ef8b1e;
+  color: #fff;
+  border: 1px solid #ef8b1e;
+  border-radius: 5px;
+}
+.add-icon {
+  transform: translateY(0.3rem);
+}
+.cancel-appointment {
+  border-radius: 50px;
+  background-color: #e5e5e5;
+  color: #ef8b1e;
+}
+.viewAppointment {
+  border-radius: 50px;
+  background-color: #e5e5e5;
+  color: #058f46;
+  vertical-align: middle;
+}
+.appt {
+  padding: 15px 0px;
+  &:not(:last-of-type) {
+    border-bottom: 1px solid #e5e5e5;
+  }
+}
+img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
+  object-fit: cover;
+}
+.status {
+  .cancel-appointment {
+    vertical-align: middle;
+  }
+}
+@include max-sm {
+  img {
+    width: 46px;
+    height: 46px;
+  }
+  .doctor-name,
+  .date {
+    font-size: 16px;
+  }
+  .dateCol {
+    padding-right: 0;
+  }
+  .date {
+    font-size: 16px;
+  }
+  .Confirmed-appointment {
+    font-size: 14px;
+  }
+}
+
+.payment-status-container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  column-gap: 10px;
+}

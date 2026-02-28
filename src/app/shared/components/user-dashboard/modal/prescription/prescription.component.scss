@@ -1,0 +1,57 @@
+$presLeftPadding: 20px;
+$presRightPadding: 20px;
+
+.resPres {
+  overflow: auto;
+}
+.pres {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  margin: auto;
+  width: 780px;
+  min-height: 1000px;
+  position: relative;
+  padding: 20px $presRightPadding 20px $presLeftPadding;
+  font-size: 14px;
+  b, th {
+    font-weight: 500;
+  }
+  .material-icons{
+    font-size: 18px;
+  }
+  .logoCont {
+    p {
+      font-size: 12px;
+    }
+  }
+  .reach {
+    li {
+      margin-bottom: 8px;
+      a {
+        color: #333;
+        font-size: 15px;
+      }
+    }
+    i {
+      margin-right: 10px;
+    }
+  }
+  .docInfo {
+    border-top: 2px solid #ccc;
+  }
+  .divider {
+    div {
+      border-top: 2px solid #ccc !important;
+    }
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .presFooter {
+    padding: 10px;
+    background-color: #303030;
+    color: #f4f4f4;
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - #{$presRightPadding} - #{$presLeftPadding});
+  }
+}

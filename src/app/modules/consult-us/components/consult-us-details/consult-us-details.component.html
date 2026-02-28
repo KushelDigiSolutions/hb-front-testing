@@ -1,0 +1,340 @@
+<div class="container width100">
+    <!-- For Desktop view -->
+    <div class="web-base">
+        <app-consult-us-details-desk *ngIf="consultantDetails" [consultant]="consultantDetails"
+            [ConsultantRelatedConsultants]="relatedConsultant" [shopNowProduct]="shopNowProducts"
+            [healthPackages]="relatedHealthPackages" [recentTipsData]="relatedHealthTips"></app-consult-us-details-desk>
+    </div>
+
+    <!-- mobile view -->
+    <!-- *ngIf="consultantDetails" -->
+    <div *ngIf="false && consultantDetails" class="mobile-base">
+        <!-- Modal -->
+        <div class="modal  modal-xl" #detailsModal id="productDetailModal" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div
+                class="modal-dialog modal-bottom modal-fullscreen-sm-down modal-fullscreen-md-down modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- product image slider start -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-card class="product-details-card-mob">
+                                    <div body class="product-details-card-body-mob">
+                                        <div class="product-details-single-image">
+                                            <img src="{{cloudImgUrl + consultantDetails?.profilePhoto?.savedName}}">
+                                        </div>
+                                    </div>
+                                </app-card>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mt-3">
+                                <span>{{consultantDetails.firstName}}&nbsp;{{consultantDetails.lastName
+                                    }}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="consultant-details-container mt-2">
+                                    <div class="consultant-details-section constultant-type">
+                                        <!-- <span *ngFor="let consultantType of consultant.consultantType">{{consultantType}}</span> -->
+                                        <span>{{consultantDetails.consultantType[0].name}}</span>
+                                    </div>
+                                    <div class="consultant-details-section constultant-year-exp">
+                                        <span>{{consultantDetails.experience}}Yrs of Exp.</span>
+                                    </div>
+                                    <div class="consultant-details-section constultant-rating">
+                                        <span><img src="assets/images/rate.png" alt="Star rating icon for product reviews">&nbsp;4.6</span>
+                                    </div>
+                                    <div class="consultant-details-section constultant-rated">
+                                        <span>Top rated</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-price-cart-container d-flex mt-3">
+                            <div class="product-price-container">
+                                <div class="product-price">
+                                    <span class="product-discount-price">₹{{consultantDetails.fee}}</span>&nbsp;
+                                </div>
+                                <div class="product-size">
+                                    <span>/Consultation</span>
+                                </div>
+                            </div>
+                            <!-- <div class="product-add-cart">
+                                <button type="button" class="btn btn-primary product-add-cart-btn">Book Now</button>
+                            </div> -->
+                        </div>
+                        <div class="mt-3">
+                            <div class="product-headings">
+                                <span>Available consultation mode(s)</span>
+                            </div>
+                            <div class="consultaion-contact-mode">
+                                <div class="d-flex">
+                                    <img src="../../../../../assets/images/consult-us/video call.png" alt="">
+                                    &nbsp;&nbsp;
+                                    <span class="consultant-discriptions">Video Call</span>
+                                </div>
+                                <div class="">
+                                    <img src="../../../../../assets/images/consult-us/calling.png" alt="">
+                                    &nbsp;
+                                    <span class="consultant-discriptions">Audio Call</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="product-headings">
+                                <span>Bio</span>
+                            </div>
+                            <div>
+                                <span class="consultant-discriptions">
+                                    {{consultantDetails.designation}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="product-headings">
+                                <span>About the expert</span>
+                            </div>
+                            <div>
+                                <p class="consultant-discriptions" [ngClass]="{'limitTextHeight': isReadMore}">
+                                    {{consultantDetails.description}}
+                                </p>
+                                <div class="review-read-more">
+                                    <p class="read-more" (click)="showText()"
+                                        *ngIf="(consultantDetails?.description?.split('. ')).length > 1">{{
+                                        isReadMore ? 'Read More': 'Read Less' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="product-headings">
+                                <span>Speaks</span>
+                            </div>
+                            <div>
+                                <span class="consultant-discriptions">{{consultantDetails.language}}</span>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="product-headings">
+                                <span>Specialization</span>
+                            </div>
+                            <div class="consultant-specialization">
+                                <span class="consultant-discriptions"
+                                    *ngFor="let specialization of consultantDetails.specialization">{{specialization.name
+                                    +','}}</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 mb-4">
+                            <div class="product-headings">
+                                <span>Health Concerns</span>
+                            </div>
+                            <div class="consultant-specialization">
+                                <span class="consultant-discriptions"
+                                    *ngFor="let speciality of consultantDetails.speciality">{{speciality.name +
+                                    ','}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="false && consultantDetails" class="mobile-base">
+        <!-- Modal -->
+        <div class="modal  modal-xl" #detailsModal id="productDetailModal" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true" [style]="{'position':' relative'}">
+            <div
+                class=" mobileModal modal-dialog modal-bottom modal-fullscreen-sm-down modal-fullscreen-md-down modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header mob-modal-header">
+                        <div class="btnCloseDiv">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()"
+                                aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <!-- product image slider start -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-card class="product-details-card-mob">
+                                    <div body class="product-details-card-body-mob">
+                                        <div class="product-details-single-image">
+                                            <img src="{{consultantDetails.profilePhoto.savedName}}">
+                                        </div>
+                                    </div>
+                                </app-card>
+                            </div>
+
+                        </div>
+                        <!-- product image slider end -->
+
+                        <div class="row">
+                            <div class="col-sm-12 mt-3">
+                                <span>{{consultantDetails.firstName}}&nbsp;{{consultantDetails.lastName
+                                    }}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="consultant-details-container mt-2">
+                                    <div class="consultant-details-section constultant-type">
+                                        <!-- <span *ngFor="let consultantType of consultant.consultantType">{{consultantType}}</span> -->
+                                        <span>{{consultantDetails.consultantType[0].name}}</span>
+                                    </div>
+                                    <div class="consultant-details-section constultant-year-exp">
+                                        <span>{{consultantDetails.experience}}Yrs of Exp.</span>
+                                    </div>
+                                    <div class="consultant-details-section constultant-rating">
+                                        <span><img src="assets/images/rate.png" alt="Star rating icon for product reviews">&nbsp;4.6</span>
+                                    </div>
+                                    <div class="consultant-details-section constultant-rated">
+                                        <span>Top rated</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-price-cart-container d-flex mt-3">
+                            <div class="product-price-container">
+                                <div class="product-price">
+                                    <span class="product-discount-price">₹{{consultantDetails.fee}}</span>&nbsp;
+                                </div>
+                                <div class="product-size">
+                                    <span>/Consultation</span>
+                                </div>
+                            </div>
+                            <!-- <div class="product-add-cart">
+                                <button type="button" class="btn btn-primary product-add-cart-btn">Book Now</button>
+                            </div> -->
+                        </div>
+                        <div class="mt-3">
+                            <div class="product-headings">
+                                <span>Available consultation mode(s)</span>
+                            </div>
+                            <div class="consultaion-contact-mode">
+                                <div class="d-flex">
+                                    <img src="../../../../../assets/images/consult-us/video call.png" alt="">
+                                    &nbsp;&nbsp;
+                                    <span class="consultant-discriptions">Video Call</span>
+                                </div>
+                                <div class="">
+                                    <img src="../../../../../assets/images/consult-us/calling.png" alt="">
+                                    &nbsp;
+                                    <span class="consultant-discriptions">Audio Call</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="product-headings">
+                                <span>Bio</span>
+                            </div>
+                            <div>
+                                <span class="consultant-discriptions">
+                                    {{consultantDetails.designation}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="product-headings">
+                                <span>About the expert</span>
+                            </div>
+                            <div>
+                                <p class="consultant-discriptions" [ngClass]="{'limitTextHeight': isReadMore}">
+                                    {{consultantDetails.description}}
+                                </p>
+                                <div class="review-read-more">
+                                    <p class="read-more" (click)="showText()"
+                                        *ngIf="(consultantDetails?.description?.split('. ')).length > 1">{{
+                                        isReadMore ? 'Read More': 'Read Less' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="product-headings">
+                                <span>Speaks</span>
+                            </div>
+                            <div>
+                                <span class="consultant-discriptions">{{consultantDetails.language}}</span>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="product-headings">
+                                <span>Specialization</span>
+                            </div>
+                            <div class="consultant-specialization">
+                                <span class="consultant-discriptions"
+                                    *ngFor="let specialization of consultantDetails.specialization">{{specialization.name
+                                    +','}}</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 mb-4">
+                            <div class="product-headings">
+                                <span>Health Concerns</span>
+                            </div>
+                            <div class="consultant-specialization">
+                                <span class="consultant-discriptions"
+                                    *ngFor="let speciality of consultantDetails.speciality">{{speciality.name +
+                                    ','}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 mobile-footer-product-add px-3" *ngIf="true">
+            <div class="w-100">
+                <div class=" bottom-footer-category" *ngIf="!desktopScreen">
+                    <div class="row">
+                        <div class="col-sm-6 col-6">
+                            <div class="product-price-cart-container d-flex">
+                                <div class="product-price-container">
+                                    <div class="product-price">
+                                        <span class="product-discount-price">₹{{consultantDetails.fee}}</span>&nbsp;
+                                        <p>
+                                            <span class="product-original-price">/Consultation</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-6">
+                            <div class="product-price-cart-container d-flex justify-content-end">
+                                <div class="product-price-container">
+                                    <!-- {{productDetails}} -->
+                                    <div class="product-footer-action-container"
+                                        (click)="addToCheckout(consultantDetails.id)">
+                                        <button type="button" class="btn btn-outline-primary btn-sm add-btn">
+                                            BOOK
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <!-- <div class="product-increment-decrement-container mb-2">
+                                            <div style="cursor: pointer;" (click)="addItemToCart(p)">+</div>
+                                            <div style="cursor: unset;">{{p.quantity}}</div>
+                                            <div style="cursor: pointer;" (click)="decrement(p)">-</div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

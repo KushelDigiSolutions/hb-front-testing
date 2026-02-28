@@ -1,0 +1,44 @@
+<div class="container width100">
+    <div class="mt-4 mobileWidth100">
+        <app-affordable-health-packages [package]="popularPackages"
+            [productBrandTitle]="'Popular packages'"></app-affordable-health-packages>
+    </div>
+    <div class="mt32 mobileWidth100">
+        <app-slider [data]="healthPackagespromostionBanner" [section]="'banner'"></app-slider>
+    </div>
+    <div class="mt-4 mobileWidth100">
+        <app-slider [data]="healthPackageCoupon" [section]="'coupon'"></app-slider>
+    </div>
+    <div class="mt-4 mobileWidth100">
+        <app-affordable-health-packages [package]="popularPackages"
+            [productBrandTitle]="'Latest packages'"></app-affordable-health-packages>
+    </div>
+    
+    <div class="mt-4 mobileWidth100">
+        <div class="row ">
+            <div class="col-md-12 col-12 guidance-step-text">
+                <span class="user-step-guidance">Just 3 simple steps</span>
+            </div>
+        </div>
+        <div class="row mt-3 follow-step">
+            <div class="col-md-4 col- 12 d-flex align-items-center column-gap-2 user-steps">
+                <div class="user-steps-count">
+                    <span>01</span>
+                </div>
+                <span class="">Choose health package</span>
+            </div>
+            <div class="col-md-4 col-12 d-flex align-items-center column-gap-2 user-steps">
+                <div class="user-steps-count">
+                    <span>02</span>
+                </div>
+                <span class="">Select Tests and Consultant</span>
+            </div>
+            <div class="col-md-4 col-12 d-flex  align-items-center column-gap-2 user-steps">
+                <div class="user-steps-count">
+                    <span>03</span>
+                </div>
+                <span class="">Checkout & Confirm booking</span>
+            </div>
+        </div>
+    </div>
+</div>

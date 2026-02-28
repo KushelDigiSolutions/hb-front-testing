@@ -1,0 +1,12 @@
+.avatar {
+  width: 94px;
+  height: 94px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.tips-description ::ng-deep {
+  img {
+    width: 100%;
+  }
+}

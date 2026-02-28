@@ -1,0 +1,20 @@
+.payStatus {
+  background-color: #fff;
+  padding: 30px;
+  border: 2px solid #ff3547;
+  border-radius: 3px;
+}
+.payStatus {
+  position: relative;
+  padding-left: 75px !important;
+  .close {
+    position: absolute;
+    right: 7px;
+    top: 7px;
+  }
+  .icon {
+    left: 20px;
+    position: absolute;
+    font-size: 34px;
+  }
+}

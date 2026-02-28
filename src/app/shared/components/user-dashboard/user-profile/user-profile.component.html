@@ -1,0 +1,185 @@
+<div class="row">
+    <div class="col-md-12 pt-3">
+        <div class="row mb-2">
+            <div class="col-md-12 mb-3 mb-md-0">
+                <!-- <span class="material-icons d-lg-none backBtn pointer" routerLink="/my-account">arrow_back</span> -->
+                <span class="heading-text">View Profile</span>
+            </div>
+        </div>
+        <div class="container-div px-3 px-md-5 py-3 py-md-5 mb-3">
+            <div class="row pb-5 bottom-border" [formGroup]="profileFormGroup">
+                <div class="col-md-12">
+                    <div class="row" style="align-items: baseline;">
+                        <div class="col-md-2 font-14 gray-text">
+                            <img class="avatar" *ngIf="filePath" [src]="filePath" />
+                        </div>
+                        <div class="col-md-4">
+                            <label for="file" class="custom-file-upload">
+                                <input type="file" id="file" accept=".jpg,.jpeg,.png"
+                                    (change)="profilePhotoUpload($event)" />
+                                Choose Photo
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <div class="row">
+                        <div class="col-md-4 font-14 gray-text">
+                            <!-- {{ "dashboard.MyProfile.firstName" | translate }} -->
+                            {{ 'First Name'}}
+                        </div>
+                        <div class="col-md-8">
+                            <!-- <input type="text" formControlName="firstName" class="profile-inputs no-outline"
+                                placeholder="{{ 'dashboard.MyProfile.firstName' | translate }}" /> -->
+                            <input type="text" formControlName="firstName" class="profile-inputs no-outline"
+                                placeholder="First Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <div class="row">
+                        <div class="col-md-4 font-14 gray-text">
+                            <!-- {{ "dashboard.MyProfile.lastName" | translate }} -->
+                            {{ "Last Name" }}
+                        </div>
+                        <div class="col-md-8">
+                            <!-- <input type="text" formControlName="lastName" class="profile-inputs no-outline"
+                                placeholder="{{ 'dashboard.MyProfile.lastName' | translate }}" /> -->
+                            <input type="text" formControlName="lastName" class="profile-inputs no-outline"
+                                placeholder="Last Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <div class="row">
+                        <div class="col-md-4 font-14 gray-text">
+                            <!-- {{ "dashboard.MyProfile.gender" | translate }} -->
+                            Gender
+                        </div>
+                        <div class="col-md-8">
+                            <select class="profile-inputs no-outline" formControlName="gender">
+                                <option disabled value=""></option>
+                                <option *ngFor="let item of gender" [value]="item.value">
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <div class="row">
+                        <div class="col-md-4 font-14 gray-text">
+                            <!-- {{ "dashboard.MyProfile.dateofBirth" | translate }} -->
+                            Date of Birth
+                        </div>
+                        <div class="col-md-8">
+                            <input class="profile-inputs no-outline" type="date" [max]="maxDate"
+                                formControlName="DOB" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <div class="row">
+                        <div class="col-md-4 font-14 gray-text">
+                            <!-- {{ "dashboard.MyProfile.weight" | translate }} -->
+                            Weight
+                        </div>
+                        <div class="col-md-8">
+                            <div class="d-flex">
+                                <!-- <input class="ms-2 profile-inputs no-outline" placeholder="{{
+                      'dashboard.MyProfile.weight' | translate
+                    }}" type="number" min="1" formControlName="weight" /> -->
+                                <input class="ms-2 profile-inputs no-outline" placeholder="Weight" type="number" min="1"
+                                    formControlName="weight" />
+
+                                <select class="no-outline" formControlName="weightUnit">
+                                    <option class="font-14" disabled>kg</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <div class="row">
+                        <div class="col-md-4 font-14 gray-text">
+                            <!-- {{ "dashboard.MyProfile.bodyType" | translate }} -->
+                            Body Type
+                        </div>
+                        <div class="col-md-8">
+                            <!-- <input type="text" formControlName="bodyType" class="profile-inputs no-outline"
+                                placeholder="{{ 'dashboard.MyProfile.bodyTypeEg' | translate }}" /> -->
+                            <input type="text" formControlName="bodyType" class="profile-inputs no-outline"
+                                placeholder="eg: Vata, Pitta, and Kapha" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <div class="row">
+                        <div class="col-md-4 font-14 gray-text">
+                            <!-- {{ "dashboard.MyProfile.mobileNumber" | translate }} -->
+                            Mobile Number
+                        </div>
+                        <div class="col-md-8">
+                            <div class="d-flex">
+                                <select class="no-outline" formControlName="countryCode">
+                                    <option class="font-14">+91</option>
+                                </select>
+
+                                <input class="ms-2 profile-inputs no-outline" placeholder="Mobile Number" type="tel"
+                                    formControlName="mobileNumber" />
+                            </div>
+                            <p class="font-12 ps-0 mb-0 pt-3 color-green d-inline-block pointer"
+                                (click)="openModal('mobile')">
+                                Change Mobile Number
+                                <!-- {{ "dashboard.MyProfile.changeNumber" | translate }} -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <div class="row">
+                        <div class="col-md-4 font-14 gray-text">
+                            Email Address
+                            <!-- {{ "dashboard.MyProfile.email" | translate }} -->
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- <input class="profile-inputs no-outline"
+                                        placeholder="{{ 'dashboard.MyProfile.email' | translate }}" type="email"
+                                        formControlName="email" /> -->
+                                    <input class="profile-inputs no-outline" placeholder="Email Address" type="email"
+                                        formControlName="email" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="font-12 pt-3 mb-0 d-inline-block pointer">
+                                        <!-- <span class="color-green" (click)="openModal('email')">{{
+                                            "dashboard.MyProfile.changeEmail" | translate
+                                            }}</span> -->
+                                        <span class="color-green" (click)="openModal('email')">Change Email</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- (newItemEvent)="getUserHealthConcernList($event)" -->
+            <!-- <app-share-health-concern></app-share-health-concern> -->
+
+            <div [formGroup]="profileFormGroup" class="pt-4">
+                <label class="checkbox">
+                    <input type="checkbox" class="newsletter-checkbox" formControlName="newsLetter" />
+                    <span class="font-weight-bold ms-3">Join Newsletter Subscription</span>
+                </label>
+            </div>
+
+            <button class="no-outline btn save-button px-5 mt-4" (click)="saveChanges()">
+                Save
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-md-12 pt-4 pb-2 text-center">
+    <h2 class="fs18" *ngIf="type=='appointment'">Are you sure you want to cancel appointment</h2>
+    <h2 class="fs18" *ngIf="type=='order'">Are you sure you want to cancel your order?</h2>
+  </div>
+  <div class="col-md-12 py-3 text-center">
+    <button class="me-3 py-2 px-4 px-sm-5 no-outline border-0 yes-button"
+      (click)="cancelAppointment('yes')">Yes</button>
+    <button class="py-2 px-4 px-sm-5 no-outline border-0 no-button"
+      (click)="cancelAppointment('no')">No</button>
+  </div>
+</div>

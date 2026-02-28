@@ -1,0 +1,163 @@
+<!-- here code will remove for some time to check version 17 -->
+
+<!-- @if (desktopScreen == true) { -->
+<div class="container-md">
+    <!-- <app-product-details-desk *ngIf="productDetails" [productDetails]="productDetails"
+        [productsRelatedProduct]="relatedProducts" [customersWhoBoughtProducts]="customersBoughtProducts"
+        [topConsultLists]="topConsultLists" (variation)="getProductDetails($event)"
+        [reviews]="productReviews"></app-product-details-desk> -->
+
+
+
+
+    <!-- as per new  -->
+    <!-- [productsRelatedProduct]="relatedProducts"
+    [customersWhoBoughtProducts]="customersBoughtProducts" [topConsultLists]="topConsultLists"
+    (variation)="getProductDetails($event)" [reviews]="productReviews" -->
+    <app-product-details-desk></app-product-details-desk>
+</div>
+<!-- } -->
+
+
+
+<!-- mobile view -->
+<div class="mobile-base">
+    <!-- Modal -->
+    <div class="modal  modal-xl" #detailsModal id="productDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" [style]="{'position':' relative'}">
+        <div
+            class=" mobileModal modal-dialog modal-bottom modal-fullscreen-sm-down modal-fullscreen-md-down modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header mob-modal-header">
+                    <div class="btnCloseDiv">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <!-- product image slider start -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <app-card class="product-details-card-mob">
+                                <div body class="product-details-card-body-mob">
+                                    <swiper-container *ngIf="productDetails && productDetails.images"
+                                        class="mySwiper mobile-swiper-container" space-between="5" pagination="true"
+                                        slides-per-view="auto" thumbs-swiper=".mySwiper2">
+                                        <swiper-slide class="slide-item"
+                                            *ngFor="let productImages of productDetails.images">
+                                            <div class="product-details-single-image">
+                                                <img src="{{cloudImgUrl + productImages.savedName}}">
+                                            </div>
+                                        </swiper-slide>
+                                    </swiper-container>
+                                </div>
+                            </app-card>
+                        </div>
+                    </div>
+                    <!-- product image slider end -->
+
+                    <!-- product name with brand start -->
+                    <div class="row mt-4 " *ngIf="productDetails">
+                        <div class="col-sm-12 product-details-name-mob">
+                            <span>{{productDetails?.name}}</span>
+                        </div>
+                        <div class="col-sm-12 product-company-name-mob">
+                            <span>{{productDetails.brandId.name }}</span>
+                        </div>
+                        <div class="product-variety-container mt-3">
+                            <div class="default-variety"
+                                [class.product-variety]="selectedProductVariety === productVariety"
+                                *ngFor="let productVariety of productDetails.variations"
+                                (click)="getProductSizesData(productVariety)">
+                                <span class="default-flavor"
+                                    [class.product-flavor]="selectedProductVariety === productVariety">{{productVariety.label}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- product name with brand end -->
+
+                    <!-- product pricing and discount start -->
+                    <div class="row mt-3">
+                        <div class="col-sm-12">
+                            <div class="product-price-cart-container d-flex">
+                                <div class="product-price-container">
+                                    <div class="product-price">
+                                        <span style="font-size: 16px;"
+                                            class="product-discount-price">₹{{productDetails?.price.minPrice}}</span>&nbsp;
+                                        <span class="product-original-price">₹{{productDetails?.price.mrp}}</span>&nbsp;
+                                        <span class="product-discount">{{productDetails?.price.discount +
+                                            '% OFF'}}</span>
+                                    </div>
+                                    <div class="product-size">
+                                        <span>{{productDetails.label}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- product pricing and discount end -->
+
+                    <!-- similler product -->
+                    <div style="margin-top: 32px;">
+                        <app-product-slider class="product-slider" [productData]="customersBoughtProducts"
+                            [productBrandTitle]="'Customers who also bought this'"></app-product-slider>
+                        <!-- [productBrandTitle]="'Similar Products'"></app-product-slider> -->
+                    </div>
+
+                    <!-- review and rating -->
+                    <!-- <app-review [proReview]="productReviews"></app-review> -->
+                    <app-review [data]="productDetails" class="pb-1"></app-review>
+                    <!-- review and rating -->
+
+                    <div style="margin-top: 25px;">
+                        <app-product-slider class="product-slider" [productData]="relatedProducts"
+                            [productBrandTitle]="'Related Products'"></app-product-slider>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4 mobile-footer-product-add px-3" *ngIf="true">
+        <div class="w-100">
+            <div class=" bottom-footer-category" *ngIf="!desktopScreen">
+                <div class="row">
+                    <div class="col-sm-6 col-6">
+                        <div class="product-price-cart-container d-flex">
+                            <div class="product-price-container">
+                                <div class="product-price">
+                                    <span
+                                        class="product-discount-price">₹{{productDetails?.price.minPrice}}</span>&nbsp;
+                                    <p>
+                                        <span class="product-original-price">₹{{productDetails?.price.mrp}}</span>&nbsp;
+                                        <span class="product-discount">{{productDetails?.price.discount +
+                                            '% OFF'}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-6">
+                        <div class="product-price-cart-container d-flex justify-content-end">
+                            <div class="product-price-container">
+                                <!-- {{productDetails}} -->
+                                <div>
+                                    <button class="btn btn-primary" *ngIf="!isShowCartProductCount"
+                                        (click)="addToCart(productDetails)">Add to
+                                        Cart</button>
+                                </div>
+                                <div>
+                                    <!-- <div class="product-increment-decrement-container mb-2">
+                                        <div style="cursor: pointer;" (click)="addItemToCart(p)">+</div>
+                                        <div style="cursor: unset;">{{p.quantity}}</div>
+                                        <div style="cursor: pointer;" (click)="decrement(p)">-</div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

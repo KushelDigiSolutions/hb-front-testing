@@ -1,0 +1,201 @@
+<app-spinner />
+<app-inflate-data></app-inflate-data>
+@if (isLoading) {
+<div>
+    <ngx-skeleton-loader></ngx-skeleton-loader>
+</div>
+}
+<app-discount-strip></app-discount-strip>
+
+<app-navbar-categories [ngClass]="{'d-none': hideNavbar}" [screenSize]="mobileSize" [hideNav]="hideNavbar"
+    (onCart)="openCart($event)" (currentPageUrl)="getCurrentURL($event)"></app-navbar-categories>
+
+
+<!-- class="navigation-pages" -->
+<div [ngClass]="{ 'navigation-pages': !hideNavbar,'navigation-pages-margin': hideNavbar}">
+    <router-outlet></router-outlet>
+</div>
+
+<app-cart *ngIf="isCartopen" class="cart-sidenav" (onCloseCart)="openCart(false)"
+    (onDirectCartOpen)="openCart(true)"></app-cart>
+
+<!-- three image footer -->
+<div class="mt-4">
+    <app-footer></app-footer>
+</div>
+
+
+
+<!-- destop footer -->
+<!-- *ngIf="desktopSize" -->
+<div class="mt-4">
+    <div class="footer-category-container">
+        <!-- width100 -->
+        <div class="container ">
+            <div class="row category-footer pb-4">
+                <div class="col-lg-3 col-md-6 col-12 explore-section">
+                    <div class="explore-section-title">
+                        <span class="footer-category-sections">EXPLORE</span>
+                    </div>
+                    <div class="explore-section-list mt-4">
+                        <a class="footer-category-list" routerLink="/lifestyle-tips">Lifestyle Tips</a>
+                        <a class="footer-category-list" routerLink="/consult-us">Consult
+                            Us</a>
+
+                        <a class="footer-category-list" routerLink="/self-health-assessment">Self Health
+                            Assessment</a>
+                        <a class="footer-category-list" routerLink="/become-consultant">Become a Consultant</a>
+                        <a class="footer-category-list" [href]="admHost">Consultant
+                            Login</a>
+                        <!-- <a class="footer-category-list" [href]="cuaHost">Corporate
+                            Login</a> -->
+                    </div>
+                </div>
+                <!-- d-flex flex-column  -->
+                <div class="col-lg-3 col-md-6 col-12 explore-section">
+                    <div class="explore-section-title">
+                        <span class="footer-category-sections">HELP</span>
+                    </div>
+                    <!-- d-flex flex-column  -->
+                    <div class="explore-section-list mt-4">
+                        <a class="footer-category-list" routerLink="/faq">FAQs</a>
+                        <a class="footer-category-list" routerLink="/policies">Refund,
+                            Return and Cancellation
+                            policy</a>
+                        <a class="footer-category-list" routerLink="/terms">Terms and
+                            Conditions</a>
+                        <a class="footer-category-list" routerLink="/about-us">About
+                            Us</a>
+                    </div>
+                </div>
+                <!-- d-flex flex-column -->
+                <div class="col-lg-3 col-md-6 col-12 mt-lg-0 mt-4 explore-section">
+                    <div class="explore-section-title">
+                        <span class="footer-category-sections">EMAIL</span>
+                    </div>
+                    <!-- d-flex flex-column  -->
+                    <div class="explore-section-list mt-4">
+                        <a class="footer-category-list" href="mailto:email">{{email}}</a>
+                    </div>
+                    <div class="mt-3 explore-section-list">
+                        <span class="footer-category-sections">Contact Us</span>
+                    </div>
+                    <div class="mt-3 explore-section-list">
+                        <span class="callUs">Call us or WhatsApp us at</span><br>
+                        <span class="footer-category-list" style="font-weight: bold;">
+                            <a href="tel:+919119008008">+91 911 900 8008</a> 
+                            <span class="contact-us-time">(9AM to 7PM)</span>
+                        </span>
+                    </div>
+                </div>
+                <!-- d-flex flex-column -->
+                <div class="col-lg-3 col-md-6 col-12 mt-lg-0 mt-3 explore-section ">
+                    <div class="explore-section-title">
+                        <span class="footer-category-sections">SUBSCRIBE TO NEWSLETTER</span>
+                    </div>
+                    <!-- d-flex flex-column -->
+                    <div class="mt-4 explore-section-list">
+                        <div class="d-flex">
+                            <form (ngSubmit)="subscribeToNewsLetter(subscriptionEmail)">
+                                <div class="d-flex align-items-center column-gap-2 emailDiv">
+                                    <input type="email" placeholder="Email address" #subscriptionEmail required email>
+
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <img src="/assets/images/subscribe-news-letter-forward.png" alt="Submit">
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="mt-3 explore-section-title">
+                            <span class="footer-category-sections">FOLLOW US ON</span>
+                        </div>
+                        <div class="mt-2">
+                            <a href="https://www.youtube.com/channel/UCR5FTS-wm9YgMY1yzLyE9SQ/featured?view_as=subscriber"
+                                rel="nofollow noreferrer">
+                                <img src="/assets/images/follow-us/youtube.png" alt="Subscribe us on YouTube"
+                                    style="margin-right:10px">
+                            </a>
+                            <a href="https://www.facebook.com/healthybazar/" rel="nofollow noreferrer">
+                                <img src="/assets/images/follow-us/facebook.png" alt="Follow us on Facebook"
+                                    style="margin-right:10px">
+                            </a>
+                            <a href="https://www.instagram.com/healthybazar/" rel="nofollow noreferrer">
+                                <img src="/assets/images/follow-us/instagram.png" alt="Follow us on Instagram">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" healthy-bazar-promotion-footer col-12">
+                <a routerLink="/">
+                    <img src="/assets/images/navbar-images/healthybazarlogo 2.png" alt="HealthyBazar">
+                </a>
+                <div class="" style="font-size: 12px;color: #888;">
+                    <span>© 2025 Tatvamasmi Consulting Services Pvt. Ltd. All Rights Reserved</span>
+                </div>
+                <div class=" d-flex justify-content-center">
+                    <img src="/assets/images/footer-payment-promotion-banner.png" alt="Payment Modes">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<app-mobile-cart></app-mobile-cart>
+
+<!-- mobile footer fixed -->
+<div class="mt-4 px-3 mobile-footer" *ngIf="mobileSize">
+    <div class="row my-2">
+        <div class="col-3 bottom-footer-category" (click)="navigateToCategoryPage('shop-now')">
+            <app-shop-icon [navigationValue]="navigationValue"></app-shop-icon>
+
+            <span [class.selectColor]="navigationValue === 'shop-now'">Shop</span>
+        </div>
+        <!-- <div class="col-3 bottom-footer-category" (click)="navigateToCategoryPage('health-packages')">
+            <app-package-icon [navigationValue]="navigationValue"></app-package-icon>
+
+            <span [class.selectColor]="navigationValue === 'health-packages'">Packages</span>
+        </div> -->
+        <div class="col-3 bottom-footer-category" (click)="navigateToCategoryPage('consult-us')">
+            <app-consult-icon [navigationValue]="navigationValue"></app-consult-icon>
+
+            <span [class.selectColor]="navigationValue === 'consult-us'">Consult</span>
+        </div>
+        <div class="col-3 bottom-footer-category" (click)="navigateToCategoryPage('lifestyle')">
+            <app-tips-icon [navigationValue]="navigationValue"></app-tips-icon>
+
+            <span [class.selectColor]="navigationValue === 'lifestyle'">Tips</span>
+        </div>
+        <div class="col-3 bottom-footer-category assessment"
+            [class.selectColor]="navigationValue === 'bulk-herbs'"
+            (click)="navigateToCategoryPage('herbs')">
+            <app-assessment-icon [navigationValue]="navigationValue"></app-assessment-icon>
+            <span>Bulk Herbs</span>
+        </div>
+    </div>
+</div>
+<!-- Remove this code block -->
+
+<div *ngIf="isLoading">
+    <ngx-skeleton-loader class="h-3" count="8" appearance="line" animation="progress"></ngx-skeleton-loader>
+</div>
+
+<!-- mobile cart -->
+<!-- <div class="mt-2 mobile-cart-footer" *ngIf="cartProducts && cartProducts.length">
+    <div [style]="{'margin-bottom': '18px'}">
+        <div class="row d-flex justify-content-around mt-1">
+            <div class="col-5 bottom-cart-category">
+                <img src="../assets/images/footer-image/footer-produt-img-cart.png" alt="">&nbsp;&nbsp;
+                <span>{{cartProducts.length}} item</span>&nbsp;&nbsp;
+                <img src="../assets/images/footer-image/up-arrow-open-cart-item.png" alt="">
+                <img src="../assets/images/footer-image/down-arrow-close-cart-item.png" alt="" class="d-none">
+            </div>
+            <div class="col-5 bottom-cart-category" [style]="{'width':'174px'}">
+                <button class="btn btn-primary" [style]="{'width':'100%'}" [routerLink]="['/cart','order']">Next
+                    <img src="../assets/images/footer-image/caret-right.svg" alt=""></button>
+            </div>
+        </div>
+    </div>
+</div> -->

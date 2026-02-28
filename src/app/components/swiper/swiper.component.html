@@ -1,0 +1,10 @@
+<div class="mb-3 swiperCont">
+  <button class="swiperNavigation swiperPrev" [ngClass]="{'d-npne':disabledPrev && disabledNext}" [disabled]="disabledPrev
+  " (click)="onPrev()"><i class="bi bi-chevron-left"></i></button>
+  <button class="swiperNavigation swiperNext" [ngClass]="{'d-npne':disabledPrev && disabledNext}"
+    [disabled]="disabledNext" (click)="onNext()"><i class="bi bi-chevron-right"></i></button>
+  <!-- [breakpoints]="swiperBreakpints" -->
+  <swiper-container #swiper init="false" navigation="false" [attr.slides-per-view]="slidesPerView" [attr.space-between]="spaceBetween" [attr.thumbs-swiper]="thumbsSwiper">
+    <ng-content></ng-content>
+  </swiper-container>
+</div>

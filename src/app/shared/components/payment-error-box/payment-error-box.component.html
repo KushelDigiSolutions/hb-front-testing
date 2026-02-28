@@ -1,0 +1,9 @@
+<div class="px-5 py-4 mb-3 payStatus">
+    <span class="material-icons close pointer" (click)="onClose()">close</span>
+    <span class="text-danger material-icons icon">error_outline</span>
+    <h3 class="text-danger mb-3">Payment Failed!</h3>
+    <p class="font-14">
+        {{ data.resultMsg }} [code: {{ data.resultCode }}]
+    </p>
+    <!-- <a routerLink="/" class="btn btn-primary">Back to Homepage</a> -->
+</div>

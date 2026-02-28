@@ -1,0 +1,107 @@
+<app-error-404 *ngIf="notFound"></app-error-404>
+<!-- <app-breadcrumb *ngIf="!notFound" [shadeBack]="'light'" [breadcrumb]="breadcrumb"></app-breadcrumb> -->
+<div *ngIf="!notFound && order" class="container">
+    <div class="tCard">
+        <div class="p-4 head">
+            <a routerLink="/my-account/orders"
+                class="material-icons align-middle me-3 pointer backBtn">chevron_left</a>
+            <span class="d-inline-block">
+                <p class="m-0">Track your order</p>
+                <p class="font-12 m-0">ORDER ID: {{order.orderId}}</p>
+            </span>
+        </div>
+        <div class="p-4 body">
+            <div *ngFor="let tracker of trackers" class="mb-4 tracker">
+                <div class="row">
+                    <div class="col-md-4 text-right order-md-2">
+                        <div>
+                            <span *ngIf="tracker.trackingDetails?.trackingId"
+                                class="d-flex d-md-inline justify-content-between">
+                                <span class="label">TRACKING ID</span> <br>
+                                <b class="value">{{tracker.trackingDetails?.trackingId}}</b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="mb-2 pName">{{tracker.products[0].name}} [Qty: {{tracker.products[0].quantity}}]
+                            <ng-container *ngIf="tracker.showAllProducts">
+                                <ng-container *ngFor="let product of tracker.products.slice(1)">,<br>{{product.name}} [Qty: {{product.quantity}}]</ng-container>
+                            </ng-container>
+                            <span class="pointer moreItems" *ngIf="tracker.products.length > 1 && !tracker.showAllProducts" (click)="tracker.showAllProducts = !tracker.showAllProducts">+{{tracker.products.length-1}} More items</span>
+                        </div>
+                        <h4 *ngIf="tracker.expectedDeliveryDate" class="aDate">Arriving {{tracker.expectedDeliveryDate |
+                            date:'E, MMMM d'}}</h4>
+                        <h6 *ngIf="tracker.carrier">Shipped with {{tracker.carrier == 'Other'?
+                            'HealthyBazar':tracker.carrier}}</h6>
+                        <a *ngIf="tracker.trackingDetails?.trackingUrl" [href]="tracker.trackingDetails?.trackingUrl"
+                            target="_blank" class="tTrackShippment">Track Shippment <span
+                                class="material-icons align-middle">chevron_right</span></a>
+                    </div>
+
+                </div>
+                <div *ngIf="!tracker.carrier || integratedCarriers.includes(tracker.carrier)"
+                    class="p-4 mt-4 progressCont" [ngClass]="{loading:tracker.status.loading, loadingError:tracker.status.loadingError}">
+                    <div class="loadingStatus">Loading shipment status...</div>
+                    <div class="loadingStatusError"><i class="material-icons text-danger mt-1">error_outline</i> Sorry, we are unable to get the tracking information right now. <br> Please check it again later.</div>
+                    <div class="progress horizontal d-none d-md-flex">
+                        <div class="progress-bar progress-bar-success" role="progressbar"
+                            [attr.aria-valuenow]="progress.h[tracker.status.activeStep] || 0" aria-valuemin="0"
+                            aria-valuemax="100" [ngStyle]="{'width.%': progress.h[tracker.status.activeStep]} || 0">
+                        </div>
+                    </div>
+                    <div class="progress vertical d-md-none">
+                        <div class="progress-bar progress-bar-success" role="progressbar"
+                            [attr.aria-valuenow]="progress.v[tracker.status.activeStep] || 0" aria-valuemin="0"
+                            aria-valuemax="100" [ngStyle]="{'height.%': progress.v[tracker.status.activeStep] || 0}">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-md-3 progressStatus">
+                        <div>
+                            <div class="d-inline-block text-md-center"
+                                [ngClass]="{active: tracker.status.activeStep == 1}">
+                                <span class="sStatus">Order Placed</span> <br>
+                                <span *ngIf="tracker.status.activeStep == 1" class="date">{{tracker.status.dateTime |
+                                    date:'d MMM, y'}}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-inline-block text-md-center"
+                                [ngClass]="{active: tracker.status.activeStep == 2}">
+                                <span class="sStatus">Shipped</span> <br>
+                                <span *ngIf="tracker.status.activeStep == 2" class="date">{{tracker.status.dateTime |
+                                    date:'d MMM, y'}}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-inline-block text-md-center"
+                                [ngClass]="{active: tracker.status.activeStep == 3}">
+                                <span class="sStatus">Out for Delivery</span> <br>
+                                <span *ngIf="tracker.status.activeStep == 3" class="date">{{tracker.status.dateTime |
+                                    date:'d MMM, y'}}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-inline-block text-md-center"
+                                [ngClass]="{active: tracker.status.activeStep == 4}">
+                                <span class="sStatus">Delivered</span> <br>
+                                <span *ngIf="tracker.status.activeStep == 4" class="date">{{tracker.status.dateTime |
+                                    date:'d MMM, y'}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 shippingInfo">
+                    <b class="mb-2 d-block">DELIVERY ADDRESS</b>
+                    <p class="name mb-1">{{order.shippingInfo.firstName}} {{order.shippingInfo.lastName}}</p>
+                    <p class="mb-1">{{order.shippingInfo.fullAddress}} - {{order.shippingInfo.address.pinCode}}</p>
+                    <p class="mb-2">Landmark: {{order.shippingInfo.address.landmark}}</p>
+                    <p>{{order.shippingInfo.countryCode}} {{order.shippingInfo.phone}}</p>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+        </div>
+    </div>
+</div>

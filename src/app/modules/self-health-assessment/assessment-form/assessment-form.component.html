@@ -1,0 +1,327 @@
+<!-- <div class="row mx-0 category-header mx-0 py-1" *ngIf="!desktopScreen">
+    <div class="col-md-12 col-sm-12 col-12 py-3 mob-category-header px-0 ">
+        <div class="d-flex align-items-center" [style]="{'padding-left': '10px'}">
+            <div class="back-home-page-icon">
+                <i class="bi bi-chevron-left" (click)="backToHomePage()"></i>
+            </div>
+            <div class="d-flex">
+                <span class="all-swiper-heading">{{productBrandTitle}}</span>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="container-fluid ">
+    <div class="self-health-assessment-container">
+        <!-- class="background-div1" -->
+        <div [ngClass]="{'background-div1':desktopScreen,'background-div1-mob':!desktopScreen}">
+            <!-- class="background-div2" -->
+            <div [ngClass]="{'background-div2':desktopScreen}">
+                <div class="assessment-container">
+                    @if (activeTab == 0) {
+                    <!-- basic details form start -->
+                    <div class="basic-details-container">
+                        <!-- [style]="{'font-size': '12px','color': '#979797','font-weight': '500'}" -->
+                        <div class="basic-details-form-header">
+                            <span>KNOW YOUR PRAKRITI</span>
+                        </div>
+                        <!-- [style]="{'font-size': '16px','font-weight': '600','margin-top':'6px'}" -->
+                        <div class="basic-details-form-second-header">
+                            <span>Basic Details</span>
+                        </div>
+
+                        <form [formGroup]="basicDetailSelfAssessmentForm" (ngSubmit)="submitForm()">
+                            <div class="mt-4 form-group" [style]="{'position':'relative'}">
+                                <label class="input-lebal">
+                                    <!-- [style]="{'margin':'5px','font-size':'12px'}" -->
+                                    <span class="basic-detail-self-assessment-form-field-name">First Name*</span>
+                                </label>
+                                <div class="input-container-mob">
+                                    <input type="text" class="basic-detail-form-input form-control" maxlength="10"
+                                        formControlName="firstName">
+                                </div>
+                                <div class="mt-1"
+                                    *ngIf="f['firstName'].invalid && (f['firstName'].dirty || f['firstName'].touched)">
+                                    <div *ngIf="f['firstName'].errors?.['required'] " class="isInvalid">First
+                                        Name is required.</div>
+                                </div>
+                            </div>
+                            <div class="mt-4 form-group" [style]="{'position':'relative'}">
+                                <label class="input-lebal">
+                                    <!-- [style]="{'margin':'5px','font-size':'12px'}" -->
+                                    <span class="basic-detail-self-assessment-form-field-name">Last Name*</span>
+                                </label>
+                                <div class="input-container-mob">
+                                    <input type="text" class="basic-detail-form-input form-control"
+                                        formControlName="lastName">
+                                </div>
+                                <div class="mt-1"
+                                    *ngIf="f['lastName'].invalid && (f['lastName'].dirty || f['lastName'].touched)">
+                                    <div *ngIf="f['lastName'].errors?.['required']" class="isInvalid">Last Name is
+                                        required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 form-group" [style]="{'position':'relative'}">
+                                <label class="input-lebal">
+                                    <!-- [style]="{'margin':'5px','font-size':'12px'}" -->
+                                    <span class="basic-detail-self-assessment-form-field-name">Email Address</span>
+                                </label>
+                                <div class="input-container-mob">
+                                    <input type="text" class="basic-detail-form-input form-control"
+                                        formControlName="email">
+                                </div>
+                                <div class="mt-1"
+                                    *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)">
+                                    <div *ngIf="f['email'].errors?.['required']" class="isInvalid">Email is required.
+                                    </div>
+
+                                    <!-- <div *ngIf="f['email'].errors?.['email']" class="isInvalid">Please provide valid
+                                        email.
+                                    </div> -->
+
+                                    <div *ngIf="f['email'].errors?.['gmailDomain']" class="isInvalid">Email must end
+                                        with {{emailEnds}}.</div>
+                                </div>
+
+
+                            </div>
+                            <div class="mt-4 form-group" [style]="{'position':'relative'}">
+                                <label class="input-lebal">
+                                    <!-- [style]="{'margin':'5px','font-size':'12px'}" -->
+                                    <span class="basic-detail-self-assessment-form-field-name">Phone Number</span>
+                                </label>
+                                <div class="input-container-mob">
+                                    <span class="prefix">+91</span>
+                                    <input type="text" class="basic-detail-form-input-mobile-no form-control"
+                                        formControlName="phoneNumber" maxlength="10">
+                                </div>
+                                <div class="mt-1"
+                                    *ngIf="f['phoneNumber'].invalid && (f['phoneNumber'].dirty || f['phoneNumber'].touched)">
+                                    <div *ngIf="f['phoneNumber'].errors?.['required']" class="isInvalid">Phone Number is
+                                        required.
+                                    </div>
+                                    <div *ngIf="f['phoneNumber'].errors?.['pattern']" class="isInvalid">Enter only
+                                        numbers.
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="basic-detail-form-submit-btn">
+                            <!-- [disabled]="!(basicDetailSelfAssessmentForm.valid || basicDetailSelfAssessmentForm.dirty || basicDetailSelfAssessmentForm.touched)" -->
+                            <button class="basic-details-submit" (click)="showInstructions()">
+                                Next
+                            </button>
+                        </div>
+
+                    </div>
+                    <!-- basic details form end -->
+                    }
+
+                    @if (activeTab == 2) {
+
+                    <div class="self-health-assessment-question-answer-container">
+                        <div class="question-number-indication-header">
+                            <span> {{currentRunningQuestionNumber}} / {{questions.length}} </span>
+                        </div>
+
+                        <div class="question-answer-content">
+                            <form *ngIf="questionForms">
+
+                                <div
+                                    *ngFor="let question of questions | slice: minCountValue:maxCountValue; let qIndex = index">
+                                    <span class="question-text">
+                                        {{question.question}}
+                                    </span>
+
+                                    <ul class="self-health-assessment-question-unorder-list">
+
+                                        <li class="self-health-assessment-question-list-item"
+                                            *ngFor="let option of question.answer; let oIndex = index">
+                                            <label class="d-flex">
+                                                <input [type]="question.type === 'single' ? 'radio' : 'checkbox'"
+                                                    id="{{ question._id + oIndex }}"
+                                                    (change)="getValue($event, question, option)"
+                                                    name="{{ question._id }}"
+                                                    [value]="option.category ? option.category : option.title"
+                                                    class="self-health-assessment-option-selection"
+                                                    [checked]="isSelected(question, option)" />
+                                                    <span class="question-answer"> {{option.title}} </span>
+                                            </label>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </form>
+                            <div class="question-answer-footer">
+                                <button class="next-question" (click)="countIncrement()"
+                                    *ngIf="currentRunningQuestionNumber !== questions.length">Next</button>
+                                <button class="next-question" type="submit"
+                                    *ngIf="currentRunningQuestionNumber == questions.length"
+                                    (click)="submitForm()">Submit</button>
+                                <button class="back-question" (click)='countDecrement()'
+                                    *ngIf="currentRunningQuestionNumber !== 1 ">Back</button>
+                            </div>
+                        </div>
+
+                        <mat-progress-bar class="example-margin custom-progress-bar" [mode]="mode"
+                            [value]="calculateValue" [bufferValue]="bufferValue">
+                        </mat-progress-bar>
+                    </div>
+
+                    <!-- temp code solution -->
+
+                    <!-- temp code solution -->
+
+                    }
+                </div>
+            </div>
+        </div>
+
+        @if (activeTab == 1) {
+        <!-- <div class="instruction-section-background"> -->
+        <div class="instruction-section">
+            <!-- @if (activeTab == 1) { -->
+            <!-- Instruction section start -->
+            <div class="instruction-section-container">
+                <div class="instruction-section-header">
+                    <span>Instructions</span>
+                </div>
+
+                <div class="instruction-section-content">
+                    @for (oneByOneInstruction of instructions; track $index) {
+                    <div [style]="{'margin-top':'12px'}">
+                        <span [ngClass]="$index !== 0 && $index !== instructions.length-1 ? 'normal' : 'bold' ">
+                            <img src="../../../../assets/images/self-health-assessment/instruction-arrow.svg" alt=""
+                                *ngIf="$index !== 0 && $index !== instructions.length-1 ">
+                            {{oneByOneInstruction.instruction}}
+                        </span><br>
+                    </div>
+                    }
+                    <div class="instruction-section-footer">
+                        <button class="start-question-btn" (click)="showSelfHealthQuestions()">
+                            Start
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Instruction section end -->
+            <!-- } -->
+        </div>
+        <!-- </div> -->
+        }
+
+
+        @if (activeTab == 3) {
+        <div class="analysis" *ngIf="activeTab == 3 && survayResponse">
+            <div class="content pt-4">
+                <h2 class="know fs22">{{assessment?.name}}</h2>
+                <hr>
+            </div>
+            <div class="analysis-report-section">
+                <div class="row anls analysis-section-background">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <h6 class="anls-lb">FULL NAME</h6>
+                        <p class="anls-name">{{survayResponse.firstName}} {{survayResponse.lastName}}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="anls-lb">DATE AND TIME</h6>
+                        <p class="anls-name">{{survayResponse.createdAt | date:'MMM d, y, h:mm a'}}</p>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+                <div class="row anls-s2 align-items-center analysis-section-background">
+                    <div class="col-lg-2 ps-4 ps-md-3 pt-3 pt-md-0">
+                        <h6 class="anls-lb">PRAKRITI TYPE</h6>
+                        <p class="anls-name">{{survayResponse.analysis?.type}}</p>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="row">
+                            <div class="align-items-center col-sm-4 col-6 d-flex">
+                                <div class="pe-2">
+                                    <canvas baseChart [datasets]="vataChartJs.datasets" type="doughnut"
+                                        [options]="vataChartJs.options" [labels]="vataChartJs.labels" height="70"
+                                        width="70">
+                                    </canvas>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <span class="vata">VATA</span>
+                                    <span>{{ survayResponse.analysis?.vata }}%</span>
+                                </div>
+                            </div>
+                            <div class="align-items-center col-sm-4 col-6 d-flex">
+                                <div class="pe-2">
+                                    <canvas baseChart [datasets]="pittaChartJs.datasets" type="doughnut"
+                                        [options]="pittaChartJs.options" [labels]="pittaChartJs.labels" height="70"
+                                        width="70">
+                                    </canvas>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <span class="vata">PITTA</span>
+                                    <span>{{ survayResponse.analysis?.pitta }}%</span>
+                                </div>
+                            </div>
+                            <div class="align-items-center col-sm-4 col-6 d-flex">
+                                <div class="pe-2">
+                                    <canvas baseChart [datasets]="kaphaChartJs.datasets" type="doughnut"
+                                        [options]="kaphaChartJs.options" [labels]="kaphaChartJs.labels" height="70"
+                                        width="70">
+                                    </canvas>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <span class="vata">KAPHA</span>
+                                    <span>{{ survayResponse.analysis?.kapha }}%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="d-flex align-items-center">
+                            <div class="pe-2">
+                                <canvas baseChart [datasets]="overviewChartJs.datasets" type="doughnut"
+                                    [options]="overviewChartJs.options" [labels]="overviewChartJs.labels" height="80"
+                                    width="80">
+                                </canvas>
+                            </div>
+                            <div>
+                                <ul class="vata ps-2 pt-4">
+                                    <li>VATA</li>
+                                    <li>PITTA</li>
+                                    <li>KAPHA</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row anls-s3 analysis-section-background">
+                    <div class="col-md-12">
+                        <div class="dt-box">
+                            <h6 class="anls-dt">Detail</h6>
+                            <p class="anls-p">{{survayResponse.analysis?.detail}}</p>
+                        </div>
+                        <div class="dt-box">
+                            <h6 class="anls-dt">Personal Characteristics</h6>
+                            <p class="anls-p">{{survayResponse.analysis?.characteristics}}</p>
+                        </div>
+                        <div class="dt-box">
+                            <h6 class="anls-dt">Disorders</h6>
+                            <p class="anls-p">{{survayResponse.analysis?.disorders}}</p>
+                        </div>
+                        <div class="dt-box">
+                            <h6 class="anls-dt">Tips</h6>
+                            <p class="anls-p">{{survayResponse.analysis?.tips}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        }
+    </div>
+
+</div>
+<!-- [style]="{'background-color': '#fffae9','padding': '45px 0px 49px 0px'}" -->
+<!--<div class="footer-section">
+    <app-footer></app-footer>
+</div>
+
+-->

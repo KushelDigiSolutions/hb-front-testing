@@ -1,0 +1,54 @@
+@import "../../../assets/styles/main.scss";
+
+.coupon-bg-img {
+  height: 158px;
+  width: 636px;
+}
+
+.banner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 180px;
+  background-size: cover !important;
+  border-radius: 16px;
+}
+
+.promotion-label {
+  padding-left: 25px;
+  padding-top: 18px;
+}
+
+.promotion-sublabel {
+  padding-left: 25px;
+  padding-top: 18px;
+}
+
+@include max-sm {
+  .banner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100px;
+    background-size: cover !important;
+    border-radius: 16px;
+  }
+
+}
+
+@include max-xs {
+  .banner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100px;
+    background-size: cover !important;
+    border-radius: 16px;
+  }
+}
+
+@include max-md {
+  .coupon-card-container{
+    border: 1px solid red;
+  }
+}

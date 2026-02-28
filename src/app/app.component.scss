@@ -1,0 +1,256 @@
+@import "../assets/styles/main.scss";
+
+.navigation-pages {
+  margin-top: 185px;
+}
+
+.footer-category-container {
+  // height: 375px;
+  width: 100%;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  padding: 64px 0px 25px 0px;
+  // padding: 60px 0px;
+
+  .category-footer {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+    .footer-category-sections {
+      color: #878787;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .contact-us-time {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .callUs {
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
+
+  .healthy-bazar-promotion-footer {
+    height: 83px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 8px;
+  }
+}
+
+.footer-category-list {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.emailDiv {
+  input {
+    padding: 10px 8px;
+    border-radius: 4px;
+    background: #ffffff;
+    border: 1px solid #e3e3e3;
+    width: 100%;
+
+    &::placeholder {
+      font-size: 14px;
+      color: #9a9a9a;
+      font-weight: 500;
+    }
+
+    &:focus,
+    &:focus-visible,
+    &:active,
+    &:hover {
+      box-shadow: none;
+      outline: none;
+    }
+  }
+
+  button {
+    width: 48px;
+    height: 38px;
+  }
+}
+
+.mobile-cart-footer {
+  display: none;
+}
+
+////////////////////
+
+.explore-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.explore-section-list {
+  display: flex;
+  flex-direction: column;
+
+  a {
+    text-decoration: none;
+    color: #1c1c1c;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+@media (width: 768px) {
+  .navigation-pages {
+    margin-top: 235px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-cart-footer {
+    display: block;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 50 !important;
+    background-color: #fff;
+    margin-bottom: 80px;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  .mobile-footer {
+    min-height: 92px;
+    border-top: 1px solid gray;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    // height: 80px;
+    z-index: 50 !important;
+    background-color: #ffffff;
+  }
+
+  .navigation-pages {
+    margin-top: 0;
+  }
+
+  .navigation-pages-margin {
+    margin-top: 0px;
+  }
+
+  .bottom-footer-category {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    row-gap: 8px;
+    color: #707070;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+
+    &.assessment {
+      margin-top: -5px;
+    }
+
+    app-assessment-icon {
+      font-size: 24px;
+    }
+  }
+
+  .selectColor {
+    color: #1d5cff;
+  }
+
+  .bottom-cart-category {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    row-gap: 8px;
+    margin-top: 12px;
+  }
+}
+
+////////////////////////////
+
+@include max-lg {
+  .navigation-pages {
+    padding: 0px 2px !important;
+  }
+}
+
+@include max-md {
+  .navigation-pages {
+    padding: 0px 14px !important;
+  }
+}
+
+@include max-sm {
+  // .explore-section {
+  //   display: flex;
+  //   justify-content: center;
+  // }
+  .footer-category-container {
+    padding-bottom: 10%;
+  }
+
+  .explore-section-title {
+    display: flex;
+    justify-content: center;
+  }
+
+  .explore-section-list {
+    align-items: center;
+  }
+
+  .healthy-bazar-promotion-footer {
+    height: 100px;
+    margin-top: 10px;
+    padding-bottom: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 15px;
+  }
+}
+
+.main-content {
+  margin-top: var(--navbar-height);
+}
+
+@include max-xs {
+  // .explore-section {
+  //   display: flex;
+  //   justify-content: center;
+  // }
+  .footer-category-container {
+    padding-bottom: 48%;
+  }
+
+  .explore-section-title {
+    display: flex;
+    justify-content: center;
+  }
+
+  .explore-section-list {
+    align-items: center;
+  }
+
+  .healthy-bazar-promotion-footer {
+    height: 100px;
+    margin-top: 10px;
+    padding-bottom: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 15px;
+  }
+}
+
+@mixin min-xs {
+  height: 155px;
+}

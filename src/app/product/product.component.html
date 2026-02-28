@@ -1,0 +1,58 @@
+<a class="product-card" [ngClass]="{outOfStock: product.availableQuantity < 1}"
+    [routerLink]="['/product',this.product.slug]">
+    <div class="image-container" style="cursor: pointer;">
+        <img class="product-img" src="{{cloudImgUrl + product.imageURL}}" alt="{{product.alt}}" loading="lazy">
+    </div>
+    <div class="description-container px-1">
+        <div class="product-heading" style="cursor: pointer;">
+            {{product.prodName}}
+        </div>
+        <div class="product-subheading" *ngIf="product.productSubtitle !== 'Duration'">
+            <span>{{product.brandName}} </span>
+        </div>
+        <div class="product-subheading pt-1 d-flex" *ngIf="product.productSubtitle == 'Duration'">
+            <div>
+                <img src="/assets/images/duration.png" alt="" loading="lazy">
+            </div>
+            <div>
+                <span>{{product.productSubtitle}} </span>
+            </div>
+            <div class="duration-container">
+                <span class="duration"> 1 Month</span>
+            </div>
+        </div>
+    </div>
+    <!-- footer -->
+    <div class="product-footer-container align-items-center px-1">
+        <div class="product-price-container pe-2">
+            <div class="product-price">
+                <!-- ₹{{product.productPrice}} -->
+                ₹{{product.prodMinPrice}}
+
+            </div>
+            <div *ngIf="discount && !hideDiscountPriceCart" class="product-discount-price">
+                <span class="product-original-price">
+                    <!-- ₹{{product.productOriginalPrice}} -->
+                    ₹{{product.prodMRP}}
+                </span>
+                <span class="product-discount">
+                    {{discount+'% OFF'}}
+                </span>
+            </div>
+        </div>
+        <div class="product-footer-action-container d-flex align-items-center">
+            @if(product.availableQuantity > 0){
+            @if(!cartProduct){
+            <button type="button" (click)="addToCart($event,product)" class="btn btn-outline-primary btn-sm add-btn">
+                +ADD
+            </button>
+            } @else {
+            <app-product-quantity-control [data]="cartProduct"
+                (click)="preventNavigate($event)"></app-product-quantity-control>
+            }
+            } @else {
+            <span class="stock">Out of Stock</span>
+            }
+        </div>
+    </div>
+</a>

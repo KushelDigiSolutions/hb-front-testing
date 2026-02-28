@@ -1,0 +1,141 @@
+.stats-wrapper {
+  text-align: center;
+  background: #f9f9f9;
+  padding: 20px 15px 30px 15px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+
+.stats-title {
+  font-weight: 800;
+  font-size: 26px;
+  color: #575757;
+  margin-bottom: 30px;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.stat-box {
+  flex: 1 1 20%;
+  min-width: 150px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.stat-number {
+  font-size: 23px;
+  font-weight: bold;
+  color: #2c2c2c;
+}
+
+.stat-label {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+// Tablet styles
+@media (max-width: 768px) {
+  .stats-wrapper {
+    padding: 15px 10px;
+  }
+  
+  .stats-title {
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+  
+  .stats-container {
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .stat-box {
+    flex: 1 1 calc(50% - 10px);
+    min-width: 120px;
+  }
+  
+  .stat-number {
+    font-size: 22px;
+  }
+  
+  .stat-label {
+    font-size: 13px;
+  }
+}
+
+// Mobile styles - only for screens smaller than 480px
+@media (max-width: 480px) {
+  .stats-wrapper {
+    padding: 0px 10px 0px 10px;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 0;
+    isolation: isolate;
+  }
+  
+  .stats-title {
+    padding-top: 80px;
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .stats-container {
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 5px;
+    position: relative;
+  }
+  
+  .stat-box {
+    flex: 1 1 calc(50% - 5px);
+    min-width: 120px;
+    max-width: 140px;
+    margin-bottom: 15px;
+    padding: 5px;
+    position: relative;
+  }
+  
+  .stat-number {
+    font-size: 17px;
+  }
+  
+  .stat-label {
+    font-size: 11px;
+    margin-top: 3px;
+  }
+}
+
+// Very small screens
+@media (max-width: 320px) {
+  .stats-wrapper {
+    position: relative;
+    z-index: 0;
+  }
+  
+  .stats-container {
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  
+  .stat-box {
+    flex: none;
+    width: 80%;
+    max-width: 200px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+}

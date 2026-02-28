@@ -1,0 +1,12 @@
+<div id="stats-section" class="stats-wrapper">
+  <h2 class="stats-title">Our Success Numbers</h2>
+  <div class="stats-container">
+    <div *ngFor="let stat of stats" class="stat-box">
+      <div class="stat-number">
+        {{ stat.decimal ? stat.current.toFixed(1) : stat.current | number }}
+        <span>{{ stat.suffix }}</span>
+      </div>
+      <div class="stat-label">{{ stat.label }}</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,119 @@
+<div class="row">
+    <div class="col-md-12 pt-3">
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <span class="material-icons d-lg-none backBtn pointer" routerLink="/my-account">arrow_back</span>
+                <span class="heading-text">My Appointments</span>
+            </div>
+        </div>
+        <div class="container-div my-3 px-3 px-md-4 py-3">
+            <div class="appt" *ngFor="let item of dataArray; let i = index">
+                <div class="row align-items-center">
+                    <div *ngIf="!item.consultantId"
+                        class="col-xl-6 col-lg-5 col-12 d-flex align-items-center mb-2 mb-lg-0">
+                        <div class="d-flex align-items-center flex-grow-1" (click)="viewAppt(item)">
+                            <img class="pointer me-3" [src]="imgUrl + 'uploads/healthybazar_16242647250.png'" />
+                            <div>
+                                <span class="grayText font-14">consultationWith</span>
+                                <p class="doctor-name mb-1">HB Consulant</p>
+                                <p class="font-14 mb-0">NA</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-light text-dark flex-shrink-0 px-2 py-1 d-sm-none"
+                            [matMenuTriggerFor]="menu"><i class="material-icons">more_vert</i></button>
+                        <mat-menu #menu="matMenu">
+                            <a mat-menu-item
+                                [routerLink]="'/my-account/appointments/' + (item.parentAppointmentId || item._id)"
+                                [queryParams]="item.parentAppointmentId?{view: 'followUp'}:{}"><i
+                                    class="material-icons align-middle me-2">visibility</i> View</a>
+                            <button *ngIf="item.canCancel" mat-menu-item (click)="cancelAppointment(item?._id)"><i
+                                    class="material-icons align-middle me-2">close</i> Cancel</button>
+                        </mat-menu>
+                    </div>
+
+                    <div *ngIf="item.consultantId"
+                        class="col-lg-4 col-12 d-flex align-items-center mb-2 mb-lg-0">
+                        <div class="d-flex align-items-center flex-grow-1" (click)="viewAppt(item)">
+                            <img [src]="imgUrl + item.consultantId.profilePhoto.savedName"
+                                onerror="this.src='uploads/healthybazar_16242647250.png'"
+                                [style]="{'margin-right':'18px','cursor': 'pointer'}" />
+                            <div>
+                                <span class="grayText font-14">Consultation With</span>
+                                <p class="doctor-name mb-1">
+                                    {{
+                                    item.consultantId.firstName + ' ' + item.consultantId.lastName || ""
+                                    }}
+                                </p>
+                                <p class="font-14 mb-0">
+                                    {{
+                                    item.consultantId?.designation
+                                    ? item.consultantId?.designation
+                                    : ""
+                                    }}
+                                </p>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-light text-dark flex-shrink-0 px-2 py-1 d-sm-none"
+                            [matMenuTriggerFor]="menu"><i class="material-icons">more_vert</i></button>
+                        <mat-menu #menu="matMenu">
+                            <a mat-menu-item
+                                [routerLink]="'/my-account/appointments/' + (item.parentAppointmentId || item._id)"
+                                [queryParams]="item.parentAppointmentId?{view: 'followUp'}:{}"><i
+                                    class="material-icons align-middle me-2">visibility</i> View</a>
+                            <button *ngIf="item.canCancel" mat-menu-item (click)="cancelAppointment(item?._id)"><i
+                                    class="material-icons align-middle me-2">close</i> Cancel</button>
+                        </mat-menu>
+                    </div>
+
+                    <div class="col-lg-3 col-5 dateCol" (click)="viewAppt(item)">
+                        <span class="grayText font-14">Scheduled On</span>
+                        <p class="date mb-0">{{ item?.date | date: 'mediumDate' }}</p>
+                        <p class="fs-12 fw-medium mb-0">{{ item?.primaryTimeSlot12 }}</p>
+
+                    </div>
+
+                    <div class="col-lg-5 col-7 payment-status-container">
+                        <a *ngIf="item?.event?.link && item?.status == 'Confirmed'" href="#" class="btn btn-success rounded-5 pt-1 pb-1"
+                            (click)="joinCall($event, item)">Join Call</a>
+                        <span class="px-3 py-1 me-1 align-middle status" [ngClass]="{
+                  'Confirmed-appointment': item?.status == 'Confirmed',
+                  'Cancelled-appointment': item?.status == 'Cancelled',
+                  'On-Hold-appointment': item?.status == 'On-Hold',
+                  'Follow-up-appointment': item?.status == 'Follow-up',
+                  'Re-scheduled-appointment': item?.status == 'Re-scheduled',
+                  awaitedPayment: item?.status == 'Payment-Awaited',
+                  'Completed-appointment': item?.status == 'Completed',
+                  'Closed-appointment': item?.status == 'Closed'
+                }">{{ item?.status }}
+                        </span>
+                        <span title="Cancel Appointment"
+                            class="iconBtn material-icons pointer cancel-appointment p-1 d-none d-sm-inline-block"
+                            (click)="cancelAppointment(item?._id)" *ngIf="item.canCancel">
+                            close
+                        </span>
+                        <span title="View Appointment"
+                            class="iconBtn material-icons pointer viewAppointment ms-1 p-1 d-none d-sm-inline-block"
+                            [routerLink]="'/my-account/appointments/' + (item.parentAppointmentId || item._id)"
+                            [queryParams]="item.parentAppointmentId?{view: 'followUp'}:{}" *ngIf="
+                  item.status == 'Confirmed' ||
+                  item.status == 'Re-scheduled' ||
+                  item.status == 'Completed' ||
+                  item.status == 'Closed'
+                ">visibility</span>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="!dataArray.length" class="align-center py-4">
+                <img src="../../../../../assets/images/no-appointment-found.png" style="max-width: 300px" />
+                <p class="grayText medium pt-5">
+                    You have no appointments scheduled
+                </p>
+                <button class="scheduleAppointment p-2 no-outline" [routerLink]="'/consult-us'">
+                    <span class="material-icons add-icon pe-2"> add_circle_outline </span>
+                    Schedule an appointment
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

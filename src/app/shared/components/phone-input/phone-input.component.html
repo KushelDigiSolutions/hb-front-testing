@@ -1,0 +1,5 @@
+<div class="wrapper">
+    <span *ngIf="showCountryCode" class="countryCode">+91</span>
+    <input [ngModel]="numberInput" type="text" (keyup)="onKeyUp($event)" [placeholder]="placeholder" (click)="onClick()"
+        (blur)="onBlur()">
+</div>

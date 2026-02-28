@@ -1,0 +1,94 @@
+<div class="row" *ngIf="popularHealthPackageDetail">
+    <div class="col-md-6 col-sm-12 col-12 product-details-image-container">
+        <app-card class="product-details-card prod-img-sticky">
+
+            <div body class="consultant-details-card-body">
+                <div class="consultant-image">
+                    <img src="{{cloudImgUrl + popularHealthPackageDetail.thumbnail.savedName}}" alt="">
+                </div>
+            </div>
+        </app-card>
+    </div>
+
+    <div class="col-md-6 col-sm-12 col-12 package-container mt-2 pb-5">
+        <div class="page-route">
+            <span>Home/Category/Triphala churan sital cough syrup</span>
+        </div>
+        <div class="health-package-details">
+            <div class="package-name">
+                <span>{{popularHealthPackageDetail.name}}</span>
+            </div>
+            <div class="health-package-discription mt-2">
+                <div class="duration">
+                    <img src="../../../../../../assets/images/duration.png" alt="">&nbsp;<span>Duration</span>
+                </div>
+                <div class="duration-time-container">
+                    <span>{{popularHealthPackageDetail.duration.label}}</span>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="product-price-cart-container d-flex ">
+            <div class="product-price-container">
+                <div class="product-price-container">
+                    <div class="product-price">
+                        <span class="product-discount-price">₹{{popularHealthPackageDetail.price.sellingPrice}}</span>
+                    </div>
+                    <div>
+                        <span class="product-original-price">₹{{popularHealthPackageDetail.price.mrp}}</span>&nbsp;
+                        <span class="product-discount">{{popularHealthPackageDetail.price.discount + '% OFF'}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-add-cart">
+                <button type="button" class="btn btn-primary product-add-cart-btn">Book Now</button>
+            </div>
+        </div>
+        <hr>
+        <div class="mt-2">
+            <div class="mt-4">
+                <div class="product-headings">
+                    <span>Highlights</span>
+                </div>
+                <div class="mt-1">
+                    <img src="../../../../../../assets/images/health-packages/health-package-details-highlight.png"
+                        alt=""> <span *ngFor="let highlight of popularHealthPackageDetail.highlights">
+                        {{highlight}}
+                    </span>
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="product-headings">
+                    <span>About the package</span>
+                </div>
+                <div>
+                    <p [ngClass]="{'limitTextHeight': isReadMore}">
+                        <!-- {{popularHealthPackageDetail.description}} -->
+                        Obesity, a lifestyle problem has caused more than 2.8 million deaths. Before learning about
+                        ayurvedic remedies for weight loss and weight gain, let us see what Ayurveda says about weight
+                        management and obesity. Ayurveda suggests: 1- Uncontrolled body weight can be related to
+                        ‘sthoulya.’ 2- Acco..
+                    </p>
+                    <div class="review-read-more">
+                        <!-- *ngIf="(popularHealthPackageDetail?.description?.split('. ')).length > 1" -->
+                        <p class="read-more" (click)="showText()">{{
+                            isReadMore ? 'Read More': 'Read Less' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mt-4">
+    <!-- <app-affordable-health-packages [package]="relatedHealthPackage"
+        [productBrandTitle]="'Related health packages'"></app-affordable-health-packages> -->
+</div>
+
+<div class="mt-4">
+    <app-top-consult-specialist [productBrandTitle]="'Consult with our Top specialists'"
+            [topConsult]="consultList"></app-top-consult-specialist>
+</div>
+
+<div class="mt-4">
+    <app-life-style-health-card [productBrandTitle]="'Related health Tips'" [recentTipsData]="recentTipsData"></app-life-style-health-card>
+</div>

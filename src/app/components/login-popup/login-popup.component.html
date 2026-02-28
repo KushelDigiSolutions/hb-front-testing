@@ -1,0 +1,73 @@
+<div class="modal-section">
+  @if (activeForm == 'mobile') {
+  <div class="card-body login-modal-container">
+    <div style="background-color: white;" class="modal-div">
+      <div class="login-modal-title px-3">
+        <h5 class="card-title">Enter Mobile Number to Login/Sign Up</h5>
+      </div>
+      <hr class="border-top">
+      <div class="mt-4 px-3" [style]="{'position':'relative'}">
+
+        <label class="input-lebal">
+          <span [style]="{'margin':'5px'}">Enter Mobile Number</span>
+        </label>
+        <div class="input-container">
+          <span class="prefix">+91</span>
+          <input type="text" maxlength="10" [(ngModel)]="userMobile" #mobileInput>
+        </div>
+      </div>
+      <div class="mt-4 get-otp-login">
+        <button class=" btn btn-primary mt-2 mb-2" [disabled]="userMobile?.length != 10 || otpSending"
+          (click)="getOTPForUserLogin()">{{otpSending? 'Sending...' : 'Get OTP'}}</button>
+      </div>
+    </div>
+    <button class="cross-btn" (click)="closeVerificationModal()">
+      <app-cross-icon></app-cross-icon>
+    </button>
+  </div>
+  }
+
+  @if (activeForm == 'otp') {
+  <div class="card-body otp-modal-container">
+    <div style="background-color: white;" class="modal-div">
+      <div class="otp-modal-title">
+        <h5 class="card-title">Please enter the OTP sent to
+          <br>
+          +91{{userMobile}}
+          &nbsp;
+          <span [style]="{'color':'#1D5CFF','cursor':'pointer','font-size':'14px'}" (click)="changeMobileNo()">Change
+          </span>
+        </h5>
+      </div>
+      <hr class="border-top">
+      <div class="mt-4 px-3 mb-2" [style]="{'position':'relative'}">
+        <label class="input-lebal">
+          <span [style]="{'margin':'5px'}">Enter OTP</span>
+        </label>
+        <input class="otp-input" type="text" maxlength="6" [(ngModel)]="enteredOtp" #otpInput />
+      </div>
+      <span class="resend-otp-title px-3">
+        Didn't received the OTP?
+        <span [style]="{'color':otpResending?'#999':'#1D5CFF','cursor':otpResending?'default':'pointer'}" (click)="resendOtp()">{{otpResending? 'Resending...' : 'Resend OTP'}}</span>
+      </span>
+
+      <div class="mt-3 submit-otp">
+        <button class="btn btn-primary mt-2 mb-2" (click)="submitOTP()"
+          [disabled]="enteredOtp?.length != 6 || submitting">{{submitting? 'Submitting...' : 'Submit'}}</button>
+      </div>
+    </div>
+    <button class="cross-btn" (click)="closeVerificationModal()">
+      <app-cross-icon></app-cross-icon>
+    </button>
+  </div>
+  }
+
+  @if (activeForm == null) {
+  <div class="card-body verification-success-modal">
+    <h5 class="verification-success-modal-title"><i style="color: green;" class="bi bi-check-circle-fill"></i>
+      Verificaition successful!  @if (firstTimeUser) {FIRST10 coupon available for first-time buyer.}
+    </h5>
+  </div>
+  }
+
+</div>

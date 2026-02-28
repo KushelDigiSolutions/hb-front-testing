@@ -1,0 +1,12 @@
+<!-- [ngStyle]="{'height':height,'width':width,'border-radius':borderRadius}" -->
+<div class="product-card-body" >
+    <div class="app-card-header">
+        <ng-content select="[header]"></ng-content>
+    </div>
+    <div class="app-card-body">
+        <ng-content select="[body]"></ng-content>
+    </div>
+    <div class="app-card-footer">
+        <ng-content select="[footer]"></ng-content>
+    </div>
+</div>

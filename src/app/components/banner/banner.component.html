@@ -1,0 +1,38 @@
+<ng-container *ngIf="banners.length">
+    <a *ngIf="banners[0].link" [routerLink]="banners[0].link" (click)="copyCoupon(banners[0])">
+        <img [src]="s3base + banners[0].image.savedName" [alt]="banners[0].title || banners[0].type + ' banner'" >
+    </a>
+    <div *ngIf="!banners[0].link" (click)="copyCoupon(banners[0])">
+        <img [src]="s3base + banners[0].image.savedName" [alt]="banners[0].title || banners[0].type + ' banner'">
+    </div>
+</ng-container>
+<!-- <ng-container *ngIf="banners.length">
+    <a
+      *ngIf="banners[0].link"
+      [routerLink]="banners[0].link"
+      (click)="copyCoupon(banners[0])"
+      class="banner-wrapper"
+    >
+      <img 
+        [src]="s3base + banners[0].image.savedName"
+        [alt]="banners[0].title || (banners[0].type + ' banner')"
+        width="800"
+        height="180"
+        loading="lazy"
+      />
+    </a>
+  
+    <div
+      *ngIf="!banners[0].link"
+      (click)="copyCoupon(banners[0])"
+      class="banner-wrapper"
+    >
+      <img 
+        [src]="s3base + banners[0].image.savedName"
+        [alt]="banners[0].title || (banners[0].type + ' banner')"
+        width="800"
+        height="180"
+        loading="lazy"
+      />
+    </div>
+  </ng-container> -->

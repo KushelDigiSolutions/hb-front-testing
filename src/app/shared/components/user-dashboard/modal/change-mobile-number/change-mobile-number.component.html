@@ -1,0 +1,103 @@
+<div class="p-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="stepperControls">
+                <div *ngFor="let step of steps.changeNumber; let i = index"
+                    [ngClass]="{active: activeStep == (steps.changeNumber.length - i)}" class="control"
+                    [ngStyle]="{width: 100/steps.changeNumber.length+'%'}">
+                    <span class="bar"></span>
+                    <span class="check">
+                        <span class="material-icons done"> check </span>
+                        <span class="material-icons edit">edit</span>
+                    </span>
+                    <span class="d-block label">STEP {{steps.changeNumber.length - i}}</span>
+                    <span class="d-block title">{{step}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <p mat-dialog-title class="fs-18 title-text mt-3 mb-1 color-green">
+                Change Mobile Number
+            </p>
+            <div mat-dialog-content>
+                <ng-container *ngIf="activeStep == 1">
+                    <form class="mt-4 fieldsCont" (submit)="getOtp()">
+                        <div class="form-group">
+                            <label>Enter new Mobile Number</label>
+                            <div class="d-sm-flex">
+                                <app-phone-input name="phone" #phoneRef="ngModel" [(ngModel)]="phone"
+                                    placeholder="eg. +91XXXXXXXXXX" required
+                                    pattern="^(\+91[\-\s]?)?(91)?[789]\d{9}$"></app-phone-input>
+                                <button type="submit" [disabled]="phoneRef.invalid"
+                                    class="btn-sm ml-sm-2 mt-3 mt-sm-0 otp-button no-outline color-green font-14 flex-shrink-0">
+                                    GET OTP
+                                </button>
+                            </div>
+                            <div *ngIf="phoneRef.touched" class="text-danger font-12">
+                                <span *ngIf="phoneRef.errors?.['required']">
+                                    This field is required
+                                </span>
+                                <span *ngIf="phoneRef.errors?.['pattern']">
+                                    Please enter a valid mobile number (e.g: +911234567890)
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </ng-container>
+                <ng-container *ngIf="activeStep == 2">
+                    <form class="mt-4 fieldsCont" autocomplete="off" (submit)="saveChanges()">
+                        <div class="form-group">
+                            <label class="d-block mb-3">Enter OTP sent to {{phone}}</label>
+                            <div class="d-sm-flex align-items-center otpWrapper">
+                                <div class="mr-sm-3">
+                                    <input *ngFor="let item of otpArray;let i = index"
+                                        class="otp-container no-outline mr-2 py-1 px-2 align-center" type="text"
+                                        maxlength="1" (change)="getOtpValue($event,i)" autocomplete="off" />
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <span *ngIf="sec != '00'">00:{{sec}}</span>
+                                    <button type="button" *ngIf="sec == '00'"
+                                        class="btn-sm otp-button no-outline color-green font-14" (click)="getOtp()">
+                                        Resend OTP
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                <label class="d-block mb-3">{{'Modal.ChangeNumber.enterPassword'|translate}}</label>
+                <input class="no-outline profile-inputs w-100" style="max-width: 250px;" [(ngModel)]="password"
+                  type="password" />
+              </div> -->
+                        <div class="form-group">
+                            <button type="submit" class="btn py-2 px-4 save-button">
+                                Save
+                                <!-- {{'Modal.ChangeNumber.saveChanges'|translate}} -->
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- <button
+                class="btn-sm ml-2 otp-button no-outline color-orange font-14"
+                (click)="forgotPassword()">
+                {{'Modal.ChangeNumber.forgetPassword'|translate}}
+                </button> -->
+                </ng-container>
+                <ng-container *ngIf="activeStep == 3">
+                    <div class="mt-4 fieldsCont">
+                        <span class="color-green material-icons" style="font-size: 42px;">
+                            check_circle
+                        </span>
+                        <p style="font-weight: 600;"><span class="color-green">Mobile Number</span> Updated
+                            Successfully!</p>
+                        <button class="btn btn-primary px-4 py-1" (click)="done()">CLOSE</button>
+                    </div>
+                </ng-container>
+                <!-- <ng-container *ngIf="forgotPasswordVisible">
+            <app-forgot-password></app-forgot-password>
+          </ng-container> -->
+
+            </div>
+
+        </div>
+    </div>
+</div>

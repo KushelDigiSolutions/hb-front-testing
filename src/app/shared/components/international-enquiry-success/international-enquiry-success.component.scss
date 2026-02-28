@@ -1,0 +1,187 @@
+/* Bulk enquiry success card styles and responsive tweaks */
+.bulk-success-wrapper {
+  /* reduce top padding and shift container upward to tighten gap with navigation */
+  padding: 2.5rem 1rem 2rem; /* slightly smaller top padding */
+  margin-top: -3.25rem; /* nudged up a bit more to further reduce the gap */
+  display: flex;
+  justify-content: center;
+}
+
+.bulk-success-card {
+  max-width: 900px;
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(24, 39, 75, 0.08);
+  padding: 2.25rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-direction: row;
+}
+
+/* Ensure the card's rounded corners are respected and inner backgrounds don't overflow */
+.bulk-success-card {
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+
+.bulk-success-icon {
+  flex: 0 0 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bulk-success-content {
+  flex: 1 1 auto;
+}
+
+/* When the icon sits above the text inside the content block, add spacing */
+.bulk-success-content .bulk-success-icon {
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 1.375rem;
+  margin-bottom: .25rem;
+  color: #18304b;
+}
+
+.lead {
+  // color: #3b4a5a;
+  color: #080808;
+  margin: 0.25rem 0 0.5rem 0;
+}
+
+.contact a,
+.link {
+  color: #079a46;
+  text-decoration: none;
+}
+
+.ref-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: .75rem;
+}
+
+.ref-label {
+  color: #6b7280;
+  font-size: .9rem;
+}
+
+.ref-container {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #079a46;
+  border-radius: 12px;
+  color: white;
+}
+
+.ref-id {
+  font-weight: 600;
+}
+
+.signature {
+  margin-top: .75rem;
+  color: #4b5563;
+  font-size: .95rem;
+}
+
+.team {
+  font-weight: 600;
+  margin-top: .25rem;
+}
+
+.tagline {
+  margin-top: .25rem;
+  font-size: .875rem;
+  color: #6b7280;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 767px) {
+  .bulk-success-card {
+    flex-direction: column;
+    align-items: center;
+    padding: 1.25rem;
+    /* ensure extra bottom space so last line isn't cut on small screens */
+    padding-bottom: 2rem;
+    text-align: center;
+  }
+
+  /* Ensure rounded bottom corners are visible on mobile */
+  .bulk-success-card {
+    border-radius: 12px; /* reaffirm radius */
+    overflow: hidden; /* prevent inner content from overflowing corners */
+    margin-bottom: 1rem; /* space from elements below so curve is visible */
+    position: relative;
+    z-index: 2; /* keep above surrounding backgrounds */
+  }
+
+  .bulk-success-icon {
+    margin-bottom: .5rem;
+  }
+
+  /* smaller upward shift on mobile to avoid overlapping header */
+  .bulk-success-wrapper {
+    /* Ensure there's visible space below the search panel on mobile
+       (avoid touching the search div above). Use a small positive
+       margin so it won't overlap the header or search UI. */
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+  }
+
+  .title {
+    font-size: 1.125rem;
+  }
+
+  /* Keep Ref ID row inline on mobile: label, ref value and copy button in one row */
+  .ref-row {
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; /* allow wrapping if space is tight */
+  }
+
+  /* add one-line gap after tagline on mobile without shifting/overflow issues */
+  .signature {
+    padding-bottom: 1.25rem; /* keeps space inside the container so last line isn't cut off */
+    overflow: visible; /* ensure children are visible */
+  }
+
+  .signature .tagline {
+    line-height: 1.25; /* reduce risk of clipping by increasing line-height slightly */
+  }
+}
+
+/* copy button and feedback */
+.ref-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.copy-btn {
+  background: transparent;
+  border: none;
+  padding: .25rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  background: rgba(7,154,70,0.08);
+}
+
+.copy-feedback {
+  font-size: .8rem;
+  color: #079a46;
+}

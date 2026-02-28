@@ -1,0 +1,192 @@
+<div class="container width100">
+    <!-- user fav product section start -->
+    <!-- <div *ngIf="isLoggedin && userFavouritesProducts?.length" class="mt-2 mobileWidth100 product-slider-wrapper">
+        <app-product-slider class="product-slider" [productData]="userFavouritesProducts"
+            productBrandTitle="{{temp | titlecase}}" seeAllUrl="/search/favourite-products"></app-product-slider>
+    </div> -->
+    <!-- user fav product section end-->
+    <!-- <div *ngIf="!isLoggedin && trendingProducts?.length" class="mt-4 mobileWidth100 product-slider-wrapper">
+        <app-product-slider class="product-slider" [productData]="trendingProducts"
+            productBrandTitle="Trending Products" seeAllUrl="/search/trending-products" [loading]="true"></app-product-slider>
+    </div> -->
+
+    <div class="mt-4 mobileWidth100 product-slider-wrapper">
+        <app-product-slider class="product-slider" [productData]="trendingProducts"
+            productBrandTitle="Trending Products" seeAllUrl="/search/trending-products" [loading]="true"></app-product-slider>
+    </div>
+    
+
+    <!-- <app-carousel></app-carousel> -->
+    <app-banner bannersType="home" (loading)="toggleBannersLoading($event)"></app-banner>
+    <!-- Season special slider-->
+    <div class="mt-4 product-slider-wrapper" *ngIf="seasonSpecialProducts.length">
+        <app-product-slider class="product-slider" [productData]="seasonSpecialProducts"
+            productBrandTitle="Season Special" seeAllUrl="/search/season-special"></app-product-slider>
+        
+    </div>
+
+    <!-- <div *ngIf="recommendedProducts?.length" class="mt-4 mobileWidth100">
+        <app-product-slider class="product-slider" [productData]="recommendedProducts"
+            productBrandTitle="Our Bestsellers" seeAllUrl="/search/bestseller-products"></app-product-slider>
+    </div> -->
+
+    <!-- Best Seller section start -->
+    <!-- <div class="mt-4 mobileWidth100">
+        <app-product-slider class="product-slider" [productData]="ourBestsellerProducts"
+            productBrandTitle="Our Bestsellers" seeAllUrl="/search/bestseller-products"></app-product-slider>
+    </div> -->
+    <!-- For Best Seller section end-->
+
+
+
+    <!-- top brands section start -->
+    <div *ngIf="topBrands.length" class="mt32 mobileWidth100 px-3">
+        <div class="row p-3 row-gap-3 shop-health-concern-container">
+            <div class="col-md-12 col-sm-12 col-sx-12">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12  d-flex justify-content-between ">
+                        <span class="product-label">
+                            Top Brands
+                        </span>
+                        <!-- <button type="button" class="btn btn-sm healthconcern-topbrand-btn-color">See all</button> -->
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-md-12">
+                        <div class="swiperCont">
+                            <app-swiper space-between="16px">
+                                <swiper-slide class="slide-item health-concern-slide" *ngFor="let brand of topBrands">
+                                    <app-top-brands style="width:100%;" [brands]="brand"></app-top-brands>
+                                </swiper-slide>
+                            </app-swiper>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- top brands section end -->
+
+    <!-- For user promostion banner section start -->
+    <div class="mt32 mobileWidth100">
+        <app-slider [data]="normalCardBanners" [section]="'banner'"></app-slider>
+    </div>
+    <!-- For user promostion banner section end-->
+
+    <!-- For user coupon code section start -->
+    <!-- <div class="mt32 mobileWidth100">
+        <app-slider [data]="couponCodes" [section]="'coupon'"></app-slider>
+    </div> -->
+    <!-- For user coupon code section end-->
+     <!-- Uncomment for showing sexualWellness on website -->
+    <div class="mt-4" *ngIf="sexualWellnessProducts.length">
+        <app-product-slider class="product-slider" [productData]="sexualWellnessProducts"
+            productBrandTitle="Sexual Wellness" seeAllUrl="/category/sexual-wellness"></app-product-slider>
+        
+    </div>
+    <!-- shop by health concern section start-->
+    <div class="mt-4">
+        <div class="row p-3 mx-0 shop-health-concern-container">
+            <div class="col-md-12 col-sm-12">
+                <div class="row " style="margin-top: 12px;">
+                    <div class="col-md-12 col-sm-12  d-flex justify-content-between ">
+                        <span class="product-label">
+                            Shop by Health Concern
+                        </span>
+                        <!-- <button type="button" class="btn btn-sm healthconcern-topbrand-btn-color">See all</button> -->
+                    </div>
+                </div>
+                <div class="row pt-3 ">
+                    <div class="col-md-12 swiperCont">
+                        <app-swiper space-between="16px">
+                            <swiper-slide class="slide-item health-concern-slide"
+                                *ngFor="let healthconcern of shopByHealthConcern">
+                                <app-shop-health-concern style="width:100%;"
+                                    [shopByConcern]="healthconcern"></app-shop-health-concern>
+                            </swiper-slide>
+                        </app-swiper>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- shop by health concern section end-->
+
+    <!-- Consult with our Top specialists section start-->
+    <div class="mt32 mobileWidth100">
+        <app-top-consult-specialist [productBrandTitle]="'Consult with our Top Specialists'"
+            [topConsult]="topConsultLists" seeAllUrl="/consult-us/search/top-specialists"></app-top-consult-specialist>
+        
+    </div>
+    <!-- Consult with our Top specialists section end-->
+
+    <!--shop by category section start -->
+    <div class="mt32">
+        <div class="row mx-0 shop-categories-container">
+            <!-- d-flex flex-column justify-content-center -->
+            <div class="col-md-12 col-sm-12 col-12 mt-3 px-0 ">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <span class="product-label">
+                            Shop by Category
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row pt-3">
+                    <div class="col-lg-2 col-4 shop-home-category-card-container padding4"
+                        *ngFor="let shopByCategory of shopByCategoryListsItem; let i = index">
+                        <app-shop-category [categories]="shopByCategory" [i]="i"></app-shop-category>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- shop by category section end-->
+
+    <!-- affordable package section start-->
+    <!-- <div class="mt32 mobileWidth100">
+        <app-affordable-health-packages [package]="affordablePackages"
+            [productBrandTitle]="'Affordable Health Package'"></app-affordable-health-packages>
+    </div> -->
+    <!-- affordable package section end-->
+
+    <!-- mediacl package promostion banner section start-->
+    <!-- <div class="mt32 mobileWidth100">
+        <app-slider [data]="medicalPackageList" [section]="'medical'"></app-slider>
+    </div> -->
+    <!-- mediacl package promostion banner section end-->
+
+
+
+    <!-- healthy food's and oil's section start -->
+    <!-- <div *ngIf="topSellingCategories?.[0]" class="mt32 mobileWidth100">
+        <app-product-slider class="product-slider mt-4" [productData]="topSellingCategories[0].products"
+            [productBrandTitle]="topSellingCategories[0].name"></app-product-slider>
+    </div> -->
+    <!-- healthy food's and oil's section end -->
+
+    <!-- Daily pooja need section start -->
+    <ng-container *ngIf="topSellingCategories.length">
+        <!-- <div class="mt-4">
+            <app-product-slider *ngFor="let category of topSellingCategories" class="product-slider"
+                [productData]="category.products" [productBrandTitle]="category.name"
+                [seeAllUrl]="category.url"></app-product-slider>
+        </div> -->
+
+        <div class="mt-4">
+            <app-product-slider *ngFor="let category of topSellingCategories" class="product-slider"
+                [productData]="category.products" [productBrandTitle]="category.name"
+                [seeAllUrl]="category.url"></app-product-slider>
+        </div>
+
+    </ng-container>
+    <!-- Daily pooja need section end -->
+
+        <!-- For user promostion banner section start -->
+    <!-- <div class="mt32 mobileWidth100">
+        <app-slider [data]="normalCardBanners" [section]="'banner'"></app-slider>
+    </div> -->
+    <!-- For user promostion banner section end-->
+
+</div>

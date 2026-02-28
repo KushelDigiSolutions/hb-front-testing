@@ -1,0 +1,91 @@
+@import "../../../../../assets/styles/main.scss";
+
+.backBtn {
+  vertical-align: sub;
+  margin-right: 15px;
+  padding: 4px;
+}
+.heading-text {
+  color: #808080;
+  font-size: 18px;
+  font-weight: 600;
+  @include max-sm {
+    color: #333;
+    font-weight: 400;
+  }
+}
+.container-div {
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15), 0px 2px 6px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+}
+.grayText {
+  color: #808080;
+}
+.medium {
+  font-weight: 500;
+}
+.add-address-section-heading {
+  background-color: rgba(5, 143, 70, 0.1);
+  color: rgb(5, 143, 70);
+  border-radius: 8px;
+  align-items: center;
+  column-gap: 10px;
+}
+.address-container {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 2rem;
+}
+.default-button {
+  background-color: rgba(5, 143, 70, 0.1);
+  color: rgb(5, 143, 70);
+  border-radius: 8px;
+}
+
+.address-inputs-address {
+  padding: .8em 1em;
+  background-color: #e5e5e5;
+  padding-left: 1rem;
+  border: 1px solid #e5e5e5;
+  font-size: 14px;
+  color: #000;
+  width: 100%;
+}
+
+.save-deliver-button {
+  border: 1px solid #058f46;
+  color: #058f46;
+  padding: 3% 6%;
+  font-size: 16px;
+  font-weight: 400;
+  background-color: #fff;
+}
+.save-deliver-button-active {
+  border: 1px solid #058f46;
+  color: #fff;
+  padding: 3% 6%;
+  font-weight: 400;
+  font-size: 16px;
+  background-color: #058f46;
+}
+
+.radioClassAddress {
+  display: flex;
+  column-gap: 20px;
+}
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .save-deliver-button {
+    padding: 3%;
+    font-size: 14px;
+  }
+  .save-deliver-button-active {
+    padding: 3%;
+    font-size: 14px;
+  }
+}
+
+.float-right {
+  display: flex;
+  justify-content: end;
+  column-gap: 10px;
+}

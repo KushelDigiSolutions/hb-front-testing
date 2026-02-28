@@ -1,0 +1,182 @@
+@import "../../../assets/styles/main.scss";
+
+.mySwiper {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.slide-item {
+  display: flex;
+}
+
+// suffola banner section
+.banner-container-saffola {
+  // height: 240px;
+  width: 100%;
+  background-size: cover !important;
+  border-radius: 16px;
+  .banner-label-saffola {
+    width: 58%;
+    display: flex;
+    flex-wrap: wrap;
+    color: #940b00;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 700;
+    padding-left: 50px;
+    justify-content: center;
+    padding-top: 41px;
+  }
+  .promotion-sublabel-saffola {
+    padding-left: 50px;
+    flex-wrap: wrap;
+    padding-top: 10px;
+  }
+}
+
+// coupon code section
+.coupon-back {
+  width: 100%;
+}
+
+// medical package section
+.banner-container-medical {
+  height: 195px;
+  width: 100%;
+  background-size: cover !important;
+  border-radius: 16px;
+
+  .doctor-banner-label {
+    color: #390062;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 50px;
+    width: 70%;
+    padding-left: 32px;
+  }
+
+  .medical-sublabel {
+    padding-left: 32px;
+    margin-top: 10px;
+
+    .doctor-banner-btn {
+      background: #ff5d5d;
+      color: white;
+    }
+  }
+}
+
+///////////////
+// responsive css section
+@media (max-width: 640px) {
+  .banner-container-medical {
+    height: 260px;
+  }
+}
+@media (max-width: 500px) {
+  .banner-container-medical {
+    height: 195px;
+  }
+}
+@media (max-width: 375px) {
+  .banner-container-medical {
+    height: 140px;
+  }
+}
+
+//////////////////
+@media (min-width: 768px) and (max-width: 991px) {
+  .banner-container-saffola {
+    // height: 300px;
+    .banner-label-saffola {
+      width: 65%;
+      display: flex;
+      flex-wrap: wrap;
+      color: #940b00;
+      font-family: Inter;
+      font-size: 14px;
+      font-weight: 700;
+      padding-left: 12px;
+      justify-content: center;
+      padding-top: 10px;
+    }
+    .promotion-sublabel-saffola {
+      padding-left: 12px;
+      flex-wrap: wrap;
+      padding-top: 6px;
+      button {
+        font-size: 12px;
+      }
+    }
+  }
+
+  // .coupon-back {
+  //   height: 100px;
+  // }
+
+  .banner-container-medical {
+    // height: 121px;
+
+    .doctor-banner-label {
+      font-size: 11px;
+      padding-top: 20px;
+      width: 50%;
+      padding-left: 12px;
+    }
+
+    .medical-sublabel {
+      padding-left: 12px;
+      button {
+        font-size: 9px;
+      }
+    }
+  }
+}
+
+/////////////////////////
+@media (min-width: 992px) and (max-width: 1400px) {
+  .banner-container-saffola {
+    .banner-label-saffola {
+      width: 65%;
+      display: flex;
+      flex-wrap: wrap;
+      color: #940b00;
+      font-family: Inter;
+      font-size: 20px;
+      font-weight: 700;
+      padding-left: 30px;
+      justify-content: center;
+      padding-top: 20px;
+    }
+    .promotion-sublabel-saffola {
+      padding-left: 30px;
+      flex-wrap: wrap;
+      padding-top: 10px;
+    }
+  }
+
+  .coupon-back {
+    height: 135px;
+  }
+
+  .banner-container-medical {
+    // height: 161px;
+
+    .doctor-banner-label {
+      font-size: 16px;
+      padding-top: 30px;
+      width: 60%;
+      padding-left: 15px;
+    }
+
+    .medical-sublabel {
+      padding-left: 15px;
+      button {
+        font-size: 12px;
+      }
+    }
+  }
+}

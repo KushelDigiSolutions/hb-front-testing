@@ -1,0 +1,303 @@
+@import "../../../assets/styles/main.scss";
+
+.all-swiper-heading {
+  color: #0a0a0a;
+  font-size: 18px;
+  font-family: Inter;
+  font-weight: 600;
+  word-wrap: break-word;
+}
+
+.self-health-assessment-section {
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  padding: 4px 4px 34px 4px;
+  border-radius: 12px;
+}
+
+.assessment-section-img {
+  width: 100%;
+}
+
+.survey-details-container {
+  padding: 0px 9px 0px 15px;
+}
+
+.assessment-section-details {
+  margin-top: 24px;
+}
+
+.assessment-section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1c1c1c;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.assessment-section-duration {
+  padding: 5px 8px 4px 8px;
+  border-radius: 23px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  display: inline-block;
+}
+
+.assessment-section-duration-short {
+  background-color: "#7944d1";
+  margin-top: 24px;
+  margin-left: 8px;
+  padding: 5px 8px 4px 8px;
+  border-radius: 23px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.assessment-section-duration-long {
+  background-color: "#228B6B";
+  margin-top: 24px;
+  margin-left: 8px;
+  padding: 5px 8px 4px 8px;
+  border-radius: 23px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.assessment-section-discription-container {
+  font-size: 16px;
+  color: #5d5d5d;
+  font-weight: 400;
+  margin-top: 16px;
+}
+
+.assessment-section-start {
+  background-color: #1d5cff;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 11px 40px 11px 40px;
+  border-radius: 5px;
+  color: #ffffff;
+  text-decoration: "none";
+}
+
+.mt29 {
+  margin-top: 29px;
+}
+
+.product-slider {
+  height: 320px;
+}
+
+.productmt {
+  margin-top: 23px;
+}
+
+////////////////
+.grayBorder {
+  border: 1px solid rgba(152, 152, 152, 0.2);
+}
+
+.extended-width {
+  flex: 0 0 calc(100% - 315px);
+  max-width: calc(100% - 315px);
+
+  @include max-sm {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding-left: 0 !important;
+  }
+}
+
+@include max-lg {
+  .width100 {
+    width: 100%;
+    padding: 0px 28px;
+    max-width: 100%;
+  }
+}
+
+@include max-md {
+  .width100 {
+    width: 100%;
+    padding: 0px 28px;
+    max-width: 100%;
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    width: 100%;
+  }
+
+  .mob-category-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .search-container {
+    display: flex;
+    position: relative;
+    margin-right: 0px;
+
+    button {
+      border: none;
+      background-color: transparent;
+    }
+  }
+
+  .search-container input.expanded {
+    border: 1px solid #e8e8e8;
+    padding: 8px 15px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width: 100%;
+
+    /* Expanded width */
+    &::placeholder {
+      font-size: 14px;
+      color: #a2a2a2;
+      font-weight: 400;
+    }
+
+    &:focus,
+    &:focus-visible,
+    &:active,
+    &:hover {
+      box-shadow: none;
+      outline: none;
+    }
+  }
+}
+
+@include max-sm {
+  .width100 {
+    width: 100%;
+    padding: 0px 26px;
+    max-width: 100%;
+  }
+
+  .mobmt36 {
+    margin-top: 25px;
+  }
+
+  .productmt {
+    margin-top: 32px;
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    width: 100%;
+    // padding: 0px 8px;
+  }
+
+  .mob-category-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .search-container {
+    display: flex;
+    position: relative;
+    margin-right: 0px;
+
+    button {
+      border: none;
+      background-color: transparent;
+    }
+  }
+
+  .search-container input.expanded {
+    border: 1px solid #e8e8e8;
+    padding: 8px 15px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width: 100%;
+
+    /* Expanded width */
+    &::placeholder {
+      font-size: 14px;
+      color: #a2a2a2;
+      font-weight: 400;
+    }
+
+    &:focus,
+    &:focus-visible,
+    &:active,
+    &:hover {
+      box-shadow: none;
+      outline: none;
+    }
+  }
+}
+
+@include max-xs {
+  .width100 {
+    width: 100%;
+    padding: 0px 12px;
+    max-width: 100%;
+  }
+
+  .assessment-section-title {
+    font-size: 18px;
+  }
+}
+
+// @media (max-width: 768px) {
+//   .category-header {
+//     display: flex;
+//     align-items: center;
+//     background-color: #ffffff;
+//     width: 100%;
+//     // padding: 0px 8px;
+//   }
+
+//   .mob-category-header {
+//     display: flex;
+//     align-items: center;
+//     width: 100%;
+//     justify-content: space-between;
+//   }
+
+//   .search-container {
+//     display: flex;
+//     position: relative;
+//     margin-right: 0px;
+
+//     button {
+//       border: none;
+//       background-color: transparent;
+//     }
+//   }
+
+//   .search-container input.expanded {
+//     border: 1px solid #e8e8e8;
+//     padding: 8px 15px;
+//     border-top-left-radius: 10px;
+//     border-bottom-left-radius: 10px;
+//     width: 100%; /* Expanded width */
+//     &::placeholder {
+//       font-size: 14px;
+//       color: #a2a2a2;
+//       font-weight: 400;
+//     }
+
+//     &:focus,
+//     &:focus-visible,
+//     &:active,
+//     &:hover {
+//       box-shadow: none;
+//       outline: none;
+//     }
+//   }
+// }

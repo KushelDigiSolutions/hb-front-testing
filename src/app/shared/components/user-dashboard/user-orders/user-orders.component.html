@@ -1,0 +1,235 @@
+<div class="my-orders-container">
+    <!-- <div *ngFor="let order of orders">
+        {{order._id}}
+    </div> -->
+
+    <div class="row">
+        <div class="col-md-12 pt-3">
+            <div class="row mb-2">
+                <div class="col-md-12 account-details-container">
+                    <div class="heading-text-container">
+                        <span class="heading-text">
+                            My Orders
+                        </span>
+                    </div>
+
+                    <div class="mt-3" *ngIf="totalItems > itemsPerPage">
+                        <ul class="pagination">
+                            <li class="page-item" [class.disabled]="currentPage === 1">
+                                <a class="page-link" (click)="onPageChange(currentPage - 1)" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item" *ngFor="let page of getPageNumbers()"
+                                [class.active]="currentPage === page">
+                                <a class="page-link" (click)="onPageChange(page)">{{ page }}</a>
+                            </li>
+                            <li class="page-item" [class.disabled]="currentPage === totalPages">
+                                <a class="page-link" (click)="onPageChange(currentPage + 1)" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="container-div my-3 py-3 px-3">
+                <div class="row ">
+                    <div class="col-md-12">
+                        <div class="text-center py-5 px-4 noDataFound" *ngIf="false">
+                            <img src="https://cdn.healthybazar.com/images/no appointment-found.png"
+                                alt="No Order Found" />
+                            <p class="mt-4">No Order Found!</p>
+                            <a routerLink="/" class="btn btn-primary px-5">Back to Home</a>
+                        </div>
+                        <ng-container *ngFor="let item of orders; let i = index">
+                            <div class="container-border mt-3">
+                                <div class="p-3 bottom-border">
+                                    <table class="table-width">
+                                        <thead>
+                                            <tr>
+                                                <td class="font-12 grayText hide-sm">
+                                                    Order Placed
+                                                </td>
+                                                <td class="font-12 grayText">
+                                                    Items
+                                                </td>
+                                                <td class="font-12 grayText  hide-sm">
+                                                    Total
+                                                </td>
+                                                <td class="font-12 grayText hide-sm">
+                                                    Order Id:
+                                                </td>
+                                                <td class="font-12 grayText">
+                                                    Status
+                                                </td>
+                                                <td style="cursor: pointer;">
+                                                    <span *ngIf="activeOrderIndex != i"
+                                                        class="material-icons float-right pointer arrow-position"
+                                                        (click)="showOrderDetailofItem(i)">
+                                                        <i class="bi bi-chevron-down"></i>
+                                                    </span>
+                                                    <span *ngIf="activeOrderIndex == i"
+                                                        class="material-icons float-right pointer arrow-position"
+                                                        (click)="showOrderDetailofItem(i)">
+                                                        <i class="bi bi-chevron-up"></i>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="hide-sm" style="width: 15%">
+                                                    {{ item.createdAt | date: "mediumDate" }}
+                                                </td>
+                                                <td class="nameValue" style="width: 30%">
+                                                    {{ item.products[0].productName }}
+                                                    <span class="font-12 grayText" *ngIf="item.products.length > 1">+{{
+                                                        item.products.length - 1 }}
+                                                        items</span>
+                                                </td>
+                                                <td class="hide-sm" style="width: 15%">
+                                                    &#8377; {{ item.totalPayableAmount }}
+                                                </td>
+                                                <td class=" hide-sm" style="width: 15%">#{{ item.orderId }}</td>
+                                                <td style="width: 20%">
+                                                    <span class="px-3 alert-secondary" [ngClass]="{
+                                  'status-warning ':
+                                    item.currentStatus == 'placed' ||
+                                    item.currentStatus == 'hold' ||
+                                    item.currentStatus == 'processing' ||
+                                    item.currentStatus == 'paymentAwaited',
+                                  'status-danger':
+                                    item.currentStatus == 'cancelled' ||
+                                    item.currentStatus == 'failed',
+                                  'status-success':
+                                    item.currentStatus == 'completed' ||
+                                    item.currentStatus == 'dispatched' ||
+                                    item.currentStatus == 'delivered'
+                                }">{{ (statusMapping[item.currentStatus] || item.currentStatus) | titlecase }}
+                                                    </span>
+                                                    <!-- <i *ngIf="item.currentStatus == 'refundInitiated'" mdbBtn
+                                                        color="danger"
+                                                        class="waves-light material-icons align-middle font-16 ms-2 pointer"
+                                                        mdbPopover="Refund accepted by Bank is credited to your account within 3-5 business days."
+                                                        placement="bottom" triggers="focus" mdbWavesEffect>
+                                                        help_outline
+                                                    </i> -->
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <ng-container *ngIf="showOrderDetail && activeOrderIndex == i">
+                                    <div class="px-3 px-sm-5 py-3 ">
+                                        <a routerLink="/order-tracker" [queryParams]="{_id: item._id}"
+                                            class="font-14 mt-3 me-3 py-1 px-2 invoice align-center pointer dwnldInvoice">
+                                            <span class="me-2">Track Package</span>
+                                            <span class="material-icons align-middle font-14">
+                                                pin_drop
+                                            </span>
+                                        </a>
+                                        <swiper-container slides-per-view="2">
+                                            <swiper-slide
+                                                class="slide-item"
+                                                *ngFor="let slide of item.products; let i = index">
+                                                <div class="row my-3 mx-1 product">
+                                                    <div class="col-md-12 pointer">
+                                                        <div class="row background-gray py-3">
+                                                            <div class="col-md-4">
+                                                                <img *ngIf="slide.productImage" class="img-fluid" [src]="
+                                          imgUrl + slide.productImage.savedName
+                                        " />
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <p class="mb-0 font-12 grayText">
+                                                                    {{ slide.productId.brandId.name }}
+                                                                </p>
+                                                                <p class="font-weight-600 mb-0 font-14">
+                                                                    {{ slide.productId.name }}
+                                                                </p>
+                                                                <p class="mt-2 font-14">
+                                                                    <span class="grayText" *ngIf="slide.label">size&nbsp;</span>
+                                                                    <span class="font-weight-600">{{ slide.label}}&emsp;</span>
+                                                                    <span class="grayText">qty&nbsp;</span>
+                                                                    <span class="font-weight-600">{{ slide.quantity
+                                                                        }}&emsp;</span>
+                                                                    <span class="grayText">total&nbsp;</span>
+                                                                    <span class="font-weight-600">&#8377;{{
+                                                                        slide.productPrice }}</span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </swiper-slide>
+                                        </swiper-container>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <p class="grayText font-14 mb-1">
+                                                    Delivery Address
+                                                </p>
+                                                <p class="mb-1 font-weight-600">
+                                                    {{
+                                                    item.shippingInfo.firstName +
+                                                    " " +
+                                                    item?.shippingInfo?.lastName
+                                                    }}
+                                                </p>
+                                                <p class="mb-0">{{ item.shippingInfo.phone }}</p>
+                                                <p class="mb-0">
+                                                    {{
+                                                    item.shippingInfo.address.houseNumber +
+                                                    ", " +
+                                                    item.shippingInfo.address.line1 +
+                                                    item.shippingInfo.address.line2
+                                                    }}
+                                                </p>
+                                                <p class="mb-1">
+                                                    {{ item.shippingInfo.address.city }},
+                                                    {{ item.shippingInfo.address.state }}
+                                                    - {{ item.shippingInfo.address.pinCode }}
+                                                </p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="align-end">
+                                                    <p class="grayText font-14 mb-1">
+                                                        Sub Total
+                                                    </p>
+                                                    <h2 class="fs22">
+                                                        &#8377; {{ item.totalPayableAmount }}
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-12 d-flex justify-content-end align-items-center">
+        <div class="mt-3" *ngIf="totalItems > itemsPerPage">
+            <ul class="pagination">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                    <a class="page-link" (click)="onPageChange(currentPage - 1)" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" *ngFor="let page of getPageNumbers()" [class.active]="currentPage === page">
+                    <a class="page-link" (click)="onPageChange(page)">{{ page }}</a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                    <a class="page-link" (click)="onPageChange(currentPage + 1)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

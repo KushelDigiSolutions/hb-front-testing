@@ -1,0 +1,51 @@
+@import "../../../../../assets/styles/main.scss";
+
+:host {
+  background-color: #fff;
+  display: block;
+}
+
+:host ::ng-deep img {
+  // width: 100%;
+  // width: auto;
+}
+
+.lifestyle-tips-image {
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+  height: 275px;
+  border: 1px solid red;
+  background-image: url('../../../../../assets/images/life-style-tips-mob/mob-tip.png');
+
+  .tips-header-mob {
+    display: flex;
+    height: 64px;
+    width: 100%;
+    justify-content: space-between;
+
+    .back-fn {
+      display: flex;
+      align-items: center;
+      color: #ffffff;
+      padding-left: 15px;
+      column-gap: 8px;
+    }
+
+    .watchlist-share-container {
+      display: flex;
+      align-items: center;
+      padding-right: 15px;
+      column-gap: 25px;
+      //   .watchlist-container {
+      //   }
+      //   .share-container {
+      //   }
+    }
+  }
+}
+
+.tips-description {
+  font-size: 16px;
+  font-weight: 400;
+}

@@ -1,0 +1,17 @@
+<div class="container py-4">
+    <div class="mb-4 searched-product-keyword">
+        <span>Showing results for "{{query}}"</span>
+    </div>
+    <div *ngIf="products.length" class="mb-4">
+        <app-product-slider class="product-slider" [productData]="products"
+            productBrandTitle="Shop Now" [seeAllUrl]="'/search/' + query"></app-product-slider>
+    </div>
+    <div *ngIf="blogs.length" class="mb-4">
+        <app-life-style-health-card [recentTipsData]="blogs"
+            productBrandTitle="Lifestyle Tips"  [seeAllUrl]="'/lifestyle-tips/search/' + query"></app-life-style-health-card>
+    </div>
+    <div *ngIf="consultants.length" class="mb-4">
+        <app-top-consult-specialist [topConsult]="consultants"
+            productBrandTitle="Consultants"></app-top-consult-specialist>
+    </div>
+</div>

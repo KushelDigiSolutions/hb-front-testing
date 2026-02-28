@@ -1,0 +1,17 @@
+<div class="cont" [ngStyle]="{'background-image': 'linear-gradient(180deg, '+bgColor1+','+bgColor2+')'}">
+  <div class="row mb-3">
+    <div class="col-md-12 col-sm-12  d-flex justify-content-between ">
+      <span class="product-label">
+        {{label}}
+      </span>
+      <a *ngIf="seeAllUrl" [routerLink]="seeAllUrl" class="btn btn-sm healthconcern-topbrand-btn-color">See all</a>
+    </div>
+  </div>
+  <div class="swiperCont">
+    <app-swiper space-between="15">
+      <swiper-slide class="slide-item" *ngFor="let item of list">
+        <app-shop-health-concern [shopByConcern]="{url:item.url,name: item.label,logo: {savedName: item.img}}" />
+      </swiper-slide>
+    </app-swiper>
+  </div>
+</div>

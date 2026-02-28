@@ -1,0 +1,83 @@
+<div class="container width100">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-12">
+            <!-- <div class="row mx-0">
+                <div class="col-md-12 px-2 ">
+                    <div class="row category-header mx-0 py-1">
+                        <div class="col-md-12 col-sm-12 col-4 py-3 mob-category-header px-0">
+                            <div class="d-flex align-items-center">
+                                <div *ngIf="!desktopScreen">
+                                    <i class="bi bi-chevron-left" style="width: 15px;height: 15px;"
+                                        (click)="backToHomePage()"></i>
+                                </div>
+                                <div class="d-flex">
+                                    <span class="all-swiper-heading">{{productBrandTitle}}</span>
+                                </div>
+                            </div>
+                            <div class="search-container" *ngIf="!desktopScreen">
+                                <input *ngIf="isExpanded" type="text" [class.expanded]="isExpanded"
+                                    placeholder="Search hear...">
+                                <button (click)="toggleSearch()">
+                                    <img src="./assets/images/navbar-images/search-normal.png" alt="Search Icon">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div> -->
+            <div class="row">
+                @for (survey of surveyStart; track $index) {
+                <div class="col-md-6 mobmt36">
+                    <div class="self-health-assessment-section">
+                        <!-- if not use then remove div  -->
+
+                        <img [src]="imageUrl  + survey['image']['savedName']" alt="{{survey['name']}}"
+                            class="assessment-section-img">
+                        <!-- [style]="{'padding': '0px 9px 0px 15px'}" -->
+                        <div class="survey-details-container">
+                            <div class="assessment-section-details">
+                                <span class="assessment-section-title">{{survey['name']}}</span>
+                                <span class="assessment-section-duration" [style]="{'background-color':'#7944d1'}">
+                                    {{survey['time_limit']}}mins
+                                </span>
+                            </div>
+                            <div class="assessment-section-discription-container">
+                                <p>
+                                    {{survey['description']}}
+                                </p>
+                            </div>
+
+                            <!-- use only anchor tag or button tag -->
+                            <!-- [style]="{'color': '#fff','text-decoration': 'none'}" -->
+                            <button class="assessment-section-start"
+                                [routerLink]="['/self-health-assessment', survey['_id']]">
+                                Start
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- try to use margin bottom -->
+    <div [style]="{'margin-top':'48px'}">
+        <hr>
+    </div>
+
+    <div class="mt29 mobileWidth100">
+        <app-top-consult-specialist [productBrandTitle]="'Consult with our Top specialists'"
+            [topConsult]="topConsultLists"></app-top-consult-specialist>
+    </div>
+
+    <div class="mobileWidth100 productmt">
+        <app-product-slider class="product-slider" [productData]="trendingProducts"
+            productBrandTitle="Trending Products"></app-product-slider>
+    </div>
+
+    <div class="mobileWidth100 productmt">
+        <app-life-style-health-card [productBrandTitle]="'Recent Tips'"
+            [recentTipsData]="recentTips"></app-life-style-health-card>
+    </div>
+</div>

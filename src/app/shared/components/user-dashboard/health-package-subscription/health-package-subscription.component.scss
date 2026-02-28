@@ -1,0 +1,304 @@
+@import "../../../../../assets/styles/main.scss";
+
+.heading-text {
+  color: #808080;
+  font-size: 18px;
+  font-weight: 600;
+  @include max-sm {
+    color: #333;
+    font-weight: 400;
+  }
+}
+
+.container-div {
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15), 0px 2px 6px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+}
+
+.healthInput {
+  ::ng-deep {
+    [class="ng-select-container"] {
+      border: 1px solid #058f07;
+      height: 40px;
+      min-height: 40px;
+    }
+  }
+}
+hr {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 0;
+  border-top: 3px solid rgba(0, 0, 0, 0.1);
+}
+mat-tab-group {
+  ::ng-deep {
+    mat-ink-bar {
+      background-color: $color-orange !important;
+    }
+    .mat-tab-label {
+      min-width: 120px;
+      color: #000;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: "Poppins";
+    }
+    .mat-tab-label:active {
+      color: #ef8b1e;
+    }
+    .mat-tab-label {
+      .active {
+        color: $color-orange;
+      }
+      &:focus {
+        color: $color-orange;
+      }
+    }
+    .mat-tab-label .mat-tab-label-content:active {
+      color: #ef8b1e;
+    }
+    .mat-tab-body-content {
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+  }
+
+  .showTitle {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    font-family: "Poppins";
+  }
+  .timelinesList {
+    list-style: none;
+    padding-left: 0px;
+    margin-bottom: 0px;
+    img {
+      width: 62px;
+      height: 62px;
+      object-fit: cover;
+    }
+    li {
+      position: relative;
+      padding-left: 30px;
+      &:not(:last-child) {
+        padding-bottom: 30px;
+      }
+      &::before,
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      &::before {
+        height: 100%;
+        border-right: 1px solid rgba($color-primary, 0.5);
+        left: 5px;
+      }
+      &::after {
+        width: 12px;
+        height: 12px;
+        border: 2px solid $color-primary;
+        outline: 5px solid #fff;
+        border-radius: 100%;
+        background-color: #fff;
+      }
+      &:last-child {
+        &::before {
+          display: none;
+        }
+      }
+    }
+  }
+  .blogList {
+    img {
+      width: 120px;
+      height: 84px;
+    }
+    .readNow {
+      i {
+        font-size: 16px;
+      }
+    }
+  }
+}
+.consultantDetail {
+  border-top: 2px solid #ececec;
+}
+.align-list {
+  font-size: 14px;
+  display: inline-block;
+  .quesLabel {
+    color: #ef8b1e;
+    padding-right: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: "Poppins";
+  }
+  input[type="radio"] {
+    height: 14px;
+    width: 14px;
+    margin-right: 8px;
+    position: relative;
+    top: 2.35px;
+  }
+  .sbmit {
+    font-size: 12px;
+    font-weight: 500;
+    font-family: "Poppins";
+    color: #058f46;
+    padding: 3px;
+  }
+}
+.Dtext {
+  font-size: 10px;
+  font-weight: 400;
+  font-family: "Poppins";
+  text-transform: uppercase;
+}
+.subBox {
+  padding-left: 15px;
+}
+.subTitle {
+  margin-bottom: 3px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.subText {
+  margin-bottom: 3px;
+  font-size: 14px;
+}
+.subTime {
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 3px;
+}
+.helpLink {
+  font-size: 14px;
+  font-weight: 400;
+  span:first-child {
+    text-decoration: underline;
+  }
+}
+.sub-Swipe {
+  ::ng-deep {
+    .swiper-container {
+      height: 45px;
+    }
+    .swiper-button-next,
+    .swiper-button-prev {
+      width: 40px;
+      height: 40px;
+      background-color: #f09735;
+    }
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+      font-size: 12px;
+      font-weight: 900;
+      color: #fff;
+    }
+    .swiper-button-next {
+      right: 0px;
+    }
+    .swiper-button-prev {
+      left: 0px;
+    }
+    .swiper-slide {
+      width: 40px !important;
+      height: 40px !important;
+      margin-right: 5px;
+      padding-top: 8px;
+      border-radius: 100%;
+      background: #b6dec9;
+      text-align: center;
+    }
+  }
+}
+.datePickerInput {
+  position: relative;
+  width: 130px;
+  &::after {
+    content: " ";
+    position: absolute;
+    right: 6px;
+    top: 14px;
+    border: 5px solid transparent;
+    border-top-color: #058f07;
+  }
+  input {
+    visibility: hidden;
+    width: 130px;
+  }
+  .view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 2;
+  }
+}
+.docAvatar {
+  width: 50px;
+  height: 50px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 100%;
+}
+.tabHead {
+  border-bottom: 1px solid #bbb;
+
+  .title {
+    color: #999;
+  }
+}
+.progress {
+  background-color: rgba($color-primary, 0.3);
+  .progress-bar {
+    background-color: $color-primary !important;
+  }
+}
+.chartsRow {
+  > div {
+    &:nth-child(odd) {
+      padding-right: 10px;
+    }
+    &:nth-child(even) {
+      padding-left: 10px;
+    }
+  }
+}
+.cancelled {
+  position: relative;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(#fff, 0.7);
+    z-index: 2;
+  }
+  &::after {
+    content: "This subscription is cancelled now!";
+    position: absolute;
+    color: #d42424;
+    top: 50%;
+    left: 0;
+    text-align: center;
+    right: 0;
+    z-index: 2;
+    margin: auto;
+    display: block;
+    width: auto;
+  }
+}
+.notActive {
+  &::after {
+    content: "This subscription is not active!";
+  }
+}

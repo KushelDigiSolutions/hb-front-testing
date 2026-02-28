@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  margin-bottom: 10px;
+}
+
+a,
+span {
+  color: #646464;
+  font-size: 12px;
+}
+
+a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+span {
+
+  &:last-of-type {
+    color: #A3A3A3;
+  }
+}

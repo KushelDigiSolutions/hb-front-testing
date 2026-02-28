@@ -1,0 +1,745 @@
+@import "../../../../assets/styles/main.scss";
+
+.container-fluid {
+  min-height: calc(100vh - 72px - 69px);
+  background-color: #e0f3e7;
+}
+
+.background-white {
+  background-color: #fff;
+}
+.background-green {
+  background-color: #058f46;
+}
+.color-orange {
+  color: #ef8b1e;
+}
+.number-text-white-bg {
+  font-size: 18px;
+  background-color: #fff !important;
+  color: #058f46;
+  border-radius: 50%;
+  padding-left: 0.4rem;
+  padding-right: 0.3rem;
+}
+.number-text-gray-bg {
+  font-size: 16px;
+  background-color: #e5e5e5;
+  color: #333333;
+  border-radius: 50%;
+  padding: 3px;
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+}
+.checkout-inputs {
+  width: 100%;
+  padding: 8px 10px;
+  background-color: #e5e5e5;
+  padding-left: 1rem;
+  border: 1px solid #e5e5e5;
+  font-size: 14px;
+  color: #000;
+  min-height: 43px;
+}
+.address {
+  @include max-sm {
+    .namePhone {
+      span {
+        display: block;
+      }
+    }
+  }
+}
+.checkout-inputs-address {
+  padding: 11px 15px;
+  background-color: #e5e5e5;
+  border: 1px solid #e5e5e5;
+  font-size: 14px;
+  color: #000;
+  width: 100%;
+}
+.green-button {
+  border: 1px solid #058f46;
+  color: #fff;
+  padding: 10px;
+  width: 100%;
+  background-color: #058f46;
+}
+.gray-text {
+  font-size: 14px;
+  color: #666666;
+}
+.align-baseline {
+  align-items: baseline;
+}
+.self-align-center {
+  align-items: center;
+}
+.toggle-eye-signIn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: #058f46;
+  font-size: 20px;
+}
+.toggle-eye-signUp {
+  position: absolute;
+  top: 10.5rem;
+  transform: translate(-3rem);
+  color: #058f46;
+  font-size: 20px;
+}
+.forgot-password-text {
+  color: #666666;
+  font-size: 14px;
+  font-weight: 600;
+  width: 100%;
+}
+.otp-container {
+}
+.otp-text {
+  color: #666666;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.change-button {
+  border: 1px solid #058f46;
+  color: #058f46;
+  padding: 1% 2%;
+  font-size: 16px;
+  background-color: #fff;
+  &:hover {
+    color: #fff;
+    background-color: #058f46;
+  }
+}
+.deliver-button {
+  border: 1px solid #058f46;
+  color: #058f46;
+  padding: 1% 6%;
+  font-size: 16px;
+  background-color: #fff;
+  &:hover {
+    color: #fff;
+    background-color: #058f46;
+  }
+}
+.save-deliver-button {
+  border: 1px solid #058f46;
+  color: #058f46;
+  padding: 3% 6%;
+  font-size: 16px;
+  background-color: #fff;
+  &:hover {
+    color: #fff;
+    background-color: #058f46;
+  }
+}
+.bold-text {
+  font-weight: 600;
+}
+.address-type {
+  background-color: #e5e5e5;
+  color: #333;
+  font-size: 12px;
+}
+
+.user-address {
+  font-size: 14px;
+  color: #666666;
+  min-height: 2.4rem;
+}
+.col-border {
+  border-bottom: 1px solid #e5e5e5;
+}
+.add-address-icon {
+  transform: translateY(5px);
+  font-size: 20px;
+}
+.background-gray {
+  background-color: #e5e5e5;
+}
+.ps-2-5 {
+  padding-left: 2.5rem;
+}
+.safeProductText {
+  color: #333;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.payment-border {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.verify-button {
+  background-color: #058f46;
+  color: #fff;
+  border: 1px solid #058f46;
+  font-size: 14px;
+}
+
+.checkout-input-card {
+  width: 100% !important;
+}
+.checkout-input-card-month {
+  width: 100% !important;
+}
+.checkout-input-card-cvv {
+  width: 100% !important;
+}
+
+// CSS FOR RADIO BUTTON
+.radioClass {
+  label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin: 5px 0;
+    cursor: pointer;
+    position: relative;
+  }
+
+  /* input */
+  input {
+    opacity: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+
+  /* .design */
+  .design {
+    width: 16px;
+    height: 16px;
+
+    border: 1px solid #058f46;
+    border-radius: 100%;
+    margin-right: 30px;
+
+    position: relative;
+  }
+
+  .design::before,
+  .design::after {
+    content: "";
+    display: block;
+
+    width: inherit;
+    height: inherit;
+
+    border-radius: inherit;
+
+    position: absolute;
+    transform: scale(0);
+    transform-origin: center center;
+  }
+
+  .design:before {
+    background: #058f46;
+    opacity: 0;
+    transition: 0.3s;
+  }
+
+  .design::after {
+    background: #058f46;
+    opacity: 0.4;
+    transition: 0.6s;
+  }
+
+  /* checked state */
+  input:checked + .design::before {
+    opacity: 1;
+    transform: scale(0.6);
+    -webkit-transform-origin-x: 6px;
+    -webkit-transform-origin-y: 5px;
+  }
+
+  /* other states */
+  input:hover + .design,
+  input:focus + .design {
+    border: 1px solid #058f46;
+  }
+
+  input:hover + .design:before,
+  input:focus + .design:before {
+    background: #058f46;
+  }
+
+  input:hover ~ .text {
+    color: #058f46;
+  }
+
+  input:focus + .design::after,
+  input:active + .design::after {
+    opacity: 0.1;
+    transform: scale(2.6);
+  }
+  @include max-sm {
+    .design {
+      margin-right: 15px;
+    }
+  }
+}
+
+.radioClassAddress {
+  label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    text-transform: uppercase;
+    margin: 12px 0;
+
+    cursor: pointer;
+    position: relative;
+  }
+
+  /* input */
+  input {
+    opacity: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+
+  /* .design */
+  .designAddress {
+    width: 16px;
+    height: 16px;
+
+    border: 1px solid #058f46;
+    border-radius: 100%;
+    margin-right: 20px;
+
+    position: relative;
+  }
+
+  .designAddress::before,
+  .designAddress::after {
+    content: "";
+    display: block;
+
+    width: inherit;
+    height: inherit;
+
+    border-radius: inherit;
+
+    position: absolute;
+    transform: scale(0);
+    transform-origin: center center;
+  }
+
+  .designAddress:before {
+    background: #058f46;
+    opacity: 0;
+    transition: 0.3s;
+  }
+
+  .designAddress::after {
+    background: #058f46;
+    opacity: 0.4;
+    transition: 0.6s;
+  }
+
+  /* checked state */
+  input:checked + .designAddress::before {
+    opacity: 1;
+    transform: scale(0.6);
+    -webkit-transform-origin-x: 6px;
+    -webkit-transform-origin-y: 5px;
+  }
+
+  /* other states */
+  input:hover + .designAddress,
+  input:focus + .designAddress {
+    border: 1px solid #058f46;
+  }
+
+  input:hover + .designAddress:before,
+  input:focus + .designAddress:before {
+    background: #058f46;
+  }
+
+  input:hover ~ .text {
+    color: #058f46;
+  }
+
+  input:focus + .designAddress::after,
+  input:active + .designAddress::after {
+    opacity: 0.1;
+    transform: scale(2.6);
+  }
+}
+
+.radioClassPayment {
+  label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    margin: 12px 0;
+
+    cursor: pointer;
+    position: relative;
+  }
+
+  /* input */
+  input {
+    opacity: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+
+  /* .design */
+  .designPayment {
+    width: 16px;
+    height: 16px;
+
+    border: 1px solid #058f46;
+    border-radius: 100%;
+    margin-right: 20px;
+
+    position: relative;
+  }
+
+  .designPayment::before,
+  .designPayment::after {
+    content: "";
+    display: block;
+
+    width: inherit;
+    height: inherit;
+
+    border-radius: inherit;
+
+    position: absolute;
+    transform: scale(0);
+    transform-origin: center center;
+  }
+
+  .designPayment:before {
+    background: #058f46;
+    opacity: 0;
+    transition: 0.3s;
+  }
+
+  .designPayment::after {
+    background: #058f46;
+    opacity: 0.4;
+    transition: 0.6s;
+  }
+
+  /* checked state */
+  input:checked + .designPayment::before {
+    opacity: 1;
+    transform: scale(0.6);
+    -webkit-transform-origin-x: 6px;
+    -webkit-transform-origin-y: 5px;
+  }
+
+  /* other states */
+  input:hover + .designPayment,
+  input:focus + .designPayment {
+    border: 1px solid #058f46;
+  }
+
+  input:hover + .designPayment:before,
+  input:focus + .designPayment:before {
+    background: #058f46;
+  }
+
+  input:hover ~ .text {
+    color: #058f46;
+  }
+
+  input:focus + .designPayment::after,
+  input:active + .designPayment::after {
+    opacity: 0.1;
+    transform: scale(2.6);
+  }
+}
+
+.radioClassNetBanking {
+  label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    margin: 12px 0;
+
+    cursor: pointer;
+    position: relative;
+  }
+
+  /* input */
+  input {
+    opacity: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+
+  /* .design */
+  .designNetBanking {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #058f46;
+    border-radius: 100%;
+    margin-right: 10px;
+    position: relative;
+  }
+
+  .designNetBanking::before,
+  .designNetBanking::after {
+    content: "";
+    display: block;
+
+    width: inherit;
+    height: inherit;
+
+    border-radius: inherit;
+
+    position: absolute;
+    transform: scale(0);
+    transform-origin: center center;
+  }
+
+  .designNetBanking:before {
+    background: #058f46;
+    opacity: 0;
+    transition: 0.3s;
+  }
+
+  .designNetBanking::after {
+    background: #058f46;
+    opacity: 0.4;
+    transition: 0.6s;
+  }
+
+  /* checked state */
+  input:checked + .designNetBanking::before {
+    opacity: 1;
+    transform: scale(0.6);
+    -webkit-transform-origin-x: 6px;
+    -webkit-transform-origin-y: 5px;
+  }
+
+  /* other states */
+  input:hover + .designNetBanking,
+  input:focus + .designNetBanking {
+    border: 1px solid #058f46;
+  }
+
+  input:hover + .designNetBanking:before,
+  input:focus + .designNetBanking:before {
+    background: #058f46;
+  }
+
+  input:hover ~ .text {
+    color: #058f46;
+  }
+
+  input:focus + .designNetBanking::after,
+  input:active + .designNetBanking::after {
+    opacity: 0.1;
+    transform: scale(2.6);
+  }
+}
+// CSS FOR RADIO BUTTON ENDS
+.bankIcon {
+  width: 20px;
+  height: 20px;
+  object-fit: scale-down;
+  margin-right: 10px;
+}
+.varifiedUPI {
+  .material-icons {
+    vertical-align: middle;
+  }
+  .btn {
+    font-size: 14px;
+    border: 1px solid #ccc;
+  }
+}
+.cardNoInput {
+  position: relative;
+  img {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+  }
+}
+.hasCardBin {
+  input {
+    padding-left: 60px;
+  }
+}
+.savedCards {
+  padding-left: 65px;
+  .cvvIP {
+    display: none;
+    max-width: 100px;
+    margin-top: 10px;
+  }
+  li {
+    position: relative;
+    padding: 5px 9px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    &::before,
+    &::after {
+      content: " ";
+      display: inline-block;
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 23px;
+      border: 1px solid $color-primary;
+      left: -30px;
+      top: 18px;
+    }
+    &.active {
+      .cvvIP {
+        display: inline-block;
+      }
+      &::after {
+        background-color: $color-primary;
+        background-color: #058f46;
+        width: 10px;
+        height: 10px;
+        left: -27px;
+        top: 21px;
+      }
+    }
+  }
+  img {
+    width: 45px;
+    height: 27px;
+    object-fit: scale-down;
+  }
+  .number {
+    font-weight: 600;
+    color: #058f46;
+    font-size: 16px;
+    > span {
+      margin-right: 5px;
+    }
+  }
+  .name {
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-right: 30px;
+    font-size: 12px;
+  }
+  .validTill {
+    font-weight: 600;
+    font-size: 12px;
+    span {
+      font-size: 6px;
+      line-height: 1;
+      display: inline-block;
+      color: #999;
+    }
+  }
+  .addNew {
+    padding: 13px 9px;
+    > span {
+      font-weight: 600;
+    }
+    &:not(.active):hover {
+      color: $color-primary;
+      border-color: $color-primary;
+    }
+  }
+}
+.pSessionExpired {
+  background: #fff;
+  .material-icons {
+    font-size: 52px;
+  }
+  p {
+    font-size: 18px;
+  }
+}
+.newCardForm {
+  margin-left: 38px;
+}
+.newCardValues {
+  display: flex;
+  background-color: #e5e5e5;
+  max-width: 430px;
+  .cardNoInput {
+    flex-grow: 1;
+    max-width: 100%;
+    border-right: 1px solid #ccc;
+  }
+  .cardExpiryInput {
+    width: 110px;
+    border: 0;
+    border-right: 1px solid #ccc;
+  }
+  .cardCVVInput {
+    width: 70px;
+  }
+  @include max-xs {
+    display: block;
+    background-color: transparent;
+    .cardNoInput {
+      margin-bottom: 10px;
+    }
+    .cardExpiryInput {
+      margin-right: 10px;
+    }
+    .cardExpiryInput,
+    .cardCVVInput {
+      display: inline-block;
+    }
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .save-deliver-button {
+    padding: 3%;
+    font-size: 14px;
+  }
+  .save-deliver-button-active {
+    padding: 3%;
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1300px) {
+  .extra-pad-left {
+    padding-left: 2.5rem !important;
+  }
+}
+
+@include max-xs {
+  .regCred {
+    span {
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

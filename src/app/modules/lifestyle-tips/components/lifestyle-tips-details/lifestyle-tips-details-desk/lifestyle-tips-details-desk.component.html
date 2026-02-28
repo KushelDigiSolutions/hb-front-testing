@@ -1,0 +1,74 @@
+<!-- @if (desktopScreen == true) {} -->
+<div #cont class="row">
+    <div class="col-lg-9 col-md-8 col-sm-12 col-12 lifestyle-details-image-container">
+        <ng-container *ngIf="tipsDetail">
+            <!-- prod-img-sticky -->
+            <app-breadcrumb [data]="breadcrumb"></app-breadcrumb>
+            <div class='top-detail-blog'>
+                <app-lifestyle-description [blog]="tipsDetail" [style]=""></app-lifestyle-description>
+                <img class="mw-100" src="/assets/images/consult-us-promotional_banner_lifestyle_tip_details.svg" alt="Consult us"
+                    routerLink="/consult-us" loading="lazy">
+            </div>
+            <!-- @for (blg of tipRelatedBolg; track $index) {
+            <div [ngClass]="{'tip-related-first-blog':$index === 0 ,'tip-related-second-blog':$index === 1}">
+                <app-lifestyle-description [blog]="blg"></app-lifestyle-description>
+            </div>
+            } -->
+        </ng-container>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-12 col-12 pt-3 consultant-container relatedItemsCol">
+        <div>
+            <a routerLink="/self-health-assessment" class="mb-3 d-block">
+                <img class="banner-container-medical" src="https://cdn.healthybazar.com/images/assets/web/promotional_banner_tips-details.webp"
+                    alt="Know your body type" loading="lazy">
+            </a>
+            @if(tipsDetail?.products?.length){
+                <span class="all-swiper-heading d-block">Related Products</span>
+                <div *ngFor="let product of tipsDetail.products" [style]="{'padding-bottom':'16px'}">
+                    <app-product class="w-100" [product]="product"></app-product>
+                </div>
+                }
+            <!-- @if(relatedArticle.length){
+            <span class="all-swiper-heading d-block">Related Articles</span>
+            <div *ngFor="let article of relatedArticle" [style]="{'padding-bottom':'16px'}">
+                <app-lifestyle-tip-card class="w-100" [data]="article"></app-lifestyle-tip-card>
+            </div>
+            } -->
+        </div>
+        <div class="dontRemove-toComputeColWidth"></div>
+        <!-- <div class="mt-4 col-12 col-lg-12 ps-xl-5 d-lg-block d-none relatedItemsCol">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                </div>
+                <div class="mt-4 mobileWidth100 col-md-12 col-sm-12 col-12">
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+
+<div class="footer">
+    <div *ngIf="relatedArticle" class="mt-4">
+        <app-life-style-health-card productBrandTitle="Related Articles"
+            [recentTipsData]="relatedArticle"></app-life-style-health-card>
+    </div>
+    <div *ngIf="tenSecReadBlogs?.length" class="mt-4">
+        <app-life-style-health-card [productBrandTitle]="'10 Seconds read'" [recentTipsData]="tenSecReadBlogs"
+            seeAllUrl="/lifestyle-tips/search/10-seconds-read"></app-life-style-health-card>
+    </div>
+
+    <div *ngIf="consultList?.length" class="mt-4">
+        <app-top-consult-specialist [productBrandTitle]="'Consult with our Top specialists'"
+            [topConsult]="consultList"></app-top-consult-specialist>
+    </div>
+
+    <div *ngIf="shopNowProductsData?.length" class="mt-4">
+        <app-product-slider class="product-slider" [productData]="shopNowProductsData" productBrandTitle="Shop Now"
+            seeAllUrl="/search/trending-products"></app-product-slider>
+    </div>
+</div>
+
+<!-- <h1 class="tips-heading mb-3">{{tipsDetail.title}}</h1>
+            <img class="img-fluid mb-4" [src]="cdnBase + tipsDetail.featuredImage.savedName" [alt]="tipsDetail.title">
+            <div class="tips-description mt-2" [innerHTML]="tipsDetail.description"></div> -->

@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-md-10 col-sm-10 col-8 d-flex">
+        <img class="product-slider-heading-icon" src="assets/images/Vector.png"
+            *ngIf="productBrandTitle == 'Raj’s favourites, order again'" loading="lazy">
+        <img class="product-slider-heading-icon" src="/assets/images/homepage/trending-product-icon.svg"
+            *ngIf="productBrandTitle == 'Trending Products'" loading="lazy">
+        <span class="all-swiper-heading">{{productBrandTitle}}</span>
+    </div>
+    <div class="col-md-2 col-sm-2 col-4 d-flex justify-content-end align-items-center"
+        *ngIf="seeAllUrl && !isCartSimProduct">
+        <a [routerLink]="[seeAllUrl]" class="seeAll">
+            See all
+        </a>
+    </div>
+</div>
+<div class="mb-3 swiperCont">
+    <app-swiper space-between="8">
+        <swiper-slide class="slide-item py-3" *ngFor="let productItem of productData">
+            <app-product class="product" [product]="productItem"
+                [hideDiscountPriceCart]="isCartSimProduct"></app-product>
+        </swiper-slide>
+    </app-swiper>
+</div>
+<!-- <app-slider [favProduct]="productsList"></app-slider> -->

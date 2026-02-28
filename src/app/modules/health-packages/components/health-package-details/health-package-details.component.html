@@ -1,0 +1,105 @@
+<div class="container">
+    <!-- For Desktop view -->
+    <div class="web-base" *ngIf="desktopScreen == true">
+        <app-health-package-details-desk [popularHealthPackageDetail]="healthPackageDetails"
+            [consultList]="topConsultLists" [recentTipsData]="relatedHealthTips"></app-health-package-details-desk>
+    </div>
+    <!-- {{healthPackageDetails | json}} -->
+    <!-- mobile view -->
+    <!-- *ngIf="healthPackageDetails" -->
+    <div class="mobile-base" >
+        <!-- Modal -->
+        <div class="modal  modal-xl" #detailsModal id="productDetailModal" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div
+                class="modal-dialog modal-bottom modal-fullscreen-sm-down modal-fullscreen-md-down modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- product image slider start -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-card class="product-details-card-mob">
+                                    <div body class="product-details-card-body-mob">
+                                        <div class="product-details-single-image">
+                                            <img src="{{cloudImgUrl + healthPackageDetails.thumbnail.savedName}}">
+                                        </div>
+                                    </div>
+                                </app-card>
+                            </div>
+                        </div>
+                        <div class="health-package-details">
+                            <div class="package-name">
+                                <span>{{healthPackageDetails.name}}</span>
+                            </div>
+                            <div class="health-package-discription mt-2">
+                                <div class="duration">
+                                    <img src="../../../../../../assets/images/duration.png"
+                                        alt="">&nbsp;<span>Duration</span>
+                                </div>
+                                <div class="duration-time-container">
+                                    <span>{{healthPackageDetails.duration.label}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-sm-12">
+                                <div class="package-price-cart-container d-flex">
+                                    <div class="package-price-container">
+                                        <div class="package-price">
+                                            <span
+                                                class="package-discount-price">₹{{healthPackageDetails.price.sellingPrice}}</span>&nbsp;
+                                            <span
+                                                class="package-original-price">₹{{healthPackageDetails.price.mrp}}</span>&nbsp;
+                                            <span class="package-discount">{{healthPackageDetails.price.discount +
+                                                '% OFF'}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <div class="mt-3">
+                                <div class="product-headings">
+                                    <span>Highlights</span>
+                                </div>
+                                <div class="mt-1">
+                                    <img src="../../../../../../assets/images/health-packages/health-package-details-highlight.png"
+                                        alt=""> <span *ngFor="let highlight of healthPackageDetails.highlights">
+                                        {{highlight}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <div class="product-headings">
+                                    <span>About the package</span>
+                                </div>
+                                <div>
+                                    <p [ngClass]="{'limitTextHeight': isReadMore}">
+                                        <!-- {{popularHealthPackageDetail.description}} -->
+                                        Obesity, a lifestyle problem has caused more than 2.8 million deaths. Before
+                                        learning about
+                                        ayurvedic remedies for weight loss and weight gain, let us see what Ayurveda
+                                        says about weight
+                                        management and obesity. Ayurveda suggests: 1- Uncontrolled body weight can be
+                                        related to
+                                        ‘sthoulya.’ 2- Acco..
+                                    </p>
+                                    <div class="review-read-more">
+                                        <!-- *ngIf="(popularHealthPackageDetail?.description?.split('. ')).length > 1" -->
+                                        <p class="read-more" (click)="showText()">{{
+                                            isReadMore ? 'Read More': 'Read Less' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

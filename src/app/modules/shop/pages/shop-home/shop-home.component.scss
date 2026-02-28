@@ -1,0 +1,337 @@
+@import "../../../../../assets/styles/main.scss";
+// product
+
+.product-slider {
+  height: 320px;
+}
+
+.health-concern-slide {
+  width: 100px !important;
+}
+.shop-categories-container {
+  // height: 237px;
+  background: radial-gradient(#d8ffe3 0%, rgba(216.11, 255, 227, 0.69) 100%);
+  padding-left: 20px;
+  padding-bottom: 20px;
+  padding-right: 20px;
+}
+
+.product-label {
+  color: #000000;
+  font-size: 18px;
+  font-family: Inter;
+  font-weight: 600;
+}
+
+.shop-home-category-card-container {
+  margin: 10px 0;
+}
+
+.banner-label {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  color: #940b00;
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.healthconcern-topbrand-btn-color {
+  background-color: white;
+  color: #94068e;
+  border-radius: 6px;
+  // width: 67px;
+  // height: 28px;
+  padding: 6px 12px;
+  font-weight: 500;
+}
+
+.product-swiper-explore-btn-text {
+  font-size: 13px;
+  border-radius: 6px;
+  background-color: #e0e8ff;
+  color: #1d5cff;
+  // width: 67px;
+  // height: 28px;
+  padding: 6px 12px;
+
+  border: 1px solid #e0e8ff;
+  font-weight: 500;
+}
+
+.product-swiper-container {
+  display: flex;
+  flex-direction: column;
+  height: 320px;
+  width: 100%;
+  row-gap: 15px;
+  margin-top: 10px;
+}
+
+.product-swiper-container-header {
+  display: flex;
+  justify-content: space-between;
+  height: 28px;
+}
+
+.product-swiper-heading {
+  font-family: "Inter";
+}
+
+.product-swiper-explore-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e0e8ff;
+  border-radius: 6px;
+  width: 67px;
+  height: 28px;
+}
+
+.product-swiper-content {
+  height: 100%;
+  width: 100%;
+}
+
+.mySwiper {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.slide-item {
+  display: flex;
+  margin-right: 10px;
+}
+
+.promostion-container {
+  height: 185px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.promotion-banner {
+  width: 400px;
+}
+
+.promostion-banner-img {
+  width: 400px;
+  height: 100%;
+}
+
+.categories-container {
+  height: 150px;
+  display: flex;
+  align-items: center;
+}
+
+.categories-banner {
+  width: 400px;
+}
+
+.categories-label {
+  // width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.doctor-banner-label {
+  width: 80%;
+  color: #390062;
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.doctor-banner-btn {
+  background: #ff5d5d;
+  color: white;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shop-health-concern-container {
+  // background: radial-gradient(#d8ffe3 100%, #d8ffe3 69%);
+  background: linear-gradient(180deg, #fff1e4 0%, #ffe3c9 100%);
+}
+
+.shop-category-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.coupon-code-container {
+  display: flex;
+  justify-content: space-evenly;
+  .coupon-code {
+    height: 156px;
+    width: 575px;
+  }
+}
+
+.shop-health-concern-category {
+  display: flex;
+  justify-content: space-between;
+}
+
+.all-swiper-heading {
+  // Shop by category
+  color: #0a0a0a;
+  font-size: 18px;
+  font-family: Inter;
+  font-weight: 600;
+  word-wrap: break-word;
+  padding-left: 6px;
+}
+
+.footer-branding {
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.footer-image {
+  display: flex;
+  justify-content: space-around;
+}
+
+.footer-tagline {
+  color: #bababa;
+  font-size: 18px;
+  font-family: Inter;
+  font-weight: 900;
+  word-wrap: break-word;
+}
+
+.footer-manufacture {
+  height: 30px;
+  font-size: 10px;
+  align-items: end;
+}
+
+.footer-category-container {
+  height: 375px;
+  width: 100%;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+}
+
+.healthy-bazar-promotion-footer {
+  height: 83px;
+  border-bottom: 1px solid #bababa;
+  display: flex;
+  align-items: center;
+}
+.footer-category-list {
+  font-size: 16px;
+  font-weight: 500;
+}
+.footer-category-sections {
+  color: #878787;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.category-footer {
+  border-bottom: 1px solid #bababa;
+}
+
+.mt32 {
+  margin-top: 32px;
+}
+
+.padding20 {
+  padding: 0px 20px;
+}
+
+@include max-lg {
+  .shop-categories-container {
+    // padding-left: 0px;
+  }
+  .width100 {
+    width: 100%;
+    padding: 0px 25px;
+    max-width: 100%;
+  }
+}
+
+.product-slider-wrapper {
+  min-height: 295.5px; /* Estimate the height of your slider */
+  position: relative;
+}
+
+.product-slider-wrapper.invisible {
+  visibility: hidden;
+}
+
+@include max-md {
+  // .shop-categories-container {
+  //   height: 220px;
+  //   padding-left: 0px;
+  // }
+}
+
+@include max-sm {
+  .coupon-code-col {
+    margin-bottom: 10px;
+  }
+  .width100 {
+    padding: 0px 0px;
+  }
+  .mobileWidth100 {
+    padding: 0px 15px;
+  }
+  .shop-categories-container {
+    // height: 237px;
+    background: radial-gradient(#f1ffd6 0%, rgba(238, 255, 205, 0.85) 100%);
+  }
+  .footer-branding {
+    padding-bottom: 50px;
+  }
+}
+
+@include max-xs {
+  .all-swiper-heading {
+    font-size: 14px;
+  }
+  .padding4 {
+    padding: 0px 4px;
+  }
+  .banner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100px;
+    background-size: cover !important;
+    border-radius: 16px;
+  }
+
+  .categories-label {
+    width: 76px;
+    font-size: 15px;
+    display: flex;
+  }
+}
+
+@media (max-width: 391px) {
+  .padding4 {
+    padding: 0px 2px;
+  }
+}

@@ -1,0 +1,562 @@
+@import "../../../../assets/styles/main.scss";
+
+.custom-progress-bar .mat-progress-bar-fill {
+  background-color: #ff5722; /* Custom color */
+}
+
+.custom-progress-bar .mat-progress-bar-fill::after {
+  background-color: #ff5722; /* Custom color */
+}
+
+.container-fluid {
+  background-color: #fffae9;
+}
+
+.self-health-assessment-container {
+  display: flex;
+  justify-content: center;
+  padding: 0px 20px;
+}
+
+.background-div1 {
+  background: #fff7db;
+  transform: rotate(4.54deg);
+  margin-top: 55px;
+  border-radius: 8px;
+  margin-bottom: 109px;
+  box-shadow: 0px 2px 20px 0px rgba(126, 126, 126, 0.5);
+  // box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.25);
+}
+
+.background-div2 {
+  background: #fff7db;
+  transform: rotate(-7.46deg);
+  border-radius: 8px;
+  box-shadow: 0px 2px 20px 0px rgba(126, 126, 126, 0.5);
+  // box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.25);
+}
+
+.assessment-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  position: sticky;
+  transform: rotate(3.46deg);
+  margin-top: -15px;
+}
+
+.instruction-section-background {
+}
+
+.instruction-section {
+  background: #ffffff;
+  margin-top: 65px;
+  border-radius: 8px;
+  margin-bottom: 109px;
+  box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.5);
+}
+////// Basic Detail Form CSS Start ///////////
+
+.basic-details-container {
+  padding: 27px 32px 69px 32px;
+}
+.basic-details-form-header {
+  font-size: 12px;
+  color: #979797;
+  font-weight: 500;
+}
+
+.basic-details-form-second-header {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.basic-detail-self-assessment-form-field-name {
+  margin: 5px;
+  font-size: 12px;
+}
+.input-lebal {
+  left: 16px;
+  position: absolute;
+  top: -12px;
+  background: white;
+  font-size: 16px;
+  color: #49454f;
+}
+
+.basic-detail-form-input {
+  height: 48px;
+  width: 360px;
+  border-radius: 4px;
+  border-color: #79747e;
+  padding-left: 20px;
+  font-size: 16px;
+}
+
+.prefix {
+  position: absolute;
+  left: 16px;
+  top: 15px;
+  font-size: 16px;
+  color: #49454f;
+}
+
+.basic-detail-form-input-mobile-no {
+  height: 48px;
+  width: 360px;
+  border-radius: 4px;
+  border-color: #79747e;
+  padding-left: 50px;
+  padding-top: 12px;
+  font-size: 16px;
+}
+
+.basic-detail-form-submit-btn {
+  margin-top: 26px;
+}
+
+.basic-details-submit {
+  background-color: #1d5cff;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 11px 36px 11px 36px;
+  border-radius: 5px;
+  color: #ffffff;
+}
+
+.isInvalid {
+  color: red;
+  font-size: 16px;
+}
+
+////// Basic Detail Form CSS End ///////////
+
+///// Instruction CSS Start ///////
+
+.instruction-section-container {
+  width: 390px;
+}
+
+.instruction-section-header {
+  padding: 24px 148px 24px 148px;
+  display: flex;
+  justify-content: center;
+  border-bottom: 0.5px solid #000000;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.instruction-section-content {
+  padding: 0px 15px 0px 27px;
+}
+
+.instruction-section-footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.start-question-btn {
+  padding: 11px 68px 11px 68px;
+  background: #1d5cff;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+}
+
+.bold {
+  font-size: 14px;
+  color: #000000;
+  font-weight: 600;
+}
+
+.normal {
+  font-size: 14px;
+  color: #5d5d5d;
+}
+
+/////// Instruction CSS End /////
+
+//// Question and Answer ////
+
+.self-health-assessment-question-answer-container {
+  width: 424px;
+}
+
+.question-number-indication-header {
+  font-size: 12px;
+  font-weight: 500;
+  color: #7c7c7c;
+  padding: 30px 190px 0px 190px;
+}
+
+.question-answer-content {
+  padding: 60px 50px 47px 50px;
+}
+
+.self-health-assessment-question-unorder-list {
+  list-style-type: none;
+  padding: 0px;
+  margin-top: 26px;
+}
+.self-health-assessment-question-list-item {
+  display: flex;
+  column-gap: 10px;
+}
+
+.self-health-assessment-option-selection {
+  margin-top: 5px;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.question-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+}
+.question-answer {
+  font-size: 16px;
+  color: #000000;
+  margin-bottom: 16px;
+}
+
+.question-answer-footer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 80px;
+  // margin-top: 89px;
+}
+
+.next-question {
+  padding: 11px 62.36px 11px 62.36px;
+  background-color: #1d5cff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.back-question {
+  margin-top: 13px;
+  border: none;
+  color: #000000;
+  font-size: 16px;
+  background: #ffffff;
+  font-weight: 500;
+}
+////// self health assessment analysis  CSS start ///////
+.analysis {
+}
+
+.analysis-section-background {
+  background-color: #ffffff;
+}
+
+.analysis-report-section {
+  padding: 5px 15px;
+}
+.anls {
+  padding: 10px;
+  padding-top: 25px;
+  padding-bottom: 20px;
+  border-radius: 5px;
+}
+
+.anls-lb {
+  margin-bottom: 0px;
+  font-size: 12px;
+  color: #1c9a57;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.anls-name {
+  margin-bottom: 0px;
+  font-size: 15px;
+  color: #000;
+  font-weight: 600;
+}
+
+.anls-s2 {
+  border: 1px solid #e7e7e7;
+  padding: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.anls-s3 {
+  border: 1px solid #e7e7e7;
+  padding: 10px;
+  padding-top: 25px;
+  padding-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.dt-box {
+  margin-bottom: 1.5rem;
+}
+
+.anls-dt {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 2px;
+}
+
+.anls-p {
+  font-size: 15px;
+  color: #000;
+  font-weight: 500;
+}
+
+::ng-deep .mdc-linear-progress__bar-inner {
+  border-color: #83fea5 !important;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+  background: #e4e8eb;
+}
+
+::ng-deep .mat-progress-bar {
+  border-radius: 2px;
+}
+////// self health assessment analysis  CSS end ///////
+
+.footer-section {
+  background-color: #fffae9;
+  padding: 45px 0px 49px 0px;
+}
+.back-home-page-icon {
+  width: 15px;
+}
+
+@include max-lg {
+  // max-1200px - min-993px
+  .width100 {
+    width: 100%;
+    padding: 0px 25px;
+    max-width: 100%;
+  }
+}
+
+@include max-md {
+  .width100 {
+    width: 100%;
+    padding: 0px 25px;
+    max-width: 100%;
+  }
+  .container-fluid {
+    padding: 0px 15px 0px 15px;
+  }
+
+  .background-div1 {
+    margin-top: 90px;
+  }
+  .self-health-assessment-container {
+    width: 100%;
+    padding: 0px 15px;
+  }
+  .assessment-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    position: sticky;
+    margin-top: -15px;
+    // transform: rotate(0deg);
+  }
+
+  .basic-details-container {
+    padding: 27px 18px 50px 18px;
+    // padding: 27px 50px 50px 50px;
+  }
+
+  .instruction-section-container {
+    width: 100%;
+  }
+
+  .basic-detail-form-input {
+    height: 48px;
+    width: 100%;
+    border-radius: 4px;
+    border-color: #79747e;
+    padding-left: 20px;
+    font-size: 16px;
+  }
+
+  .prefix {
+    position: absolute;
+    left: 16px;
+    top: 15px;
+    font-size: 16px;
+  }
+
+  .basic-detail-form-input-mobile-no {
+    height: 48px;
+    width: 100%;
+    border-radius: 4px;
+    border-color: #79747e;
+    padding-left: 50px;
+    padding-top: 12px;
+    font-size: 16px;
+  }
+}
+
+@include max-sm {
+  .container-fluid {
+    background-color: #fffae9;
+    padding: 30px 15px 0px 15px;
+  }
+  .self-health-assessment-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 0px 10px;
+  }
+  .width100 {
+    padding: 0px 0px;
+  }
+
+  .all-swiper-heading {
+    color: #0a0a0a;
+    font-size: 16px;
+    font-family: Inter;
+    font-weight: 600;
+    word-wrap: break-word;
+    padding-left: 4px;
+  }
+
+  .assessment-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    position: sticky;
+    transform: rotate(0deg);
+    margin-top: -15px;
+    width: 100%;
+  }
+
+  // .basic-details-container {
+  //   padding: 27px 16px 50px 16px;
+  // }
+
+  .background-div1-mob {
+    margin-top: 45px;
+  }
+
+  .instruction-section {
+    margin-top: 15px;
+  }
+
+  .question-answer-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80;
+    // margin-top: 90px;
+  }
+
+  .next-question {
+    padding: 11px 48px 11px 48px;
+  }
+  .self-health-assessment-question-answer-container {
+    width: 100%;
+  }
+  .question-number-indication-header {
+    // padding: 30px 170px 0px 190px;
+    padding: 30px 200px 0px 300px;
+  }
+}
+
+@include max-xs {
+  .container-fluid {
+    background-color: #fffae9;
+    padding: 0px 15px 0px 15px;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .width100 {
+    padding: 0px 0px;
+  }
+
+  .all-swiper-heading {
+    color: #0a0a0a;
+    font-size: 16px;
+    font-family: Inter;
+    font-weight: 600;
+    word-wrap: break-word;
+    padding-left: 4px;
+  }
+
+  .self-health-assessment-container {
+    width: 100%;
+    padding: 0px 10px;
+  }
+  .assessment-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    position: sticky;
+    // transform: rotate(0deg);
+    margin-top: -15px;
+    width: 100%;
+  }
+
+  .instruction-section-container {
+    width: 100%;
+  }
+  .basic-details-container {
+    padding: 27px 16px 50px 16px;
+  }
+
+  .background-div1-mob {
+    margin-top: 25px;
+  }
+
+  .instruction-section {
+    margin-top: 30px;
+  }
+
+  .self-health-assessment-question-answer-container {
+    width: 100%;
+  }
+  .question-number-indication-header {
+    padding: 30px 120px 10px 150px;
+  }
+  .question-answer-content {
+    padding: 50px 25px 47px 25px;
+  }
+  .basic-detail-form-input {
+    width: 100%;
+    // width: 345px;
+  }
+  .basic-detail-form-input-mobile-no {
+    width: 100%;
+    // width: 345px;
+  }
+
+  .question-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
+  }
+  .question-answer {
+    font-size: 14px;
+    color: #000000;
+  }
+
+  .question-answer-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    // margin-top: 50px;
+  }
+}

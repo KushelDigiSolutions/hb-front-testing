@@ -1,0 +1,88 @@
+@import "../../../../../assets/styles/main.scss";
+
+.user-step-guidance {
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 40px;
+}
+
+.user-steps {
+  color: #690065;
+  font-weight: 600;
+  font-size: 14px;
+  width: auto;
+}
+.user-steps-count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-image: url("../../../../../assets/images/health-packages/health-packages-user-guide-count-background.png");
+  height: 48.92px;
+  width: 48.96px;
+}
+
+.guidance-step-text {
+  display: flex;
+  justify-content: center;
+}
+
+.follow-step {
+  display: flex;
+  column-gap: 50px;
+  justify-content: center;
+}
+
+.mt32{
+  margin-top: 32px;
+}
+
+@include max-lg {
+  .shop-categories-container {
+    // padding-left: 0px;
+  }
+  .width100{
+    width: 100%;
+    padding: 0px 25px;
+    max-width: 100%;
+  }
+}
+
+@include max-sm {
+  .user-step-guidance {
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 5px;
+  }
+  .guidance-step-text {
+    justify-content: flex-start;
+  }
+  .follow-step {
+    display: flex;
+    row-gap: 20px;
+    justify-content: flex-start;
+  }
+  .width100{
+    padding: 0px 0px;
+  }
+  .mobileWidth100{
+    padding: 0px 15px;
+
+  }
+}
+
+
+@include max-xs {
+  
+.padding4{
+  padding: 0px 4px;
+}
+
+  
+}
+
+@media (max-width: 391px) {
+  .padding4{
+    padding: 0px 2px;
+  }
+}

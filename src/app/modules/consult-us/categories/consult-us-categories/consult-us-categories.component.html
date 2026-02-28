@@ -1,0 +1,157 @@
+<div class="container width100">
+    <div class="row mx-md-0">
+        @if(desktopScreen){
+        <div class="col-lg-3 col-md-4 col-sm-4 pb-3  filterCol grayBorder px-0 d-md-block d-none">
+            <app-filters [loader]="isFiltersLoading" [categoryData]="filterData" [filterData]="filterUrl"
+                [priceSlider]="priceSlider" (newItemEvent)="onFilterChange($event)"
+                (removeFilter)="clearApplyFilter()"></app-filters>
+        </div>
+        }
+
+        @if (true) {
+        <!-- Description -->
+        <div class="col-lg-9 col-md-8 extended-width pe-0 grayBorder px-0">
+            <app-category-page-head class="px-3" [name]="name" moduleType="consult" [list]="filterData"
+                [value]="filterUrl" (changefilters)="onFilterChange($event)" (clearFilters)="clearApplyFilter()"></app-category-page-head>
+            <div class="row min-sm-mx-0 mx-0">
+                <!-- <hr class="underline mt-0" /> -->
+                <div class="col-md-12 col-sm-12  category-product-container">
+                    <div class="category-container ">
+                        @if (consultUsDetails.length) {
+                        <div class="row">
+                            @for (consult of consultUsDetails; track $index;) {
+                            <div class="col-xl-4 col-lg-4  col-md-6 col-sm-4 col-6">
+                                <!-- {{consultUsDetails | json}} -->
+                                <app-consultant-card class="w-100" [data]="consult"
+                                    (book)="addToCheckout(consult.id)"></app-consultant-card>
+
+                            </div>
+                            }
+                        </div>
+                        <div *ngIf="count > consultUsDetails.length" class="text-center pt-4">
+                            <button class="btn btn-primary fs-5 px-5 py-2" (click)="onLoadMore()"
+                                [disabled]="loader">{{loader?'Loading...':'Load More'}}</button>
+                        </div>
+                        }
+
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-sm-12 py-5 text-center" *ngIf="!loader && !consultUsDetails?.length">
+                    <div>
+                        <img class="img-fluid no-product-found mt-3" [src]="imgUrl + 'nothing-found.png'" />
+                    </div>
+                    <p class="bold-text pt-3">No consultant found</p>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+
+    <hr class="d-none d-md-block">
+    <!--  -->
+    <!-- <div class="mt-4 px-md-0 px-3">
+        <app-affordable-health-packages [package]="affordablePackages"
+            [productBrandTitle]="'Related Health packages'"></app-affordable-health-packages>
+    </div> -->
+    <!-- <div class="mt-4 px-md-0 px-3">
+        <app-top-consult-specialist [productBrandTitle]="'Consult with our Top specialists'"
+            [topConsult]="topConsultLists"></app-top-consult-specialist>
+    </div> -->
+    <div class="mt-4 px-md-0 px-3">
+        <app-life-style-health-card [productBrandTitle]="'Related Health Tips'"
+            [recentTipsData]="relatedTips"></app-life-style-health-card>
+    </div>
+
+    <!-- mob filter modal -->
+    <!-- Modal -->
+    <div class="modal fade" #filterModal id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog bottom-modal-filter">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        (click)="closeModal()"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="pb-3 ">
+                        <div class="ps-3" *ngIf="modalfilter">
+                            <ng-container *ngFor="let item of modalfilter; let i = index">
+                                <div *ngIf="item?.name != 'Price Range'">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="">
+                                            <span class="sub-heading-text"> {{ item?.name | titlecase }}</span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div [ngClass]="{'d-none': !item?.detail}" class="category-search mt-2">
+                                        <input #search *ngIf="item?.type != 'radio' && !item.hideSearch" type="text"
+                                            class="modal-search-bar" [placeholder]="'Search ' + item?.name"
+                                            (keyup)="onSearch(search, item)" />
+
+                                        <ul class="ps-0" id="scroll" [ngClass]="{
+                              'fixed-height': item?.detail?.length > 10,
+                              'pt-3': item?.type != 'radio'
+                            }" [style]="{'padding-left': '2px'}">
+                                            <li *ngFor="let subItem of item?.detail; let j = index"
+                                                class="sub-sub-heading-text pointer"
+                                                [ngStyle]="{ color: activeIndex == j ? '#058F46' : '#333333' }"
+                                                [ngClass]="{ 'd-none': subItem.hide }">
+                                                <label *ngIf="item?.type == 'checkbox'">
+                                                    <input type="checkbox" class="me-2"
+                                                        (change)="getProductData(item?.filterName,item?.type,subItem?._id || subItem?.value,$event)" />
+                                                    <span>
+                                                        {{ subItem?.name | titlecase }}
+                                                    </span>
+                                                </label>
+                                                <label *ngIf="item?.type == 'radio'" class="pointer"
+                                                    [ngStyle]="{ color: j == radioActiveIndex ? '#058f46' : '' }">
+                                                    <input type="radio" [name]="item?.filterName"
+                                                        class="form-control d-inline-block me-2 align-middle" (change)="getProductData(
+                                                                    item?.filterName,
+                                                                    item?.type,
+                                                                    subItem?._id || subItem?.value,
+                                                                    $event
+                                                                );
+                                                        setRadioActiveIndex(j)
+                                                        ">
+                                                    <span class="d-inline-block">{{ subItem?.name | titlecase
+                                                        }}</span>
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                            <!--Range Slider-->
+                            <div *ngIf="priceRangeSlider && highValue">
+                                <hr class="underline margin-50" />
+                                <p class="sub-heading-text">
+                                    filter.priceRange
+                                </p>
+                                <div class="ps-2 pe-2 custom-slider">
+                                    <!-- <ngx-slider *ngIf="isBrowser" [(value)]="value" [(highValue)]="highValue"
+                                        [options]="options" (valueChange)="minPriceSliderFxn($event)"
+                                        (highValueChange)="maxPriceSliderFxn($event)"
+                                        (userChangeEnd)="onPriceChangeEnd()"></ngx-slider> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div [style]="{'width':'174px'}">
+                        <button type="button" class="btn btn-primary"
+                            [style]="{'color':'red','background-color':'#FFFFFF','border-color':'#CBCBCB','width':'100%'}">Clear
+                            filters</button>
+                    </div>
+                    <div [style]="{'width':'174px'}">
+                        <button type="button" class="btn btn-primary" (click)="applyFilter()"
+                            [style]="{'width':'100%'}">Apply</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

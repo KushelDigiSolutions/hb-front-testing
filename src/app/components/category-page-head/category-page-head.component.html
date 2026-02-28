@@ -1,0 +1,246 @@
+<div class="category-header d-flex justify-content-between py-2">
+  <!-- <div class="col-md-4 col-sm-4 py-3 mob-category-header px-0">
+    <div class="d-flex align-items-center">
+      <div *ngIf="!desktopScreen">
+        <i class="bi bi-chevron-left" style="width: 15px;height: 15px;" (click)="backToHomePage()"></i>
+      </div>
+      <div class="title">
+        <span>{{ name | titlecase }}</span>
+      </div>
+    </div>
+    <div class="search-container" *ngIf="!desktopScreen">
+      <input *ngIf="isExpanded" type="text" [class.expanded]="isExpanded" placeholder="Search hear...">
+      <button (click)="toggleSearch()">
+        <img src="/assets/images/navbar-images/search-normal.png" alt="Search Icon">
+      </button>
+    </div>
+  </div> -->
+  <div class="d-flex gap-3">
+    <h1 class="flex-shrink-0 mb-0 me-3 h5">{{ name | titlecase }}</h1>
+    <p *ngIf="this.herbsSearchTerm && this.herbsSearchTerm !== ''"
+      style="font-size: 12px; align-self: center; margin-bottom: 0;">Search
+      results for:
+      {{herbsSearchTerm}}
+    </p>
+  </div>
+  <div class="category-product-container justify-content-sm-end">
+    <div class="mob-filter-container mt-md-1 mt-2 mb-md-0 mb-1">
+      <ng-container *ngIf="desktopScreen">
+        @for (filter of sortFilters;track filter) {
+        <div class="mob-category-filter-container">
+          <button (click)=" openModal(filter.filterName)">
+            <img *ngIf="filter.icon" class="sort me-1" [src]="filter.icon" [alt]="filter.name">
+            {{filter.name }}
+            <img src="/assets/images/category-filter/filter-down-arrow.png" alt="Show options"></button>
+        </div>
+        }
+      </ng-container>
+      <!-- <ng-container *ngIf="!desktopScreen">
+        @for (filter of list;track filter) {
+        <div class="mob-category-filter-container">
+          <button (click)=" openModal(filter.filterName)">{{filter.showSelectedValueOnInput?
+            (filterUrl[filter.name]
+            || filter.noValueText) : filter.name }}
+            <img src="/assets/images/category-filter/filter-down-arrow.png" alt="Show options"></button>
+        </div>
+        }
+      </ng-container> -->
+      <ng-container *ngIf="!desktopScreen">
+        <div class="flex">
+          @for (filter of sortFilters;track filter) {
+          <button class="bg-white border-0 mx-2" (click)=" openModal(filter.filterName)">
+            <i class="bi bi-sort-down" style="font-size: 18px;"></i>
+          </button>
+          }
+          <button (click)="openSampleModal()" class="mx-2 bg-white border-0">
+            <i class="bi bi-funnel" style="font-size: 18px;"></i>
+          </button>
+        </div>
+
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- SAMPLE MODAL -->
+<div class="modal fade" #sampleModal id="sampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog bottom-modal-filter h-100">
+    <div class="modal-content h-100 d-flex flex-column">
+
+      <!-- Header -->
+      <div class="modal-header d-flex justify-content-start align-items-center">
+        <button type="button" class="btn btn-link d-flex align-items-center gap-1 text-dark text-decoration-none"
+          data-bs-dismiss="modal" (click)="closeSampleModal()">
+          <span style="font-size: 1.25rem; line-height: 1;">&times;</span>
+          <span>Close</span>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body p-0 flex-grow-1 d-flex" style="overflow: hidden;">
+        <!-- LEFT -->
+        <div class="list-group flex-shrink-0" style="width: 35%; border-right: 1px solid #ddd; overflow-y: auto;">
+          <button *ngFor="let filter of list; let i = index" class="list-group-item list-group-item-action"
+            [class.active]="i === activeFilterIndex" (click)="setActiveFilter(i)">
+            {{ filter.name }}
+            <span *ngIf="getFilterCount(filter) > 0" class="ms-2">
+              {{ getFilterCount(filter) }}
+            </span>
+          </button>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="flex-grow-1 p-3" style="overflow-y: auto;">
+          <ng-container *ngIf="activeFilter && activeFilter.filterName !== 'priceRange'">
+            <h6>{{ activeFilter.name }}</h6>
+
+            <!-- Show search box only if more than 10 options -->
+            <!-- Show search only if more than 10 options -->
+            <div *ngIf="(activeFilter?.detail?.length || 0) > 10" class="mb-2">
+              <input type="text" [(ngModel)]="searchTerm" placeholder="Search {{ activeFilter.name }}..."
+                class="form-control form-control-sm" />
+            </div>
+
+            <!-- Debugging helper -->
+            <p *ngIf="searchTerm">You typed: {{ searchTerm }}</p>
+
+            <div class="d-flex flex-wrap gap-2 mt-2">
+              <span *ngFor="let option of filteredOptions" (click)="toggleOption(option)"
+                class="badge rounded-pill px-3 py-2" [ngClass]="{
+                      'text-white green-theme-bg': option.selected,
+                      'bg-light text-dark border': !option.selected
+                    }" style="cursor: pointer;">
+                {{ option.name }}
+              </span>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="activeFilter && activeFilter.filterName == 'priceRange'">
+            <h6>{{ activeFilter.name }}</h6>
+
+            <!-- Show search box only if more than 10 options -->
+            <!-- Show search only if more than 10 options -->
+            <div *ngIf="(activeFilter?.detail?.length || 0) > 10" class="mb-2">
+              <input type="text" [(ngModel)]="searchTerm" placeholder="Search {{ activeFilter.name }}..."
+                class="form-control form-control-sm" />
+            </div>
+
+            <!-- Debugging helper -->
+            <p *ngIf="searchTerm">You typed: {{ searchTerm }}</p>
+
+            <div class="d-flex flex-wrap gap-2 mt-2">
+              <span *ngFor="let option of filteredOptions" (click)="toggleOption(option)"
+                class="badge rounded-pill px-3 py-2" [ngClass]="{
+                                'text-white green-theme-bg': option.selected,
+                                'bg-light text-dark border': !option.selected
+                              }" style="cursor: pointer;">
+                <p class="mb-0" *ngIf="option.maxPrice !== ''">{{option.minPrice}} - {{option.maxPrice}}</p>
+                <p class="mb-0" *ngIf="option.maxPrice == ''">Above {{option.minPrice}}</p>
+              </span>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"
+          [style]="{'color':'red','background-color':'#FFFFFF','border-color':'#CBCBCB','width':'100%'}"
+          (click)="clearSampleFilter()">Clear filters</button>
+        <button type="button" class="btn btn-primary" (click)="applySampleFilter()"
+          [style]="{'width':'100%'}">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" #filterModal id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog bottom-modal-filter">
+    <div class="modal-content">
+      <div class="modal-header d-flex justify-content-start align-items-center">
+        <button type="button" class="btn btn-link d-flex align-items-center gap-1 text-dark text-decoration-none"
+          data-bs-dismiss="modal" (click)="closeModal()">
+          <span style="font-size: 1.25rem; line-height: 1;">&times;</span>
+          <span>Close</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="pb-3 ">
+          <div class="ps-3" *ngIf="modalfilter">
+            <ng-container *ngFor="let item of modalfilter; let i = index">
+              <div *ngIf="item?.name != 'Price Range'">
+                <div class="d-flex justify-content-between">
+                  <div class="">
+                    <span class="sub-heading-text"> {{ item?.name | titlecase }}</span>
+                  </div>
+                </div>
+                <hr>
+                <div [ngClass]="{'d-none': !item?.detail}" class="category-search mt-2">
+                  <input #search *ngIf="item?.type != 'radio' && !item.hideSearch" type="text" class="modal-search-bar"
+                    [placeholder]="'Search ' + item?.name" (keyup)="onSearch(search, item)" />
+
+                  <ul class="ps-0" id="scroll" [ngClass]="{
+                        'fixed-height': item?.detail?.length > 10,
+                        'pt-3': item?.type != 'radio'
+                      }" [style]="{'padding-left': '2px'}">
+                    <li *ngFor="let subItem of item?.detail; let j = index" class="sub-sub-heading-text pointer"
+                      [ngStyle]="{ color: activeIndex == j ? '#058F46' : '#333333' }"
+                      [ngClass]="{ 'd-none': subItem.hide }">
+                      <label *ngIf="item?.type == 'checkbox'">
+                        <input type="checkbox" class="me-2"
+                          [checked]="tempFilterData?.includes(subItem._id || subItem.value)"
+                          (change)="getProductData(item?.filterName,item?.type,subItem?._id || subItem?.value,$event)" />
+                        <span>
+                          {{ subItem?.name | titlecase }}
+                        </span>
+                      </label>
+                      <label *ngIf="item?.type == 'radio'" class="pointer">
+                        <input type="radio" [name]="item?.filterName" [value]="subItem.value"
+                          [checked]="subItem._id === tempFilterData || subItem.value === tempFilterData"
+                          class="form-check-input me-2 align-middle flex-shrink-0" (change)="getProductData(
+                                                              item?.filterName,
+                                                              item?.type,
+                                                              subItem?._id || subItem?.value,
+                                                              $event
+                                                          );
+                                                  ">
+                        <span class="d-inline-block">{{ subItem?.name | titlecase
+                          }}</span>
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </ng-container>
+
+            <!--Range Slider-->
+            <div *ngIf="priceRangeSlider && highValue">
+              <hr class="underline margin-50" />
+              <p class="sub-heading-text">
+                filter.priceRange
+              </p>
+              <div class="ps-2 pe-2 custom-slider">
+                <!-- <ngx-slider *ngIf="isBrowser" [(value)]="value" [(highValue)]="highValue"
+                                  [options]="options" (valueChange)="minPriceSliderFxn($event)"
+                                  (highValueChange)="maxPriceSliderFxn($event)"
+                                  (userChangeEnd)="onPriceChangeEnd()"></ngx-slider> -->
+              </div>
+            </div>
+          </div>
+          <!-- <app-filters [loader]="isFiltersLoading" [categoryData]="modalfilter" [filterData]="filterUrl"
+                      [priceSlider]="priceSlider" (newItemEvent)="onFilterChange($event)"></app-filters> -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"
+          [style]="{'color':'red','background-color':'#FFFFFF','border-color':'#CBCBCB','width':'100%'}"
+          (click)="clearFilter()">Clear
+          filters</button>
+        <button type="button" class="btn btn-primary" (click)="applyFilter()" [style]="{'width':'100%'}">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
