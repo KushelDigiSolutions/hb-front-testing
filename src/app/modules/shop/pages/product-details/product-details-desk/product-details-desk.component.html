@@ -1,10 +1,10 @@
 <div *ngIf="!noProductFound" class="container-md">
-    <div class="row" *ngIf="productDetails">
-        <div class="col-md-5 col-sm-12 col-12 product-details-image-container">
-            <div class="product-details-card prod-img-sticky">
-                <!-- *ngIf="product" -->
-                <div class="product-details-card-body">
-                    <!-- <swiper-container class="mySwiper" space-between="5" navigation="true" slides-per-view="auto"
+  <div class="row" *ngIf="productDetails">
+    <div class="col-md-5 col-sm-12 col-12 product-details-image-container">
+      <div class="product-details-card prod-img-sticky">
+        <!-- *ngIf="product" -->
+        <div class="product-details-card-body">
+          <!-- <swiper-container class="mySwiper" space-between="5" navigation="true" slides-per-view="auto"
                         thumbs-swiper=".mySwiper2">
                         <swiper-slide class="slide-item" *ngFor="let productImages of productDetails.images">
                             <div class="product-details-single-image">
@@ -12,134 +12,215 @@
                             </div>
                         </swiper-slide>
                     </swiper-container> -->
-                    <app-swiper space-between="5" thumbs-swiper=".mySwiper2">
-                        <swiper-slide class="slide-item" *ngFor="let productImages of productDetails.images">
-                            <div class="product-details-single-image  zoom-container">
-                                <img src="{{cloudImgUrl + productImages.savedName}}" [alt]="productDetails.name"
-                                    class="zoom-image">
-                            </div>
-                        </swiper-slide>
-                    </app-swiper>
-                </div>
-                <!-- *ngIf="product" -->
-                <div class="product-details-card-footer mt-2">
-                    <swiper-container class="mySwiper2" space-between="5" navigation="true" slides-per-view="5">
-                        <swiper-slide class="slide-item" *ngFor="let productImages of productDetails.images">
-                            <div class="product-details-multiple-image">
-                                <img src="{{cloudImgUrl + productImages.savedName}}" [alt]="productDetails.name">
-                            </div>
-                        </swiper-slide>
-                    </swiper-container>
-                </div>
-            </div>
+          <app-swiper space-between="5" thumbs-swiper=".mySwiper2">
+            <swiper-slide
+              
+              class="slide-item"
+              *ngFor="let productImages of productDetails.images"
+            >
+              <div style="width: 430px; height: 430px;" class="product-details-single-image zoom-container">
+                <img
+                  style="width: 370px; height: 390px"
+                  src="{{ cloudImgUrl + productImages.savedName }}"
+                  [alt]="productDetails.name"
+                  class="zoom-image"
+                />
+              </div>
+            </swiper-slide>
+          </app-swiper>
         </div>
-        <div class="col-md-7 col-12 product-details-container">
-            <app-breadcrumb [data]="breadcrumb"></app-breadcrumb>
-            <h1 class="mb-0 product-name">{{productDetails.name}}</h1>
-            <h2 class="product-company-name">{{productDetails.brandId.name}}</h2>
-            <div class="product-variety-container">
-
-                <button class=" default-variety" [class.product-variety]="variation.isSelected"
-                    (click)="getProductSizesData(variation)" *ngFor="let variation of productDetails.variations">
-                    <span class="default-flavor" [class.product-flavor]="variation.isSelected">{{variation.label.join('
-                        | ')}}
-                    </span>
-                </button>
-            </div>
-            <hr class="my-3 grayBorderTop">
-            <div class="product-price-cart-container d-flex flex-wrap mb-5 mb-md-0">
-                <div class="product-price-container">
-                    <div class="product-price">
-                        <span class="product-discount-price">₹{{productDetails.price.minPrice}}</span>&nbsp;
-                        <span class="product-original-price">₹{{productDetails.price.mrp}}</span>&nbsp;
-                        <span class="product-discount">{{productDetails.price.discount + '% OFF'}}</span>
-                    </div>
-                    <div class="product-size">
-                        <span>{{productDetails.label}}</span>
-                    </div>
-                </div>
-                <div class="product-add-cart">
-                    @if(productDetails.stock?.availableQuantity > 0){
-                    @if(cartProduct){
-                    <app-product-quantity-control [data]="cartProduct"></app-product-quantity-control>
-                    } @else {
-                    <button type="button" class="btn btn-primary product-add-cart-btn"
-                        (click)="addToCart(productDetails)">Add to Cart</button>
-                    }
-                    } @else {
-                    <button type="button" class="btn btn-danger product-add-cart-btn">Out of Stock</button>
-                    }
-                    @if (productDetails.is.bulkOrder) {
-                    <button type="button" class="btn btn-warning product-add-cart-btn mx-2 bulk-btn"
-                        (click)="openBulkEnquiryForm()">Bulk Enquiry</button>
-                    }
-                    @if (productDetails.is.internationalEnq) {
-                    <button type="button" class="btn btn-warning product-add-cart-btn mx-2"
-                        (click)="openInternationBulkEnquiryForm()">
-                        Int Enquiry
-                    </button>
-                    }
-                </div>
-            </div>
-            <div class="mt-5 mt-md-4 d-md-none">
-                <app-product-slider class="product-slider" [productData]="customersBoughtProducts"
-                    [productBrandTitle]="'Customers who also bought this'"></app-product-slider>
-            </div>
-            <div class="mt-md-5 mt-lg-0 mt-5">
-                <app-product-info-icons></app-product-info-icons>
-            </div>
-            <hr class="grayBorderTop">
-            <h5 class="h5Heading mb-3">Product Details</h5>
-            <div class="mb-2">
-                <span class="product-headings mb-2">Description</span>
-                <!--<span class="d-block des-para"
+        <!-- *ngIf="product" -->
+        <div class="product-details-card-footer mt-2">
+          <swiper-container
+            class="mySwiper2"
+            space-between="5"
+            navigation="true"
+            slides-per-view="5"
+          >
+            <swiper-slide
+              class="slide-item"
+              *ngFor="let productImages of productDetails.images"
+            >
+              <div class="product-details-multiple-image">
+                <img
+                  width="92"
+                  height="83"
+                  src="{{ cloudImgUrl + productImages.savedName }}"
+                  [alt]="productDetails.name"
+                />
+              </div>
+            </swiper-slide>
+          </swiper-container>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7 col-12 product-details-container">
+      <app-breadcrumb [data]="breadcrumb"></app-breadcrumb>
+      <h1 class="mb-0 product-name">{{ productDetails.name }}</h1>
+      <h2 class="product-company-name">{{ productDetails.brandId.name }}</h2>
+      <div class="product-variety-container">
+        <button
+          class="default-variety"
+          [class.product-variety]="variation.isSelected"
+          (click)="getProductSizesData(variation)"
+          *ngFor="let variation of productDetails.variations"
+        >
+          <span
+            class="default-flavor"
+            [class.product-flavor]="variation.isSelected"
+            >{{
+              variation.label.join(
+                "
+                        | "
+              )
+            }}
+          </span>
+        </button>
+      </div>
+      <hr class="my-3 grayBorderTop" />
+      <div class="product-price-cart-container d-flex flex-wrap mb-5 mb-md-0">
+        <div class="product-price-container">
+          <div class="product-price">
+            <span class="product-discount-price"
+              >₹{{ productDetails.price.minPrice }}</span
+            >&nbsp;
+            <span class="product-original-price"
+              >₹{{ productDetails.price.mrp }}</span
+            >&nbsp;
+            <span class="product-discount">{{
+              productDetails.price.discount + "% OFF"
+            }}</span>
+          </div>
+          <div class="product-size">
+            <span>{{ productDetails.label }}</span>
+          </div>
+        </div>
+        <div class="product-add-cart">
+          @if (productDetails.stock?.availableQuantity > 0) {
+            @if (cartProduct) {
+              <app-product-quantity-control
+                [data]="cartProduct"
+              ></app-product-quantity-control>
+            } @else {
+              <button
+                type="button"
+                class="btn btn-primary product-add-cart-btn"
+                (click)="addToCart(productDetails)"
+              >
+                Add to Cart
+              </button>
+            }
+          } @else {
+            <button type="button" class="btn btn-danger product-add-cart-btn">
+              Out of Stock
+            </button>
+          }
+          @if (productDetails.is.bulkOrder) {
+            <button
+              type="button"
+              class="btn btn-warning product-add-cart-btn mx-2 bulk-btn"
+              (click)="openBulkEnquiryForm()"
+            >
+              Bulk Enquiry
+            </button>
+          }
+          @if (productDetails.is.internationalEnq) {
+            <button
+              type="button"
+              class="btn btn-warning product-add-cart-btn mx-2"
+              (click)="openInternationBulkEnquiryForm()"
+            >
+              Int Enquiry
+            </button>
+          }
+        </div>
+      </div>
+      <div class="mt-5 mt-md-4 d-md-none">
+        <app-product-slider
+          class="product-slider"
+          [productData]="customersBoughtProducts"
+          [productBrandTitle]="'Customers who also bought this'"
+        ></app-product-slider>
+      </div>
+      <div class="mt-md-5 mt-lg-0 mt-5">
+        <app-product-info-icons></app-product-info-icons>
+      </div>
+      <hr class="grayBorderTop" />
+      <h5 class="h5Heading mb-3">Product Details</h5>
+      <div class="mb-2">
+        <span class="product-headings mb-2">Description</span>
+        <!--<span class="d-block des-para"
                     [innerHTML]="productDetails.description[isReadMoreDesc?'long':'short']"></span> -->
 
-                <!-- Always show short description -->
-                <span class="d-block des-para" [innerHTML]="productDetails.description.short"></span>
+        <!-- Always show short description -->
+        <span
+          class="d-block des-para"
+          [innerHTML]="productDetails.description.short"
+        ></span>
 
-                <!-- Add visual space between short and long -->
-                <br *ngIf="isReadMoreDesc" />
-                <!-- Conditionally show long description -->
-                <span class="d-block des-para" *ngIf="isReadMoreDesc"
-                    [innerHTML]="productDetails.description.long"></span>
+        <!-- Add visual space between short and long -->
+        <br *ngIf="isReadMoreDesc" />
+        <!-- Conditionally show long description -->
+        <span
+          class="d-block des-para"
+          *ngIf="isReadMoreDesc"
+          [innerHTML]="productDetails.description.long"
+        ></span>
 
-                <span class="pointer text-primary fs-12" (click)="showDesc()">{{
-                    isReadMoreDesc ? 'Read Less':'Read More' }}</span>
-            </div>
-            <div *ngFor="let attributes of productDetails.attributes ">
-                <ng-container *ngFor="let att of attributes.attributes">
-                    <div *ngIf="att.value" class="mb-2">
-                        <span class="product-headings mb-2">{{att.attributeId.name}}</span>
-                        <span class="d-block valueColor">{{att.value}}</span>
-                    </div>
-                </ng-container>
-                <!-- Rating and Reviews Section -->
-                <div class="pb-1">
-                    <!-- <app-review [proReview]="reviews" [productId]="productIdReview"></app-review> -->
-                    <app-review [data]="productDetails"></app-review>
-                </div>
-            </div>
+        <span class="pointer text-primary fs-12" (click)="showDesc()">{{
+          isReadMoreDesc ? "Read Less" : "Read More"
+        }}</span>
+      </div>
+      <div *ngFor="let attributes of productDetails.attributes">
+        <ng-container *ngFor="let att of attributes.attributes">
+          <div *ngIf="att.value" class="mb-2">
+            <span class="product-headings mb-2">{{
+              att.attributeId.name
+            }}</span>
+            <span class="d-block valueColor">{{ att.value }}</span>
+          </div>
+        </ng-container>
+        <!-- Rating and Reviews Section -->
+        <div class="pb-1">
+          <!-- <app-review [proReview]="reviews" [productId]="productIdReview"></app-review> -->
+          <app-review [data]="productDetails"></app-review>
         </div>
+      </div>
     </div>
+  </div>
 
-    <div class="mt-4 d-none d-md-block">
-        <app-product-slider class="product-slider" [productData]="customersBoughtProducts"
-            productBrandTitle="Customer who bought this also bought"></app-product-slider>
-    </div>
+  <div class="mt-4 d-none d-md-block">
+    <app-product-slider
+      class="product-slider"
+      [productData]="customersBoughtProducts"
+      productBrandTitle="Customer who bought this also bought"
+    ></app-product-slider>
+  </div>
 
-    <div class="mt-4 abc">
-        <app-product-slider class="product-slider" [productData]="relatedProducts"
-            productBrandTitle="Related Products"></app-product-slider>
-    </div>
+  <div class="mt-4 abc">
+    <app-product-slider
+      class="product-slider"
+      [productData]="relatedProducts"
+      productBrandTitle="Related Products"
+    ></app-product-slider>
+  </div>
+  <div class="mt-4">
     <div class="mt-4">
-        <div class="mt-4">
-            <app-top-consult-specialist [productBrandTitle]="'Consult with our Top specialists'"
-                [topConsult]="topConsultLists"></app-top-consult-specialist>
-        </div>
+      <app-top-consult-specialist
+        [productBrandTitle]="'Consult with our Top specialists'"
+        [topConsult]="topConsultLists"
+      ></app-top-consult-specialist>
     </div>
+  </div>
 </div>
 <app-error-404 *ngIf="noProductFound" />
-<app-bulk-enquiry-modal *ngIf="showEnquiryForm" (close)="showEnquiryForm = false" [product]="productDetails" />
-<app-international-bulk-enquiry *ngIf="showInternationalEnquiryForm" (close)="showInternationalEnquiryForm=false"
-    [product]="productDetails" />
+<app-bulk-enquiry-modal
+  *ngIf="showEnquiryForm"
+  (close)="showEnquiryForm = false"
+  [product]="productDetails"
+/>
+<app-international-bulk-enquiry
+  *ngIf="showInternationalEnquiryForm"
+  (close)="showInternationalEnquiryForm = false"
+  [product]="productDetails"
+/>
