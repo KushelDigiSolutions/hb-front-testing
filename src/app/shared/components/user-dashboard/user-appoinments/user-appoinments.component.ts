@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { UserDashboardService } from '../../../../services/user-dashboard.service';
@@ -13,15 +13,20 @@ import { ConsultUsService } from '../../../../modules/consult-us/services/consul
 @Component({
   selector: 'app-user-appoinments',
   standalone: true,
-  imports: [CommonModule, RouterModule, HttpClientModule, MatMenuModule, CancelAppointmentComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatMenuModule,
+    CancelAppointmentComponent,
+  ],
   templateUrl: './user-appoinments.component.html',
-  styleUrl: './user-appoinments.component.scss'
+  styleUrl: './user-appoinments.component.scss',
 })
 export class UserAppoinmentsComponent implements OnInit {
   imgUrl = environment.imageUrl;
   appointmentUrl = {
     page: 1,
-    limit: 10
+    limit: 10,
   };
   dataArray: any = [];
   nextLoading = false;
@@ -33,8 +38,7 @@ export class UserAppoinmentsComponent implements OnInit {
     private dialog: MatDialog,
     private meta: MetasService,
     private consultUsService: ConsultUsService,
-  ) { }
-
+  ) {}
 
   ngOnInit(): void {
     this.meta.setMetaTags({ title: 'My Appointments' });
@@ -49,8 +53,9 @@ export class UserAppoinmentsComponent implements OnInit {
         if (res.data) {
           res.data.appointments.forEach((el: any) => {
             let { primaryTimeSlot } = el;
-            el.primaryTimeSlot12 = this.consultUsService.changeSlotFormatTo12(primaryTimeSlot);
-          })
+            el.primaryTimeSlot12 =
+              this.consultUsService.changeSlotFormatTo12(primaryTimeSlot);
+          });
           this.dataArray.push(...res.data.appointments);
           console.log('this.dataArray 46 = ', this.dataArray);
 
@@ -67,28 +72,30 @@ export class UserAppoinmentsComponent implements OnInit {
     console.log('appt = ', appt);
     let queryParams = appt._id ? { view: 'followUp' } : {};
     console.log('queryParams 57 = ', queryParams);
-    this.router.navigate(['my-account', 'appointments', appt.parentAppointmentId || appt._id], { queryParams });
+    this.router.navigate(
+      ['my-account', 'appointments', appt.parentAppointmentId || appt._id],
+      { queryParams },
+    );
   }
 
   joinCall(event: any, appt: any) {
-    event.preventDefault()
-    window.open(appt.event.link)
+    event.preventDefault();
+    window.open(appt.event.link);
   }
 
   cancelAppointment(id: string) {
     let index = this.dataArray.findIndex((el: any) => el._id == id);
     this.dialogRef = this.dialog.open(CancelAppointmentComponent, {
-      maxHeight: "450px",
-      width: "800px",
+      maxHeight: '450px',
+      width: '800px',
       data: {
         type: 'appointment',
         _id: id,
-
       },
     });
 
     this.dialogRef.afterClosed().subscribe((res) => {
-      if (res == "yes") {
+      if (res == 'yes') {
         this.dataArray[index].status = 'Cancelled';
         this.dataArray[index].canCancel = false;
       }
@@ -105,12 +112,4 @@ export class UserAppoinmentsComponent implements OnInit {
       }
     }
   }
-
-
-
-
-
-
-
-
 }
