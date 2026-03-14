@@ -1,11 +1,17 @@
 <div class="container width100">
-    <div class="row margin-0 mx-0">
-        <div class="col-lg-3 col-md-4 pb-3  filterCol grayBorder px-0">
-            <app-filters class="d-md-block d-none" [loader]="isFiltersLoading" [categoryData]="filterData"
-                [filterData]="filterUrl" [priceSlider]="priceSlider" (newItemEvent)="onFilterChange($event,true)"
-                (removeFilter)="clearApplyFilter($event)"></app-filters>
-        </div>
-        <!-- <div class="col-md-12 px-2 grayBorder">
+  <div class="row margin-0 mx-0">
+    <div class="col-lg-3 col-md-4 pb-3 filterCol grayBorder px-0">
+      <app-filters
+        class="d-md-block d-none"
+        [loader]="isFiltersLoading"
+        [categoryData]="filterData"
+        [filterData]="filterUrl"
+        [priceSlider]="priceSlider"
+        (newItemEvent)="onFilterChange($event, true)"
+        (removeFilter)="clearApplyFilter($event)"
+      ></app-filters>
+    </div>
+    <!-- <div class="col-md-12 px-2 grayBorder">
                     <div class="row ">
                         <div class="col-md-9 py-2">
                             <h5 class="pt-2 title">{{herb | titlecase}}</h5>
@@ -38,13 +44,18 @@
                         </div>
                     </div>
                 </div> -->
-        @if (true) {
-        <!--Description-->
-        <div class="col-lg-9 col-md-8 extended-width pe-0 grayBorder px-0">
-            <app-category-page-head class="px-3" [name]="pageData.name" moduleType="shop" [list]="filterData"
-                (changefilters)="onFilterChange($event, true)"></app-category-page-head>
-            <div class="row mx-md-0">
-                <!-- <div class="col-md-12 px-2 grayBorder">
+    @if (true) {
+      <!--Description-->
+      <div class="col-lg-9 col-md-8 extended-width pe-0 grayBorder px-0">
+        <app-category-page-head
+          class="px-3"
+          [name]="pageData.name"
+          moduleType="shop"
+          [list]="filterData"
+          (changefilters)="onFilterChange($event, true)"
+        ></app-category-page-head>
+        <div class="row mx-md-0">
+          <!-- <div class="col-md-12 px-2 grayBorder">
                         <div class="row category-header mx-0 py-1">
                             <div class="col-sm-6 py-3 mob-category-header px-0">
                                 <div class="d-flex align-items-center">
@@ -67,12 +78,10 @@
                         </div>
                     </div> -->
 
-
-
-                <!-- <hr class="underline mt-0" /> -->
-                <div class="col-md-12 col-sm-12  category-product-container">
-                    <!-- mob filter container start -->
-                    <!-- <div class="d-flex justify-content-between titleBar">
+          <!-- <hr class="underline mt-0" /> -->
+          <div class="col-md-12 col-sm-12 category-product-container">
+            <!-- mob filter container start -->
+            <!-- <div class="d-flex justify-content-between titleBar">
                         <h1 class="h5 m-0 me-3 flex-shrink-0">{{pageData.name}}</h1>
                         <div class="mob-filter-container mt-md-1 mt-2 mb-md-0 mb-1">
                             <div class="mob-sort-filter-container">
@@ -93,38 +102,53 @@
                         </div>
                     </div> -->
 
-                    <!-- mob filter conatiner end -->
-                    <div class="category-container ">
-                        @if (products.length) {
-                        <div class="row">
-                            @for (product of products; track $index;) {
-                            <div class="col-xl-3 col-lg-4  col-md-6 col-sm-4 col-6">
-                                <app-product style="width: 100%;" [product]="product" [sort]="filterUrl?.sort">
-                                </app-product>
-                            </div>
-                            }
-                        </div>
-                        }
-                        <div *ngIf="totalItems > products.length && products.length !== 0"
-                            class="text-center pt-4 pb-2">
-                            <button class="btn btn-primary loadMore px-5 py-2" (click)="onLoadMore()"
-                                [disabled]="loader">{{loader?'Loading...':'Load More'}}</button>
-                        </div>
+            <!-- mob filter conatiner end -->
+            <div class="category-container">
+              @if (products.length) {
+                <div class="row">
+                  @for (product of products; track $index) {
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-4 col-6">
+                      <app-product
+                        style="width: 100%"
+                        [product]="product"
+                        [sort]="filterUrl.sort"
+                      >
+                      </app-product>
                     </div>
+                  }
                 </div>
-
-                <div class="col-md-12 col-sm-12 py-5 text-center" *ngIf="!loader && !products?.length">
-                    <div class="align-center">
-                        <img class="img-fluid no-product-found mt-3" [src]="imgUrl + 'nothing-found.png'" />
-                    </div>
-                    <p class="bold-text pt-3">
-                        No Product Found
-                    </p>
-                </div>
+              }
+              <div
+                *ngIf="totalItems > products.length && products.length !== 0"
+                class="text-center pt-4 pb-2"
+              >
+                <button
+                  class="btn btn-primary loadMore px-5 py-2"
+                  (click)="onLoadMore()"
+                  [disabled]="loader"
+                >
+                  {{ loader ? "Loading..." : "Load More" }}
+                </button>
+              </div>
             </div>
+          </div>
 
-            <!-- <hr class="underline mt-0" /> -->
-            <!-- <div class="col-md-12 px-0">
+          <div
+            class="col-md-12 col-sm-12 py-5 text-center"
+            *ngIf="!loader && !products?.length"
+          >
+            <div class="align-center">
+              <img
+                class="img-fluid no-product-found mt-3"
+                [src]="imgUrl + 'nothing-found.png'"
+              />
+            </div>
+            <p class="bold-text pt-3">No Product Found</p>
+          </div>
+        </div>
+
+        <!-- <hr class="underline mt-0" /> -->
+        <!-- <div class="col-md-12 px-0">
                     <div class="category-container  px-2">
                         @if (products.length) {
                         <div class="row">
@@ -138,47 +162,65 @@
                         }
                     </div>
                 </div> -->
-        </div>
-        }
-    </div>
+      </div>
+    }
+  </div>
 
-    <hr class="d-none d-md-block">
-    <!--  -->
-    <!-- <div class="mt-4 px-md-0 px-3">
+  <hr class="d-none d-md-block" />
+  <!--  -->
+  <!-- <div class="mt-4 px-md-0 px-3">
         <app-affordable-health-packages [package]="affordablePackages"
             [productBrandTitle]="'Related Health packages'"></app-affordable-health-packages>
     </div> -->
-    <div class="mt-4 px-md-0 px-3">
-        <app-top-consult-specialist [productBrandTitle]="'Consult with our Top specialists'"
-            [topConsult]="topConsultLists"></app-top-consult-specialist>
-    </div>
-    <div class="mt-4 px-md-0 px-3">
-        <app-life-style-health-card [productBrandTitle]="'Related Health Tips'" [recentTipsData]="relatedTips"
-            seeAllUrl="/lifestyle-tips/search/related-health-tips"></app-life-style-health-card>
-    </div>
+  <div class="mt-4 px-md-0 px-3">
+    <app-top-consult-specialist
+      [productBrandTitle]="'Consult with our Top specialists'"
+      [topConsult]="topConsultLists"
+    ></app-top-consult-specialist>
+  </div>
+  <div class="mt-4 px-md-0 px-3">
+    <app-life-style-health-card
+      [productBrandTitle]="'Related Health Tips'"
+      [recentTipsData]="relatedTips"
+      seeAllUrl="/lifestyle-tips/search/related-health-tips"
+    ></app-life-style-health-card>
+  </div>
 
-    <!-- mob filter modal -->
-    <!-- Modal -->
-    <div class="modal fade" #filterModal id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog bottom-modal-filter">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        (click)="closeModal()"></button>
-                </div>
-                <div class="modal-body ">
-                    <div class="pb-3 ">
-                        <div class="ps-3" *ngIf="modalfilter">
-                            <ng-container *ngFor="let item of modalfilter; let i = index">
-                                <div *ngIf="item?.name != 'Price Range'">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="">
-                                            <span class="sub-heading-text"> {{ item?.name | titlecase }}</span>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <!-- <div [ngClass]="{'d-none': !item?.detail}" class="category-search mt-2">
+  <!-- mob filter modal -->
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    #filterModal
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog bottom-modal-filter">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="closeModal()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="pb-3">
+            <div class="ps-3" *ngIf="modalfilter">
+              <ng-container *ngFor="let item of modalfilter; let i = index">
+                <div *ngIf="item?.name != 'Price Range'">
+                  <div class="d-flex justify-content-between">
+                    <div class="">
+                      <span class="sub-heading-text">
+                        {{ item?.name | titlecase }}</span
+                      >
+                    </div>
+                  </div>
+                  <hr />
+                  <!-- <div [ngClass]="{'d-none': !item?.detail}" class="category-search mt-2">
                                         <input #search *ngIf="item?.type != 'radio' && !item.hideSearch" type="text"
                                             class="modal-search-bar" [placeholder]="'Search ' + item?.name"
                                             (keyup)="onSearch(search, item)" />
@@ -215,77 +257,130 @@
                                             </li>
                                         </ul>
                                     </div> -->
-                                    <div [ngClass]="{'d-none': !item?.detail}" class="category-search">
-                                        <input #search *ngIf="item?.type != 'radio' && !item.hideSearch" type="text"
-                                            class="search-bar" [placeholder]="'Search ' + item?.name"
-                                            (keyup)="onSearch(search, item)" />
-                                        <ul class="ps-0 px-0" id="scroll" [ngClass]="{
-                              'fixed-height': item?.detail?.length > 8,
-                              'pt-3': item?.type != 'radio'
-                            }">
-                                            <li *ngFor="let subItem of item?.detail; let j = index"
-                                                class="sub-sub-heading-text pointer"
-                                                [ngStyle]="{ color: activeIndex == j ? '#058F46' : '#333333' }"
-                                                [ngClass]="{ 'd-none': subItem.hide }">
-                                                <label *ngIf="item?.type == 'checkbox'">
-                                                    <input class="pointer" type="checkbox" class="me-2 "
-                                                        (change)="getProductData(item?.filterName,item?.type,subItem?._id || subItem?.value,$event)" />
-                                                    <span class="label pointer">
-                                                        {{ subItem?.name | titlecase }}
-                                                    </span>
-                                                </label>
-                                                <label *ngIf="item?.type == 'radio'"
-                                                    [ngStyle]="{ color: j == radioActiveIndex ? '#058f46' : '' }">
-                                                    <input type="radio" [name]="item?.filterName"
-                                                        class=" d-inline-block me-2 align-middle pointer" (change)="
-                                  getProductData(
-                                    item?.filterName,
-                                    item?.type,
-                                    subItem?._id || subItem?.value,
-                                    $event
-                                  );
-                                  setRadioActiveIndex(j)
-                                ">
-                                                    <span class="d-inline-block pointer">{{ subItem?.name | titlecase
-                                                        }}</span>
-                                                </label>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </ng-container>
+                  <div
+                    [ngClass]="{ 'd-none': !item?.detail }"
+                    class="category-search"
+                  >
+                    <input
+                      #search
+                      *ngIf="item?.type != 'radio' && !item.hideSearch"
+                      type="text"
+                      class="search-bar"
+                      [placeholder]="'Search ' + item?.name"
+                      (keyup)="onSearch(search, item)"
+                    />
+                    <ul
+                      class="ps-0 px-0"
+                      id="scroll"
+                      [ngClass]="{
+                        'fixed-height': item?.detail?.length > 8,
+                        'pt-3': item?.type != 'radio',
+                      }"
+                    >
+                      <li
+                        *ngFor="let subItem of item?.detail; let j = index"
+                        class="sub-sub-heading-text pointer"
+                        [ngStyle]="{
+                          color: activeIndex == j ? '#058F46' : '#333333',
+                        }"
+                        [ngClass]="{ 'd-none': subItem.hide }"
+                      >
+                        <label *ngIf="item?.type == 'checkbox'">
+                          <input
+                            class="pointer"
+                            type="checkbox"
+                            class="me-2"
+                            (change)="
+                              getProductData(
+                                item?.filterName,
+                                item?.type,
+                                subItem?._id || subItem?.value,
+                                $event
+                              )
+                            "
+                          />
+                          <span class="label pointer">
+                            {{ subItem?.name | titlecase }}
+                          </span>
+                        </label>
+                        <label
+                          *ngIf="item?.type == 'radio'"
+                          [ngStyle]="{
+                            color: j == radioActiveIndex ? '#058f46' : '',
+                          }"
+                        >
+                          <input
+                            type="radio"
+                            [name]="item?.filterName"
+                            class="d-inline-block me-2 align-middle pointer"
+                            (change)="
+                              getProductData(
+                                item?.filterName,
+                                item?.type,
+                                subItem?._id || subItem?.value,
+                                $event
+                              );
+                              setRadioActiveIndex(j)
+                            "
+                          />
+                          <span class="d-inline-block pointer">{{
+                            subItem?.name | titlecase
+                          }}</span>
+                        </label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </ng-container>
 
-                            <!--Range Slider-->
-                            <div *ngIf="priceRangeSlider && highValue">
-                                <hr class="underline margin-50" />
-                                <p class="sub-heading-text">
-                                    filter.priceRange
-                                </p>
-                                <div class="ps-2 pe-2 custom-slider">
-                                    <!-- <ngx-slider *ngIf="isBrowser" [(value)]="value" [(highValue)]="highValue"
+              <!--Range Slider-->
+              <div *ngIf="priceRangeSlider && highValue">
+                <hr class="underline margin-50" />
+                <p class="sub-heading-text">filter.priceRange</p>
+                <div class="ps-2 pe-2 custom-slider">
+                  <!-- <ngx-slider *ngIf="isBrowser" [(value)]="value" [(highValue)]="highValue"
                                         [options]="options" (valueChange)="minPriceSliderFxn($event)"
                                         (highValueChange)="maxPriceSliderFxn($event)"
                                         (userChangeEnd)="onPriceChangeEnd()"></ngx-slider> -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <app-filters [loader]="isFiltersLoading" [categoryData]="modalfilter" [filterData]="filterUrl"
-                            [priceSlider]="priceSlider" (newItemEvent)="onFilterChange($event)"></app-filters> -->
-                    </div>
                 </div>
-                <div class="modal-footer">
-                    <div>
-                        <button type="button" class="btn btn-primary"
-                            [style]="{'color':'red','background-color':'#FFFFFF','border-color':'#CBCBCB','width':'100%'}">Clear
-                            filters</button>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-primary" (click)="applyFilter()"
-                            [style]="{'width':'100%'}">Apply</button>
-                    </div>
-                </div>
+              </div>
             </div>
+            <!-- <app-filters [loader]="isFiltersLoading" [categoryData]="modalfilter" [filterData]="filterUrl"
+                            [priceSlider]="priceSlider" (newItemEvent)="onFilterChange($event)"></app-filters> -->
+          </div>
         </div>
+        <div class="modal-footer">
+          <div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              [style]="{
+                color: 'red',
+                'background-color': '#FFFFFF',
+                'border-color': '#CBCBCB',
+                width: '100%',
+              }"
+            >
+              Clear filters
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="applyFilter()"
+              [style]="{ width: '100%' }"
+            >
+              Apply
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div *ngIf="pageContent" class="staticPageContent" [innerHTML]="pageContent"></div>
+  </div>
+  <div
+    *ngIf="pageContent"
+    class="staticPageContent"
+    [innerHTML]="pageContent"
+  ></div>
 </div>

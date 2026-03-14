@@ -17,7 +17,7 @@ import {
   RouterModule,
   RouterOutlet,
 } from '@angular/router';
-import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { register } from 'swiper/element/bundle';
 import { NavbarCategoriesComponent } from './navbar-categories/navbar-categories.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
@@ -69,7 +69,6 @@ register();
   imports: [
     CommonModule,
     RouterOutlet,
-    HttpClientModule,
     InflateDataComponent,
     NavbarCategoriesComponent,
     FooterComponent,
@@ -161,7 +160,7 @@ export class AppComponent implements OnInit {
     private userdashboardSerivce: UserDashboardService,
     private scriptsLoader: DynamicScriptLoaderService,
     private spinner: SpinnerService,
-    private oneSignal: OneSignal
+    private oneSignal: OneSignal,
   ) {
     let a = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -178,7 +177,7 @@ export class AppComponent implements OnInit {
         }
         this.metaService.setCanonical(
           environment.appHost.slice(0, environment.appHost.length - 1) +
-            (this.urlEvent == '/' ? '' : this.urlEvent)
+            (this.urlEvent == '/' ? '' : this.urlEvent),
         );
       } else if (event instanceof NavigationStart) {
         spinner.hide();
@@ -267,7 +266,7 @@ export class AppComponent implements OnInit {
       },
       (error) => {
         this.toaster.error('Something Wrong ');
-      }
+      },
     );
     this.submitted = true;
   }
@@ -321,7 +320,7 @@ export class AppComponent implements OnInit {
       }
       if (value == 'you-tube') {
         window.open(
-          'https://www.youtube.com/channel/UCR5FTS-wm9YgMY1yzLyE9SQ/featured?view_as=subscriber'
+          'https://www.youtube.com/channel/UCR5FTS-wm9YgMY1yzLyE9SQ/featured?view_as=subscriber',
         );
       }
     }
@@ -403,7 +402,7 @@ export class AppComponent implements OnInit {
     }
     this.productData = data;
     let { _id, products, updatedAt } = data;
-    let daysDiff = dateDiff('2023-04-09T11:05:08.398Z' || updatedAt, 'days');
+    let daysDiff = dateDiff(updatedAt || '2023-04-09T11:05:08.398Z', 'days');
 
     // imp note please removed comment out before go live (remove comment out)
     // if (gtag && daysDiff > 0 && daysDiff < 31) {
@@ -424,7 +423,7 @@ export class AppComponent implements OnInit {
       isGiftable: data.isGiftable,
       itemsCount: data.products.reduce(
         (total: number, el: any) => total + el.quantity,
-        0
+        0,
       ),
       shippingCharge: data.shippingCharge,
       totalAmount: data.totalAmount,
@@ -435,10 +434,10 @@ export class AppComponent implements OnInit {
     products = products.map((product: any) => {
       product.productId.mainVariations =
         product.productId.mainVariations.filter(
-          (el: any) => !!el.values.length
+          (el: any) => !!el.values.length,
         );
       product.productId.variations = product.productId.variations.filter(
-        (el: any) => !!el.label.length
+        (el: any) => !!el.label.length,
       );
       return product;
     });
@@ -449,7 +448,7 @@ export class AppComponent implements OnInit {
       ) {
         this.checkoutService.addTitleInVariations(product.productId);
         let selectedVariation = product.productId.variations.find(
-          (el: any) => el.slug == product.productId.slug
+          (el: any) => el.slug == product.productId.slug,
         );
         product.selectedVariation = selectedVariation;
       }

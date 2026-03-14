@@ -1,618 +1,1018 @@
 <!-- this is -->
 <div *ngIf="desktopSize">
-    <aside class="">
-        <div class="cart-sidenav cart-container ">
-            <div class="pe-3 cart-header-container">
-                <span class="cart-header-title">{{cartTitle}}</span>
-                <button type="button" class="btn-close btn-close-white" (click)="hideCart()"></button>
-            </div>
+  <aside class="">
+    <div class="cart-sidenav cart-container">
+      <div class="pe-3 cart-header-container">
+        <span class="cart-header-title">{{ cartTitle }}</span>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          (click)="hideCart()"
+        ></button>
+      </div>
 
-            @if (cartProducts && cartProducts.length > 0 ) {
-            <div class="cart-content-container">
-                <div *ngIf="!isLoadingCart" class="cart-content-items">
-                    <div class="product-cart-container">
-                        <div class="cart-item-container px-2">
-                            <div>
-                                <span class="cart-items-count">{{cartCountTitle}}({{getItemsCount(cartProducts)}})</span>
-                            </div>
-                            <app-cart-product-list-item *ngFor="let p of cartProducts"
-                                [data]="p"></app-cart-product-list-item>
-                        </div>
+      @if (cartProducts && cartProducts.length > 0) {
+        <div class="cart-content-container">
+          <div *ngIf="!isLoadingCart" class="cart-content-items">
+            <div class="product-cart-container">
+              <div class="cart-item-container px-2">
+                <div>
+                  <span class="cart-items-count"
+                    >{{ cartCountTitle }}({{
+                      getItemsCount(cartProducts)
+                    }})</span
+                  >
+                </div>
+                <app-cart-product-list-item
+                  *ngFor="let p of cartProducts"
+                  [data]="p"
+                ></app-cart-product-list-item>
+              </div>
 
-                        <!-- <div class="mt-1 similar-product-slider" style="background-color: white; padding-top: 10px;">
+              <!-- <div class="mt-1 similar-product-slider" style="background-color: white; padding-top: 10px;">
                             <app-product-slider class=" product-slider" [productData]="similarproductData"
                                 productBrandTitle="You may want to consider buying Test"
                                 [isCartSimProduct]="isCartSimilarProducts">
                             </app-product-slider>
                         </div> -->
-                        <div class="mt-1 similar-product-slider" style="background-color: white; padding-top: 10px;">
-                            <app-product-slider class=" product-slider" [productData]="lastMinuteBuyData"
-                                productBrandTitle="Last minute buys:"
-                                [isCartSimProduct]="isCartSimilarProducts">
-                            </app-product-slider>
-                        </div>
-                    </div>
-
-                    <div class="mt-1 px-2" [style]="{'background-color':'#fff','display': 'flex',
-                    'flex-direction': 'column',
-                    'row-gap': '1px' ,'padding':'10px 8px'}">
-                        <span style="font-size: 14px; font-weight: 600; color: #242424; margin-bottom: 12px;">Bill
-                            Details</span>
-                        <div class="bill-list">
-                            <div>
-                                <img src="/assets/images/bill-details/item-total.png" alt="">
-                                &nbsp;
-                                <span>Item total</span>
-                            </div>
-                            <div>&#8377;{{pdcData.totalAmount}}</div>
-                            <!-- <div>{{cartData.totalAmount}}</div> -->
-                        </div>
-                        <div class="bill-list">
-                            <div> <img src="/assets/images/bill-details/delivery.png" alt="">&nbsp;
-                                <span> Delivery charge </span>
-                            </div>
-                            <div>&#8377;{{pdcData.shippingCharge}}</div>
-                            <!-- <div>&#8377;{{cartData.shippingCharge}}</div> -->
-                        </div>
-                        <div *ngIf="pdcData.discount" class="bill-list">
-                            <div>
-                                <i class="bi bi-percent"></i>&nbsp;
-                                <span> Discount </span>
-                            </div>
-                            <div class="fw-bold">&#8377;{{pdcData.discount}}</div>
-                            <!-- <div>&#8377;{{cartData.shippingCharge}}</div> -->
-                        </div>
-                        <div class="bill-list" style="font-size: 14px; font-weight: 500; color: #212121;">
-                            <div>Grand Total</div>
-                            <div>&#8377;{{pdcData.totalPayableAmt | number:'1.0-2'}}</div>
-                            <!-- <div>&#8377;{{cartData.totalPayableAmt}}</div> -->
-                        </div>
-                        <div class="bill-list" style="font-size: 14px; font-weight: 500; color: #212121;">
-                            <div>Coupon</div>
-                            <div class="applyCoupon" *ngIf="!isAppliedCouponDiscount" (click)="openCouponModal()">Apply
-                                Coupon</div>
-                            <div *ngIf="isAppliedCouponDiscount" class="removeCoupon" (click)="removeCoupon()">
-                                REMOVE COUPON
-                            </div>
-                        </div>
-                        <div class="bill-list" [style]="{'font-size': '14px', 'font-weight': '500'}"
-                            *ngIf="isAppliedCouponDiscount">
-                            <div>Coupon Discount</div>
-                            <div class="text-end">
-                                <span> -{{isAppliedCouponDiscount | number:'1.0-2'}} </span>
-                            </div>
-                        </div>
-                        @if ((isLoginMob && firstTimeUser) || !isLoginMob) {                       
-                            <div class="bill-list d-flex justify-content-between"
-                                [style]="{'font-size': '14px', 'font-weight': '500'}" >
-                                <span style="color: tomato; font-size: 11px;"> * FIRST10 coupon is available for first-time buyer</span>
-                            </div>
-                        }
-                        @if (totalAmountAfterDiscountForFreeShipping <= 300) {                       
-                            <div class="bill-list d-flex justify-content-between"
-                                [style]="{'font-size': '14px', 'font-weight': '500'}" *ngIf="amountDifferenceForFreeShipping">
-                                <span style="color: tomato; font-size: 11px;"> * Spend  <b>&#8377;{{amountDifferenceForFreeShipping | number:'1.0-2'}}</b> more to enjoy free shipping on orders below <b>1kg</b>.</span>
-                            </div>
-                        }
-                        <div class="savings mt-3">
-                            <span [style]="{'color':'#3C0F3A'}">Your total savings
-                                <span [style]="{'color':'#873493'}">
-                                    &#8377;{{(pdcData.discount + isAppliedCouponDiscount) | number:'1.0-2'}}</span>
-                                <!-- &#8377;{{cartData.discount}}</span> -->
-                            </span>
-                        </div>
-                    </div>
-
-                    <div *ngIf="selectedUserAddress" class="mt-1 px-2"
-                        style="background-color: white; padding-bottom: 20px;">
-                        <!-- {{selectedUserAddress | json}} -->
-                        <div style="font-weight: 600; font-size: 14px; color: #242424; padding: 12px 0px;">
-                            Delivery Address
-                        </div>
-                        <div class=" mt-1 d-flex flex-row justify-content-between align-items-center">
-                            <div class="d-flex flex-row justify-content-between align-items-center">
-                                <div class="d-flex justify-content-center align-items-center"
-                                    style="padding: 10px;  width: 32px; height: 32px; border: 1px solid rgba(212, 212, 212, 0.5); border-radius: 6px;">
-                                    <app-house-icon></app-house-icon>
-                                </div>
-                                <div class="d-flex flex-column ps-2">
-                                    <div>
-                                        {{selectedUserAddress.type}}
-                                    </div>
-                                    <div class="address">
-                                        {{selectedUserAddress.houseNumber}}, {{selectedUserAddress.line1}},
-                                        {{selectedUserAddress.landmark}}, {{selectedUserAddress.city}} ,
-                                        {{selectedUserAddress.state}},
-                                        {{selectedUserAddress.counrty}}, {{selectedUserAddress.pinCode}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <app-three-dot-icon></app-three-dot-icon>
-
-                            </div>
-                        </div>
-                        <div [style]="{'color': '#1D5CFF','cursor':'pointer','font-size':'12px','font-weight':'500'}"
-                            (click)="openAddressModal()">Change</div>
-                        <hr>
-                        <div class="address">
-                            <span>Will be delivered in <b>3-4 days</b></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-3 total-section">
-                    <button class="btn btn-primary w-100 final-bill-list" (click)="createOrder(cartProducts,selectedUserAddress)">
-                        <div class="total-amount" style="color: #d9e4ff;">
-                            Total &nbsp;<span
-                                style="color: #ffffff; font-weight: 600;"><b>&#8377;{{pdcData.totalPayableAmt | number:'1.0-2'}}</b></span>
-                            <!-- Total &nbsp;&#8377;<span>{{cartData.totalPayableAmt}}</span> -->
-                        </div>
-
-                        <div class="proceedToNext">
-                            {{!isProceedToPay ? 'Next' :
-                            'Proceed To Pay'}}
-                            <img src="/assets/images/proceed-next-arrow.png" alt="">
-                            <!-- <i class="bi bi-caret-right-fill"></i> -->
-                        </div>
-                    </button>
-                </div>
+              <div
+                class="mt-1 similar-product-slider"
+                style="background-color: white; padding-top: 10px"
+              >
+                <app-product-slider
+                  class="product-slider"
+                  [productData]="lastMinuteBuyData"
+                  productBrandTitle="Last minute buys:"
+                  [isCartSimProduct]="isCartSimilarProducts"
+                >
+                </app-product-slider>
+              </div>
             </div>
-            }
 
+            <div
+              class="mt-1 px-2"
+              [style]="{
+                'background-color': '#fff',
+                display: 'flex',
+                'flex-direction': 'column',
+                'row-gap': '1px',
+                padding: '10px 8px',
+              }"
+            >
+              <span
+                style="
+                  font-size: 14px;
+                  font-weight: 600;
+                  color: #242424;
+                  margin-bottom: 12px;
+                "
+                >Bill Details</span
+              >
+              <div class="bill-list">
+                <div>
+                  <img
+                    src="/assets/images/bill-details/item-total.png"
+                    alt=""
+                  />
+                  &nbsp;
+                  <span>Item total</span>
+                </div>
+                <div>&#8377;{{ pdcData.totalAmount }}</div>
+                <!-- <div>{{cartData.totalAmount}}</div> -->
+              </div>
+              <div class="bill-list">
+                <div>
+                  <img
+                    src="/assets/images/bill-details/delivery.png"
+                    alt=""
+                  />&nbsp;
+                  <span> Delivery charge </span>
+                </div>
+                <div>&#8377;{{ pdcData.shippingCharge }}</div>
+                <!-- <div>&#8377;{{cartData.shippingCharge}}</div> -->
+              </div>
+              <div *ngIf="pdcData.discount" class="bill-list">
+                <div>
+                  <i class="bi bi-percent"></i>&nbsp;
+                  <span> Discount </span>
+                </div>
+                <div class="fw-bold">&#8377;{{ pdcData.discount }}</div>
+                <!-- <div>&#8377;{{cartData.shippingCharge}}</div> -->
+              </div>
+              <div
+                class="bill-list"
+                style="font-size: 14px; font-weight: 500; color: #212121"
+              >
+                <div>Grand Total</div>
+                <div>
+                  &#8377;{{ pdcData.totalPayableAmt | number: "1.0-2" }}
+                </div>
+                <!-- <div>&#8377;{{cartData.totalPayableAmt}}</div> -->
+              </div>
+              <div
+                class="bill-list"
+                style="font-size: 14px; font-weight: 500; color: #212121"
+              >
+                <div>Coupon</div>
+                <div
+                  class="applyCoupon"
+                  *ngIf="!isAppliedCouponDiscount"
+                  (click)="openCouponModal()"
+                >
+                  Apply Coupon
+                </div>
+                <div
+                  *ngIf="isAppliedCouponDiscount"
+                  class="removeCoupon"
+                  (click)="removeCoupon()"
+                >
+                  REMOVE COUPON
+                </div>
+              </div>
+              <div
+                class="bill-list"
+                [style]="{ 'font-size': '14px', 'font-weight': '500' }"
+                *ngIf="isAppliedCouponDiscount"
+              >
+                <div>Coupon Discount</div>
+                <div class="text-end">
+                  <span>
+                    -{{ isAppliedCouponDiscount | number: "1.0-2" }}
+                  </span>
+                </div>
+              </div>
+              @if ((isLoginMob && firstTimeUser) || !isLoginMob) {
+                <div
+                  class="bill-list d-flex justify-content-between"
+                  [style]="{ 'font-size': '14px', 'font-weight': '500' }"
+                >
+                  <span style="color: tomato; font-size: 11px">
+                    * FIRST10 coupon is available for first-time buyer</span
+                  >
+                </div>
+              }
+              @if (totalAmountAfterDiscountForFreeShipping <= 300) {
+                <div
+                  class="bill-list d-flex justify-content-between"
+                  [style]="{ 'font-size': '14px', 'font-weight': '500' }"
+                  *ngIf="amountDifferenceForFreeShipping"
+                >
+                  <span style="color: tomato; font-size: 11px">
+                    * Spend
+                    <b
+                      >&#8377;{{
+                        amountDifferenceForFreeShipping | number: "1.0-2"
+                      }}</b
+                    >
+                    more to enjoy free shipping on orders below
+                    <b>1kg</b>.</span
+                  >
+                </div>
+              }
+              <div class="savings mt-3">
+                <span [style]="{ color: '#3C0F3A' }"
+                  >Your total savings
+                  <span [style]="{ color: '#873493' }">
+                    &#8377;{{
+                      pdcData.discount + isAppliedCouponDiscount
+                        | number: "1.0-2"
+                    }}</span
+                  >
+                  <!-- &#8377;{{cartData.discount}}</span> -->
+                </span>
+              </div>
+            </div>
 
-            @if (checkoutConsultationCart && checkoutConsultationCart.length > 0) {
-            <div class="cart-content-container ">
-                <div *ngIf="!isLoadingCart">
-                    <div class="product-cart-container">
-                        <div class="cart-item-container">
-                            <div>
-                                <!-- <span class="cart-items-count">
+            <div
+              *ngIf="selectedUserAddress"
+              class="mt-1 px-2"
+              style="background-color: white; padding-bottom: 20px"
+            >
+              <!-- {{selectedUserAddress | json}} -->
+              <div
+                style="
+                  font-weight: 600;
+                  font-size: 14px;
+                  color: #242424;
+                  padding: 12px 0px;
+                "
+              >
+                Delivery Address
+              </div>
+              <div
+                class="mt-1 d-flex flex-row justify-content-between align-items-center"
+              >
+                <div
+                  class="d-flex flex-row justify-content-between align-items-center"
+                >
+                  <div
+                    class="d-flex justify-content-center align-items-center"
+                    style="
+                      padding: 10px;
+                      width: 32px;
+                      height: 32px;
+                      border: 1px solid rgba(212, 212, 212, 0.5);
+                      border-radius: 6px;
+                    "
+                  >
+                    <app-house-icon></app-house-icon>
+                  </div>
+                  <div class="d-flex flex-column ps-2">
+                    <div>
+                      {{ selectedUserAddress.type }}
+                    </div>
+                    <div class="address">
+                      {{ selectedUserAddress.houseNumber }},
+                      {{ selectedUserAddress.line1 }},
+                      {{ selectedUserAddress.landmark }},
+                      {{ selectedUserAddress.city }} ,
+                      {{ selectedUserAddress.state }},
+                      {{ selectedUserAddress.counrty }},
+                      {{ selectedUserAddress.pinCode }}
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <app-three-dot-icon></app-three-dot-icon>
+                </div>
+              </div>
+              <div
+                [style]="{
+                  color: '#1D5CFF',
+                  cursor: 'pointer',
+                  'font-size': '12px',
+                  'font-weight': '500',
+                }"
+                (click)="openAddressModal()"
+              >
+                Change
+              </div>
+              <hr />
+              <div class="address">
+                <span>Will be delivered in <b>3-4 days</b></span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 total-section">
+            <button
+              class="btn btn-primary w-100 final-bill-list"
+              (click)="createOrder(cartProducts, selectedUserAddress)"
+            >
+              <div class="total-amount" style="color: #d9e4ff">
+                Total &nbsp;<span style="color: #ffffff; font-weight: 600"
+                  ><b
+                    >&#8377;{{ pdcData.totalPayableAmt | number: "1.0-2" }}</b
+                  ></span
+                >
+                <!-- Total &nbsp;&#8377;<span>{{cartData.totalPayableAmt}}</span> -->
+              </div>
+
+              <div class="proceedToNext">
+                {{ !isProceedToPay ? "Next" : "Proceed To Pay" }}
+                <img src="/assets/images/proceed-next-arrow.png" alt="" />
+                <!-- <i class="bi bi-caret-right-fill"></i> -->
+              </div>
+            </button>
+          </div>
+        </div>
+      }
+
+      @if (checkoutConsultationCart && checkoutConsultationCart.length > 0) {
+        <div class="cart-content-container">
+          <div *ngIf="!isLoadingCart">
+            <div class="product-cart-container">
+              <div class="cart-item-container">
+                <div>
+                  <!-- <span class="cart-items-count">
                                     {{cartCountTitle}}
                                     ({{checkoutConsultationCart.length}})
                                 </span> -->
-                            </div>
-                            <div class="products-cart mt-2" *ngFor="let consult of checkoutConsultationCart">
-                                <div class="d-flex flex-row">
-                                    <div class="cart-product-image">
-                                        <img [src]="imgUrl + consult.consultant.profilePhoto.savedName" alt=""
-                                            width="100%" height="100%">
-                                    </div>
-                                    <div class="cart-product-details-container mx-2">
-                                        <div clas>{{consult.consultant.firstName}} {{consult.consultant.lastName}}</div>
-                                        <div>{{consult.consultant.consultantType[0].name}}</div>
-                                        <div>₹{{consult.fee}}</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div style="cursor: pointer; color: red;" (click)="removeConsultFromCart()">
-                                        <i class="bi bi-x-circle"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div *ngIf="showAppointmentDetails" class="appointmentSelectedSlotContainer">
-                                <div class="d-flex justify-content-between">
-                                    <span>Date</span>
-                                    <span>{{selectedSlot.slotDate | date}}</span>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <span>Time</span>
-                                    <span>{{selectedSlot.slot.startTime12}}-{{selectedSlot.slot.endTime12}}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-1 px-2" [style]="{'background-color':'#fff','display': 'flex',
-                    'flex-direction': 'column',
-                    'row-gap': '1px' ,'padding':'10px 8px'}">
-                        <span style="font-size: 14px; font-weight: 600; color: #242424; margin-bottom: 12px;">Bill
-                            Details</span>
-                        <div class="bill-list">
-                            <div>
-                                <img src="/assets/images/bill-details/item-total.png" alt="">
-                                &nbsp;
-                                <span>Item total</span>
-                            </div>
-                            <div>&#8377;{{checkoutConsultationCart[0]?.totalAmount}}</div>
-                        </div>
-
-                        <div class="bill-list" style="font-size: 14px; font-weight: 500; color: #212121;">
-                            <div>Grand Total</div>
-                            <div>&#8377;{{checkoutConsultationCart[0]?.totalPayableAmt | number:'1.0-2'}}</div>
-                        </div>
-                        <div class="bill-list pointer" style="font-size: 14px; font-weight: 500; color: #212121;">
-                            <div>Coupon</div>
-                            <div class="applyCoupon" *ngIf="!isAppliedCouponDiscount" (click)="openCouponModal()">Apply
-                                Coupon</div>
-                            <div *ngIf="isAppliedCouponDiscount" class="removeCoupon" (click)="removeCoupon()">
-                                REMOVE COUPON
-                            </div>
-                        </div>
-                        <div class="bill-list d-flex justify-content-between"
-                            [style]="{'font-size': '14px', 'font-weight': '500'}" *ngIf="isAppliedCouponDiscount">
-                            <div>Coupon Discount</div>
-                            <div class="text-end">-{{isAppliedCouponDiscount | number:'1.0-2'}} </div>
-                        </div>
-                        <div class="savings mt-3">
-                            <span [style]="{'color':'#3C0F3A'}">Your total savings
-                                <span [style]="{'color':'#873493'}">
-                                    &#8377;{{(checkoutConsultationCart[0]?.discount + isAppliedCouponDiscount) | number:'1.0-2'}}</span>
-                            </span>
-                        </div>
-                    </div>
                 </div>
-                <div class="mt-3 pe-3  total-section">
-                    <button class="btn btn-primary w-100 final-bill-list"
-                        (click)="bookConsultation(checkoutConsultationCart[0])">
-                        <div>
-                            Total &nbsp;&#8377;<span>{{checkoutConsultationCart[0]?.totalPayableAmt}}</span>
-                        </div>
-                        <div>
-                            {{!isProceedToPay ? 'Book Consultation' : 'Proceed To Pay'}}
-                            <i class="bi bi-caret-right-fill"></i>
-                        </div>
-                    </button>
+                <div
+                  class="products-cart mt-2"
+                  *ngFor="let consult of checkoutConsultationCart"
+                >
+                  <div class="d-flex flex-row">
+                    <div class="cart-product-image">
+                      <img
+                        [src]="
+                          imgUrl + consult.consultant.profilePhoto.savedName
+                        "
+                        alt=""
+                        width="100%"
+                        height="100%"
+                      />
+                    </div>
+                    <div class="cart-product-details-container mx-2">
+                      <div clas>
+                        {{ consult.consultant.firstName }}
+                        {{ consult.consultant.lastName }}
+                      </div>
+                      <div>{{ consult.consultant.consultantType[0].name }}</div>
+                      <div>₹{{ consult.fee }}</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="cursor: pointer; color: red"
+                      (click)="removeConsultFromCart()"
+                    >
+                      <i class="bi bi-x-circle"></i>
+                    </div>
+                  </div>
                 </div>
+                <div
+                  *ngIf="showAppointmentDetails"
+                  class="appointmentSelectedSlotContainer"
+                >
+                  <div class="d-flex justify-content-between">
+                    <span>Date</span>
+                    <span>{{ selectedSlot.slotDate | date }}</span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span>Time</span>
+                    <span
+                      >{{ selectedSlot.slot.startTime12 }}-{{
+                        selectedSlot.slot.endTime12
+                      }}</span
+                    >
+                  </div>
+                </div>
+              </div>
             </div>
-            }
 
-            <!-- when cart is empty -->
-            @if (cartProducts && cartProducts.length === 0 && activatedUrl !== '/consult-us'
-            && cartProducts.length <= 0 && tempCartOpenType !=='consult' ) { <div class="empty-cart-container">
-                <div class="empty-card-header">
-                    <span>Your Cart is Empty</span>
+            <div
+              class="mt-1 px-2"
+              [style]="{
+                'background-color': '#fff',
+                display: 'flex',
+                'flex-direction': 'column',
+                'row-gap': '1px',
+                padding: '10px 8px',
+              }"
+            >
+              <span
+                style="
+                  font-size: 14px;
+                  font-weight: 600;
+                  color: #242424;
+                  margin-bottom: 12px;
+                "
+                >Bill Details</span
+              >
+              <div class="bill-list">
+                <div>
+                  <img
+                    src="/assets/images/bill-details/item-total.png"
+                    alt=""
+                  />
+                  &nbsp;
+                  <span>Item total</span>
                 </div>
-                <div class="empty-card-content mt-3">
-                    <span>Looks like you haven't added anything to your <br>cart yet. Start shopping now to fill it
-                        up!</span><br>
+                <div>&#8377;{{ checkoutConsultationCart[0]?.totalAmount }}</div>
+              </div>
+
+              <div
+                class="bill-list"
+                style="font-size: 14px; font-weight: 500; color: #212121"
+              >
+                <div>Grand Total</div>
+                <div>
+                  &#8377;{{
+                    checkoutConsultationCart[0]?.totalPayableAmt
+                      | number: "1.0-2"
+                  }}
                 </div>
-                <div class="empty-cart-footer " (click)="navigateToHomePage()">
-                    <button type="button" class="btn btn-primary">Start Shopping</button>
+              </div>
+              <div
+                class="bill-list pointer"
+                style="font-size: 14px; font-weight: 500; color: #212121"
+              >
+                <div>Coupon</div>
+                <div
+                  class="applyCoupon"
+                  *ngIf="!isAppliedCouponDiscount"
+                  (click)="openCouponModal()"
+                >
+                  Apply Coupon
                 </div>
+                <div
+                  *ngIf="isAppliedCouponDiscount"
+                  class="removeCoupon"
+                  (click)="removeCoupon()"
+                >
+                  REMOVE COUPON
+                </div>
+              </div>
+              <div
+                class="bill-list d-flex justify-content-between"
+                [style]="{ 'font-size': '14px', 'font-weight': '500' }"
+                *ngIf="isAppliedCouponDiscount"
+              >
+                <div>Coupon Discount</div>
+                <div class="text-end">
+                  -{{ isAppliedCouponDiscount | number: "1.0-2" }}
+                </div>
+              </div>
+              <div class="savings mt-3">
+                <span [style]="{ color: '#3C0F3A' }"
+                  >Your total savings
+                  <span [style]="{ color: '#873493' }">
+                    &#8377;{{
+                      checkoutConsultationCart[0]?.discount +
+                        isAppliedCouponDiscount | number: "1.0-2"
+                    }}</span
+                  >
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 pe-3 total-section">
+            <button
+              class="btn btn-primary w-100 final-bill-list"
+              (click)="bookConsultation(checkoutConsultationCart[0])"
+            >
+              <div>
+                Total &nbsp;&#8377;<span>{{
+                  checkoutConsultationCart[0]?.totalPayableAmt
+                }}</span>
+              </div>
+              <div>
+                {{ !isProceedToPay ? "Book Consultation" : "Proceed To Pay" }}
+                <i class="bi bi-caret-right-fill"></i>
+              </div>
+            </button>
+          </div>
         </div>
-        }
+      }
 
-        <!-- && activatedUrl == '/consult-us' -->
-        @if (checkoutConsultationCart && checkoutConsultationCart.length === 0 && activatedUrl == '/consult-us' ){
+      <!-- when cart is empty -->
+      @if (
+        cartProducts &&
+        cartProducts.length === 0 &&
+        activatedUrl !== "/consult-us" &&
+        cartProducts.length <= 0 &&
+        tempCartOpenType !== "consult"
+      ) {
         <div class="empty-cart-container">
-            <div class="empty-card-header">
-                <span>Your Checkout is Empty</span>
-            </div>
-            <div class="empty-card-content mt-3">
-                <span>Looks like you haven't added anything to your Checkout yet. Start consult now to fill it
-                    up!</span><br>
-            </div>
-            <div class="empty-cart-footer mt-2" (click)="navigateToConsultPage()">
-                <button type="button" class="btn btn-primary">Book Consultant</button>
-            </div>
+          <div class="empty-card-header">
+            <span>Your Cart is Empty</span>
+          </div>
+          <div class="empty-card-content mt-3">
+            <span
+              >Looks like you haven't added anything to your <br />cart yet.
+              Start shopping now to fill it up!</span
+            ><br />
+          </div>
+          <div class="empty-cart-footer" (click)="navigateToHomePage()">
+            <button type="button" class="btn btn-primary">
+              Start Shopping
+            </button>
+          </div>
         </div>
-        }
-</div>
-</aside>
-</div>
+      }
 
+      <!-- && activatedUrl == '/consult-us' -->
+      @if (
+        checkoutConsultationCart &&
+        checkoutConsultationCart.length === 0 &&
+        activatedUrl == "/consult-us"
+      ) {
+        <div class="empty-cart-container">
+          <div class="empty-card-header">
+            <span>Your Checkout is Empty</span>
+          </div>
+          <div class="empty-card-content mt-3">
+            <span
+              >Looks like you haven't added anything to your Checkout yet. Start
+              consult now to fill it up!</span
+            ><br />
+          </div>
+          <div class="empty-cart-footer mt-2" (click)="navigateToConsultPage()">
+            <button type="button" class="btn btn-primary">
+              Book Consultant
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </aside>
+</div>
 
 <div *ngIf="mobileSize">
+  <aside class="">
+    <div class="cart-sidenav cart-container">
+      <div class="mob-cart-header-container">
+        <img
+          src="/assets/images/left-back-arrow-black.png"
+          alt="Go back"
+          (click)="hideCart()"
+        />
+        <span class="cart-header-title" [style]="{ 'margin-left': '10px' }">{{
+          cartTitle
+        }}</span>
+      </div>
 
-    <aside class="">
-        <div class="cart-sidenav cart-container ">
-            <div class="mob-cart-header-container">
-                <img src="/assets/images/left-back-arrow-black.png" alt="Go back" (click)="hideCart()">
-                <span class="cart-header-title" [style]="{'margin-left':'10px'}">{{cartTitle}}</span>
+      @if (cartProducts && cartProducts.length > 0) {
+        <div class="cart-content-container">
+          <div *ngIf="!isLoadingCart" class="cart-content-items">
+            <div class="product-cart-container">
+              <div class="cart-item-container">
+                <div>
+                  <span class="cart-items-count"
+                    >{{ cartCountTitle }}({{
+                      getItemsCount(cartProducts)
+                    }})</span
+                  >
+                </div>
+                <div
+                  class="products-cart mt-2"
+                  *ngFor="let p of cartProducts"
+                  [ngClass]="{ limitTextHeight: isReadMore }"
+                >
+                  <div class="d-flex flex-row">
+                    <div class="cart-product-image">
+                      <img
+                        [src]="imgUrl + p.productId.thumbnail.savedName"
+                        alt=""
+                        width="100%"
+                        height="100%"
+                      />
+                    </div>
+                    <div class="cart-product-details-container">
+                      <span
+                        [style]="{ 'font-size': '12px', 'font-weight': '500' }"
+                        >{{ p.productName }}</span
+                      >
+
+                      <span
+                        [style]="{
+                          'font-size': '10px',
+                          'font-weight': '400',
+                          color: '#A3A3A3',
+                        }"
+                      >
+                        {{ p.label[0] }}
+                      </span>
+
+                      <span
+                        [style]="{ 'font-size': '14px', 'font-weight': '600' }"
+                      >
+                        ₹{{ p.productPrice }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="product-cart-price-inc-dec-container">
+                    <div class="product-increment-decrement-container mb-2">
+                      <div
+                        style="cursor: pointer"
+                        (click)="quantityPicker('remove', p)"
+                      >
+                        -
+                      </div>
+                      <div style="cursor: unset">{{ p.quantity }}</div>
+                      <div
+                        style="cursor: pointer"
+                        (click)="quantityPicker('add', p)"
+                      >
+                        +
+                      </div>
+                    </div>
+
+                    <div
+                      class="removeProduct"
+                      (click)="removeProductFromCart(p)"
+                    >
+                      Remove
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-3" *ngIf="!mobileSize">
+                <app-product-slider
+                  class="product-slider"
+                  [productData]="similarproductData"
+                  productBrandTitle="You may want to consider buying"
+                  [isCartSimProduct]="isCartSimilarProducts"
+                >
+                </app-product-slider>
+              </div>
+            </div>
+            <div
+              class="mt-2 apply-coupon-mob-container"
+              (click)="openCouponModal()"
+            >
+              <div
+                [style]="{
+                  display: 'flex',
+                  'column-gap': '7px',
+                  width: '50%',
+                  'align-items': 'center',
+                }"
+              >
+                <img src="/assets/images/apply-coupon-mob-img.svg" alt="" />
+                <span [style]="{ 'font-size': '14px', 'font-weight': '600' }"
+                  >Apply Coupon</span
+                >
+              </div>
+              <div>
+                <button
+                  type="button"
+                  [style]="{ 'background-color': '#fff', border: 'none' }"
+                >
+                  <img
+                    src="/assets/images/right-arrow-open-coupon-modal.svg"
+                    alt=""
+                  />
+                </button>
+              </div>
             </div>
 
-            @if (cartProducts && cartProducts.length > 0 ) {
-            <div class="cart-content-container ">
-                <div *ngIf="!isLoadingCart" class="cart-content-items">
-                    <div class="product-cart-container">
-                        <div class="cart-item-container">
-                            <div>
-                                <span class="cart-items-count">{{cartCountTitle}}({{getItemsCount(cartProducts)}})</span>
-                            </div>
-                            <div class="products-cart mt-2" *ngFor="let p of cartProducts"
-                                [ngClass]="{'limitTextHeight': isReadMore}">
-                                <div class="d-flex flex-row">
-                                    <div class="cart-product-image">
-                                        <img [src]="imgUrl + p.productId.thumbnail.savedName" alt="" width="100%"
-                                            height="100%">
-                                    </div>
-                                    <div class="cart-product-details-container">
-
-                                        <span
-                                            [style]="{'font-size':'12px','font-weight':'500'}">{{p.productName}}</span>
-
-                                        <span [style]="{'font-size':'10px','font-weight':'400','color':'#A3A3A3'}">
-                                            {{p.label[0]}}
-                                        </span>
-
-                                        <span [style]="{'font-size':'14px','font-weight':'600'}">
-                                            ₹{{p.productPrice}}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="product-cart-price-inc-dec-container">
-                                    <div class="product-increment-decrement-container mb-2">
-                                        <div style="cursor: pointer;" (click)="quantityPicker('remove', p)">-</div>
-                                        <div style="cursor: unset;">{{p.quantity}}</div>
-                                        <div style="cursor: pointer;" (click)="quantityPicker('add', p)">+</div>
-                                    </div>
-
-                                    <div class="removeProduct" (click)="removeProductFromCart(p)">
-                                        Remove</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-3" *ngIf="!mobileSize">
-                            <app-product-slider class=" product-slider" [productData]="similarproductData"
-                                productBrandTitle="You may want to consider buying"
-                                [isCartSimProduct]="isCartSimilarProducts">
-                            </app-product-slider>
-                        </div>
-                    </div>
-                    <div class="mt-2 apply-coupon-mob-container" (click)="openCouponModal()">
-                        <div [style]="{'display':'flex','column-gap':'7px','width':'50%','align-items':'center'}">
-                            <img src="/assets/images/apply-coupon-mob-img.svg" alt="">
-                            <span [style]="{'font-size':'14px','font-weight':'600'}">Apply
-                                Coupon</span>
-                        </div>
-                        <div>
-                            <button type="button" [style]="{'background-color':'#fff','border':'none'}">
-                                <img src="/assets/images/right-arrow-open-coupon-modal.svg" alt="">
-                            </button>
-                        </div>
-
-                    </div>
-
-                    <div class="mt-2" [style]="{'background-color':'#fff','display': 'flex',
-                        'flex-direction': 'column',
-                        'row-gap': '1px'}">
-                        <strong class="bill-list">Bill Details</strong>
-                        <div class="bill-list">
-                            <div>
-                                <img src="/assets/images/bill-details/item-total.png" alt="">
-                                &nbsp;
-                                <span>Item total</span>
-                            </div>
-                            <div>{{pdcData.totalAmount}}</div>
-                            <!-- <div>{{cartData.totalAmount}}</div> -->
-                        </div>
-                        <div class="bill-list">
-                            <div> <img src="/assets/images/bill-details/delivery.png" alt="">&nbsp;
-                                <span> Delivery charge </span>
-                            </div>
-                            <div>&#8377;{{pdcData.shippingCharge}}</div>
-                            <!-- <div>&#8377;{{cartData.shippingCharge}}</div> -->
-                        </div>
-                        <div class="bill-list" style="font-size: large; font-weight: 500;">
-                            <div>Grand Total</div>
-                            <div>&#8377;{{pdcData.totalPayableAmt | number:'1.0-2'}}</div>
-                            <!-- <div>&#8377;{{cartData.totalPayableAmt}}</div> -->
-                        </div>
-                        <div class="bill-list" style="font-size: large; font-weight: 500;" *ngIf="!mobileSize">
-                            <div>Coupon</div>
-                            <div *ngIf="!isAppliedCouponDiscount" (click)="openCouponModal()">Apply Coupon</div>
-                        </div>
-                        <div class="bill-list" style="font-size: large; font-weight: 500;"
-                            *ngIf="isAppliedCouponDiscount">
-                            <div>Coupon Discount</div>
-                            <div class="text-end">-{{isAppliedCouponDiscount | number:'1.0-2'}} </div>
-                        </div>
-                        <div class="savings mt-2">
-                            <span [style]="{'color':'#3C0F3A'}">Your total savings
-                                <span [style]="{'color':'#873493'}">
-                                    &#8377;{{pdcData.discount | number:'1.0-2'}}</span>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="modal-div login-section-mob p-3 mt-2" *ngIf="!isLoginMob">
-                        <div class="row align-items-center g-0">
-                            <app-custom-input class="col pe-3 mobileCol" label="Enter Mobile Number" prefix="+91"
-                                maxlength="10" [(ngModel)]="userMobile"></app-custom-input>
-                            <div class="col-auto mt-3 get-otp-login">
-                                <button class="btn btn-primary" [disabled]="userMobile?.length != 10"
-                                    (click)="getOTP()">Get
-                                    OTP</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div *ngIf="!isLoginMob && isVerifyOTP">
-                        <div class="login-section-mob modal-div p-3 my-2">
-                            <div class="row g-0">
-                                <app-custom-input class="col pe-3 mobileCol" label="Enter OTP" maxlength="6"
-                                    [(ngModel)]="enteredOtp"></app-custom-input>
-                                <div class="col-auto mt-3 submit-otp">
-                                    <button class="btn btn-primary mt-2 mb-2" (click)="submitOTPMob()"
-                                        [disabled]="enteredOtp?.length != 6">Submit</button>
-                                </div>
-                            </div>
-                        </div>
-                        <span class="resend-otp-title px-3">
-                            Didn't received the OTP?
-                            <span [style]="{'color':'#1D5CFF','cursor':'pointer'}" (click)="getOTP()">Resend OTP</span>
-                        </span>
-                    </div>
-
-                    @if (isVerification) {
-                    <div class="card-body verification-success-modal mt-2">
-                        <h5 class="verification-success-modal-title"><i style="color: green;"
-                                class="bi bi-check-circle-fill"></i>
-                            Verificaition successful!
-                        </h5>
-                    </div>
-                    }
-
-                    <div *ngIf="selectedUserAddress" class="mt-3">
-                        <!-- {{selectedUserAddress | json}} -->
-                        <div [style]="{'font-weight': '500','font-size':'14px'}">
-                            Delivery Address
-                        </div>
-                        <div class=" mt-1 d-flex flex-row justify-content-between align-items-center">
-                            <div class="d-flex flex-row justify-content-between align-items-center">
-                                <div class="text-center" style="width: 50px; height: 50px;">
-                                    <app-house-icon></app-house-icon>
-                                </div>
-                                <div class="d-flex flex-column ps-2">
-                                    <div>
-                                        {{selectedUserAddress.type}}
-                                    </div>
-                                    <div>
-                                        {{selectedUserAddress.houseNumber}}, {{selectedUserAddress.line1}},
-                                        {{selectedUserAddress.landmark}}, {{selectedUserAddress.city}} <br>
-                                        {{selectedUserAddress.state}},
-                                        {{selectedUserAddress.counrty}}, {{selectedUserAddress.pinCode}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div>:</div>
-                        </div>
-                        <div [style]="{'color': 'blue','cursor':'pointer'}" (click)="openAddressModal()">Change</div>
-                        <hr>
-                        <div class="address">
-                            <span>Usually delivered in <b>3-4</b> working days.</span>
-                        </div>
-                    </div>
+            <div
+              class="mt-2"
+              [style]="{
+                'background-color': '#fff',
+                display: 'flex',
+                'flex-direction': 'column',
+                'row-gap': '1px',
+              }"
+            >
+              <strong class="bill-list">Bill Details</strong>
+              <div class="bill-list">
+                <div>
+                  <img
+                    src="/assets/images/bill-details/item-total.png"
+                    alt=""
+                  />
+                  &nbsp;
+                  <span>Item total</span>
                 </div>
-                <div class="mt-3 pe-3  total-section">
-                    <button class="btn btn-primary w-100 final-bill-list" (click)="createOrder(cartProducts,selectedUserAddress)">
-                        <div class="total-amount">
-                            Total &nbsp;&#8377;<span> {{pdcData.totalPayableAmt | number:'1.0-2'}} </span>
-                            <!-- Total &nbsp;&#8377;<span>{{cartData.totalPayableAmt}}</span> -->
-                        </div>
+                <div>{{ pdcData.totalAmount }}</div>
+                <!-- <div>{{cartData.totalAmount}}</div> -->
+              </div>
+              <div class="bill-list">
+                <div>
+                  <img
+                    src="/assets/images/bill-details/delivery.png"
+                    alt=""
+                  />&nbsp;
+                  <span> Delivery charge </span>
+                </div>
+                <div>&#8377;{{ pdcData.shippingCharge }}</div>
+                <!-- <div>&#8377;{{cartData.shippingCharge}}</div> -->
+              </div>
+              <div class="bill-list" style="font-size: large; font-weight: 500">
+                <div>Grand Total</div>
+                <div>
+                  &#8377;{{ pdcData.totalPayableAmt | number: "1.0-2" }}
+                </div>
+                <!-- <div>&#8377;{{cartData.totalPayableAmt}}</div> -->
+              </div>
+              <div
+                class="bill-list"
+                style="font-size: large; font-weight: 500"
+                *ngIf="!mobileSize"
+              >
+                <div>Coupon</div>
+                <div
+                  *ngIf="!isAppliedCouponDiscount"
+                  (click)="openCouponModal()"
+                >
+                  Apply Coupon
+                </div>
+              </div>
+              <div
+                class="bill-list"
+                style="font-size: large; font-weight: 500"
+                *ngIf="isAppliedCouponDiscount"
+              >
+                <div>Coupon Discount</div>
+                <div class="text-end">
+                  -{{ isAppliedCouponDiscount | number: "1.0-2" }}
+                </div>
+              </div>
+              <div class="savings mt-2">
+                <span [style]="{ color: '#3C0F3A' }"
+                  >Your total savings
+                  <span [style]="{ color: '#873493' }">
+                    &#8377;{{ pdcData.discount | number: "1.0-2" }}</span
+                  >
+                </span>
+              </div>
+            </div>
 
-                        <div class="proceedToNext">
-                            {{!isProceedToPay ? 'Next' :
-                            'Proceed To Pay'}}
-                            <img src="/assets/images/proceed-next-arrow.png" alt="">
-                            <!-- <i class="bi bi-caret-right-fill"></i> -->
-                        </div>
+            <div
+              class="modal-div login-section-mob p-3 mt-2"
+              *ngIf="!isLoginMob"
+            >
+              <div class="row align-items-center g-0">
+                <app-custom-input
+                  class="col pe-3 mobileCol"
+                  label="Enter Mobile Number"
+                  prefix="+91"
+                  maxlength="10"
+                  [(ngModel)]="userMobile"
+                ></app-custom-input>
+                <div class="col-auto mt-3 get-otp-login">
+                  <button
+                    class="btn btn-primary"
+                    [disabled]="userMobile.length != 10"
+                    (click)="getOTP()"
+                  >
+                    Get OTP
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="!isLoginMob && isVerifyOTP">
+              <div class="login-section-mob modal-div p-3 my-2">
+                <div class="row g-0">
+                  <app-custom-input
+                    class="col pe-3 mobileCol"
+                    label="Enter OTP"
+                    maxlength="6"
+                    [(ngModel)]="enteredOtp"
+                  ></app-custom-input>
+                  <div class="col-auto mt-3 submit-otp">
+                    <button
+                      class="btn btn-primary mt-2 mb-2"
+                      (click)="submitOTPMob()"
+                      [disabled]="enteredOtp?.length != 6"
+                    >
+                      Submit
                     </button>
+                  </div>
                 </div>
+              </div>
+              <span class="resend-otp-title px-3">
+                Didn't received the OTP?
+                <span
+                  [style]="{ color: '#1D5CFF', cursor: 'pointer' }"
+                  (click)="getOTP()"
+                  >Resend OTP</span
+                >
+              </span>
             </div>
+
+            @if (isVerification) {
+              <div class="card-body verification-success-modal mt-2">
+                <h5 class="verification-success-modal-title">
+                  <i style="color: green" class="bi bi-check-circle-fill"></i>
+                  Verificaition successful!
+                </h5>
+              </div>
             }
 
+            <div *ngIf="selectedUserAddress" class="mt-3">
+              <!-- {{selectedUserAddress | json}} -->
+              <div [style]="{ 'font-weight': '500', 'font-size': '14px' }">
+                Delivery Address
+              </div>
+              <div
+                class="mt-1 d-flex flex-row justify-content-between align-items-center"
+              >
+                <div
+                  class="d-flex flex-row justify-content-between align-items-center"
+                >
+                  <div class="text-center" style="width: 50px; height: 50px">
+                    <app-house-icon></app-house-icon>
+                  </div>
+                  <div class="d-flex flex-column ps-2">
+                    <div>
+                      {{ selectedUserAddress.type }}
+                    </div>
+                    <div>
+                      {{ selectedUserAddress.houseNumber }},
+                      {{ selectedUserAddress.line1 }},
+                      {{ selectedUserAddress.landmark }},
+                      {{ selectedUserAddress.city }} <br />
+                      {{ selectedUserAddress.state }},
+                      {{ selectedUserAddress.counrty }},
+                      {{ selectedUserAddress.pinCode }}
+                    </div>
+                  </div>
+                </div>
+                <div>:</div>
+              </div>
+              <div
+                [style]="{ color: 'blue', cursor: 'pointer' }"
+                (click)="openAddressModal()"
+              >
+                Change
+              </div>
+              <hr />
+              <div class="address">
+                <span>Usually delivered in <b>3-4</b> working days.</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 pe-3 total-section">
+            <button
+              class="btn btn-primary w-100 final-bill-list"
+              (click)="createOrder(cartProducts, selectedUserAddress)"
+            >
+              <div class="total-amount">
+                Total &nbsp;&#8377;<span>
+                  {{ pdcData.totalPayableAmt | number: "1.0-2" }}
+                </span>
+                <!-- Total &nbsp;&#8377;<span>{{cartData.totalPayableAmt}}</span> -->
+              </div>
 
-            @if (checkoutConsultationCart && checkoutConsultationCart.length > 0) {
-            <div class="cart-content-container">
-                <div *ngIf="!isLoadingCart">
-                    <div class="product-cart-container">
-                        <div class="cart-item-container">
-                            <div>
-                                <!-- <span class="cart-items-count">
+              <div class="proceedToNext">
+                {{ !isProceedToPay ? "Next" : "Proceed To Pay" }}
+                <img src="/assets/images/proceed-next-arrow.png" alt="" />
+                <!-- <i class="bi bi-caret-right-fill"></i> -->
+              </div>
+            </button>
+          </div>
+        </div>
+      }
+
+      @if (checkoutConsultationCart && checkoutConsultationCart.length > 0) {
+        <div class="cart-content-container">
+          <div *ngIf="!isLoadingCart">
+            <div class="product-cart-container">
+              <div class="cart-item-container">
+                <div>
+                  <!-- <span class="cart-items-count">
                                     {{cartCountTitle}}
                                     ({{checkoutConsultationCart.length}})
                                 </span> -->
-                            </div>
-                            <div class="products-cart mt-2" *ngFor="let consult of checkoutConsultationCart">
-                                <div class="d-flex flex-row">
-                                    <div class="cart-product-image">
-                                        <img [src]="imgUrl + consult.consultant.profilePhoto.savedName" alt=""
-                                            width="100%" height="100%">
-                                    </div>
-                                    <div class="cart-product-details-container mx-2">
-                                        <div clas>{{consult.consultant.firstName}} {{consult.consultant.lastName}}</div>
-                                        <div>{{consult.consultant.consultantType[0].name}}</div>
-                                        <div>₹{{consult.fee}}</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div style="cursor: pointer; color: red;" (click)="removeConsultFromCart()">
-                                        <i class="bi bi-x-circle"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div *ngIf="!selectedSlot" class="appointmentSelectedSlotContainer">
-
-                            </div>
-                        </div>
+                </div>
+                <div
+                  class="products-cart mt-2"
+                  *ngFor="let consult of checkoutConsultationCart"
+                >
+                  <div class="d-flex flex-row">
+                    <div class="cart-product-image">
+                      <img
+                        [src]="
+                          imgUrl + consult.consultant.profilePhoto.savedName
+                        "
+                        alt=""
+                        width="100%"
+                        height="100%"
+                      />
                     </div>
-
-                    <div class="mt-2">
-                        <strong>Bill Details</strong>
-                        <div class="bill-list">
-                            <div>Item total</div>
-                            <div> &#8377;{{checkoutConsultationCart[0]?.totalAmount}}</div>
-                        </div>
-                        <div class="bill-list" style="font-size: large; font-weight: 500;">
-                            <div>Grand Total</div>
-                            <div>&#8377;{{checkoutConsultationCart[0]?.totalPayableAmt | number:'1.0-2'}}</div>
-                        </div>
-                        <div class="bill-list" style="font-size: large; font-weight: 500;">
-                            <div>Coupon</div>
-                            <div *ngIf="!isAppliedCouponDiscount" (click)="openCouponModal()">Apply Coupon</div>
-                            <div *ngIf="isAppliedCouponDiscount" class="removeCoupon" (click)="removeCoupon()">
-                                REMOVE COUPON
-                            </div>
-                        </div>
-                        <div class="bill-list" style="font-size: large; font-weight: 500;"
-                            *ngIf="isAppliedCouponDiscount">
-                            <div>Coupon Discount</div>
-                            <div class="text-end">-{{isAppliedCouponDiscount | number:'1.0-2'}} </div>
-                        </div>
-                        <div class="savings mt-2">
-                            <span [style]="{'color':'#3C0F3A'}">Your total savings
-                                <span [style]="{'color':'#873493'}">
-                                    &#8377;{{(checkoutConsultationCart[0]?.discount + isAppliedCouponDiscount) | number:'1.0-2'}}</span>
-                            </span>
-                        </div>
+                    <div class="cart-product-details-container mx-2">
+                      <div clas>
+                        {{ consult.consultant.firstName }}
+                        {{ consult.consultant.lastName }}
+                      </div>
+                      <div>{{ consult.consultant.consultantType[0].name }}</div>
+                      <div>₹{{ consult.fee }}</div>
                     </div>
-
+                  </div>
+                  <div>
+                    <div
+                      style="cursor: pointer; color: red"
+                      (click)="removeConsultFromCart()"
+                    >
+                      <i class="bi bi-x-circle"></i>
+                    </div>
+                  </div>
                 </div>
-                <div class="mt-3 pe-3  total-section">
-                    <button class="btn btn-primary w-100 final-bill-list"
-                        (click)="bookConsultation(checkoutConsultationCart[0])">
-                        <div>
-                            Total &nbsp;&#8377;<span>{{checkoutConsultationCart[0]?.totalPayableAmt}}</span>
-                        </div>
-                        <div>
-                            {{!isProceedToPay ? 'Book Consultation' : 'Proceed To Pay'}}
-                            <i class="bi bi-caret-right-fill"></i>
-                        </div>
-                    </button>
-                </div>
+                <div
+                  *ngIf="!selectedSlot"
+                  class="appointmentSelectedSlotContainer"
+                ></div>
+              </div>
             </div>
-            }
 
-            @if (visibleCartType == 'shop' && cartProducts && cartProducts.length === 0) {
-            <div class="empty-cart-container">
-                <div class="empty-card-header">
-                    <span>Your Cart is Empty</span>
+            <div class="mt-2">
+              <strong>Bill Details</strong>
+              <div class="bill-list">
+                <div>Item total</div>
+                <div>&#8377;{{ checkoutConsultationCart[0]?.totalAmount }}</div>
+              </div>
+              <div class="bill-list" style="font-size: large; font-weight: 500">
+                <div>Grand Total</div>
+                <div>
+                  &#8377;{{
+                    checkoutConsultationCart[0]?.totalPayableAmt
+                      | number: "1.0-2"
+                  }}
                 </div>
-                <div class="empty-card-content mt-3">
-                    <span>Looks like you haven't added anything to your cart yet. Start shopping now to fill it
-                        up!</span><br>
+              </div>
+              <div class="bill-list" style="font-size: large; font-weight: 500">
+                <div>Coupon</div>
+                <div
+                  *ngIf="!isAppliedCouponDiscount"
+                  (click)="openCouponModal()"
+                >
+                  Apply Coupon
                 </div>
-                <div class="empty-cart-footer mt-2" (click)="navigateToHomePage()">
-                    <button type="button" class="btn btn-primary">Start Shopping</button>
+                <div
+                  *ngIf="isAppliedCouponDiscount"
+                  class="removeCoupon"
+                  (click)="removeCoupon()"
+                >
+                  REMOVE COUPON
                 </div>
+              </div>
+              <div
+                class="bill-list"
+                style="font-size: large; font-weight: 500"
+                *ngIf="isAppliedCouponDiscount"
+              >
+                <div>Coupon Discount</div>
+                <div class="text-end">
+                  -{{ isAppliedCouponDiscount | number: "1.0-2" }}
+                </div>
+              </div>
+              <div class="savings mt-2">
+                <span [style]="{ color: '#3C0F3A' }"
+                  >Your total savings
+                  <span [style]="{ color: '#873493' }">
+                    &#8377;{{
+                      checkoutConsultationCart[0]?.discount +
+                        isAppliedCouponDiscount | number: "1.0-2"
+                    }}</span
+                  >
+                </span>
+              </div>
             </div>
-            }
-
-            @if (checkoutConsultationCart && checkoutConsultationCart.length === 0 && activatedUrl == '/consult-us' ){
-            <div class="empty-cart-container">
-                <div class="empty-card-header">
-                    <span>Your Checkout is Empty</span>
-                </div>
-                <div class="empty-card-content mt-3">
-                    <span>Looks like you haven't added anything to your Checkout yet. Start consult now to fill it
-                        up!</span><br>
-                </div>
-                <div class="empty-cart-footer mt-2" (click)="navigateToConsultPage()">
-                    <button type="button" class="btn btn-primary">Book Consultant</button>
-                </div>
-            </div>
-            }
+          </div>
+          <div class="mt-3 pe-3 total-section">
+            <button
+              class="btn btn-primary w-100 final-bill-list"
+              (click)="bookConsultation(checkoutConsultationCart[0])"
+            >
+              <div>
+                Total &nbsp;&#8377;<span>{{
+                  checkoutConsultationCart[0]?.totalPayableAmt
+                }}</span>
+              </div>
+              <div>
+                {{ !isProceedToPay ? "Book Consultation" : "Proceed To Pay" }}
+                <i class="bi bi-caret-right-fill"></i>
+              </div>
+            </button>
+          </div>
         </div>
-    </aside>
+      }
+
+      @if (
+        visibleCartType == "shop" && cartProducts && cartProducts.length === 0
+      ) {
+        <div class="empty-cart-container">
+          <div class="empty-card-header">
+            <span>Your Cart is Empty</span>
+          </div>
+          <div class="empty-card-content mt-3">
+            <span
+              >Looks like you haven't added anything to your cart yet. Start
+              shopping now to fill it up!</span
+            ><br />
+          </div>
+          <div class="empty-cart-footer mt-2" (click)="navigateToHomePage()">
+            <button type="button" class="btn btn-primary">
+              Start Shopping
+            </button>
+          </div>
+        </div>
+      }
+
+      @if (
+        checkoutConsultationCart &&
+        checkoutConsultationCart.length === 0 &&
+        activatedUrl == "/consult-us"
+      ) {
+        <div class="empty-cart-container">
+          <div class="empty-card-header">
+            <span>Your Checkout is Empty</span>
+          </div>
+          <div class="empty-card-content mt-3">
+            <span
+              >Looks like you haven't added anything to your Checkout yet. Start
+              consult now to fill it up!</span
+            ><br />
+          </div>
+          <div class="empty-cart-footer mt-2" (click)="navigateToConsultPage()">
+            <button type="button" class="btn btn-primary">
+              Book Consultant
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </aside>
 </div>
 
-
-<div *ngIf="isVerificationModal || showAddressList || isShowAddressForm || isCouponCode || showLoginPopup || isSelectTimeSlot"
-    class="modal-section">
-
-    <!-- <button class="btnCloseDiv" (click)="closeVerificationModal()" *ngIf="mobileSize">
+<div
+  *ngIf="
+    isVerificationModal ||
+    showAddressList ||
+    isShowAddressForm ||
+    isCouponCode ||
+    showLoginPopup ||
+    isSelectTimeSlot
+  "
+  class="modal-section"
+>
+  <!-- <button class="btnCloseDiv" (click)="closeVerificationModal()" *ngIf="mobileSize">
         <app-cross-icon></app-cross-icon>
     </button>
     @if (isGetOTP && !isCouponCode && !isSelectTimeSlot) {
@@ -688,151 +1088,261 @@
     </div>
     } -->
 
-    <!-- delevery address -->
+  <!-- delevery address -->
 
-    @if (isShowAddressForm) {
+  @if (isShowAddressForm) {
     <div class="delivary-address-form-container">
-        <div style="background-color: white;" class="modal-div">
-            <div class="form-header">
-                @if (locationDetected) {
-                <div class="">
-                    <span>
-                        <img src="/assets/images/delivery-address-form-location.png" alt="">&nbsp;&nbsp;
-                    </span>
-                </div>
-                }
-
-                @if (!locationDetected) {
-                <div class="d-flex column-gap-2">
-                    <app-ping-icon></app-ping-icon>
-                    <span>
-                        Add Delivery Address
-                    </span>
-                </div>
-                }
-
+      <div style="background-color: white" class="modal-div">
+        <div class="form-header">
+          @if (locationDetected) {
+            <div class="">
+              <span>
+                <img
+                  src="/assets/images/delivery-address-form-location.png"
+                  alt=""
+                />&nbsp;&nbsp;
+              </span>
             </div>
-            <div class="form-content px-3 mt-4">
-                <div class="save-address">
-                    <h5>Save address as</h5>
-                </div>
-                <form [formGroup]="addressForm" (ngSubmit)="onAddressSubmit()" class="container px-0">
-                    <div class="d-flex column-gap-2 overflow-auto">
-                        <div class="addressTypeDiv" *ngFor="let type of addressType; let i = index">
-                            <button type="button" [class.active]="activeTypeIndex === i"
-                                (click)="selectAddTypeIndex(i,type.value)">
-                                <ng-container [ngSwitch]="type.icon">
-                                    <app-house-icon *ngSwitchCase="'app-house-icon'"></app-house-icon>
-                                    <app-bag-icon *ngSwitchCase="'app-bag-icon'"></app-bag-icon>
-                                    <app-hotel-icon *ngSwitchCase="'app-hotel-icon'"></app-hotel-icon>
-                                    <app-family-icon *ngSwitchCase="'app-family-icon'"></app-family-icon>
-                                </ng-container>
-                                <span>{{type.name}}&nbsp;&nbsp;</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="mt-4" [style]="{'position':'relative'}">
-                        <label class="input-lebal input-lebal2 ">
-                            <span class="required" [style]="{'margin':'5px'}">Full Name</span>
-                        </label>
-                        <div class="input-container">
-                            <input class="input-padding" type="text" formControlName="name" id="name">
-                        </div>
-                        <div class="text-danger font-12"
-                            *ngIf="addressForm.get('name')?.invalid && addressForm.get('name')?.touched">
-                            Name is required
-                        </div>
-                    </div>
-                    <div class="mt-4" [style]="{'position':'relative'}">
-                        <label class="input-lebal input-lebal2 ">
-                            <span class="required" [style]="{'margin':'5px'}">Mobile Number</span>
-                        </label>
-                        <div class="input-container mobile-input">
-                            <span>+91</span><input class="input-padding" type="number" maxlength="10"
-                                formControlName="phoneNo" id="phoneNo">
-                        </div>
-                        <div class="text-danger font-12"
-                            *ngIf="addressForm.get('phoneNo')?.invalid && addressForm.get('phoneNo')?.touched">
-                            Enter valid mobile number
-                        </div>
-                    </div>
-                    <div class="mt-4" [style]="{'position':'relative'}">
-                        <label class="input-lebal input-lebal2 ">
-                            <span class="required" [style]="{'margin':'5px'}">Pincode</span>
-                        </label>
-                        <div class="input-container">
-                            <input class="required" class="input-padding" type="text" formControlName="pinCode"
-                                maxlength="6" (change)="getUserAddressArea()">
-                        </div>
-                        <div *ngIf="addressForm.get('pinCode')?.invalid && addressForm.get('pinCode')?.touched"
-                            class="text-danger font-12">
-                            Enter valid pincode
-                        </div>
-                    </div>
-                    <div class="mt-4" [style]="{'position':'relative'}">
-                        <label class="input-lebal input-lebal2 ">
-                            <span class="required" [style]="{'margin':'5px'}">Flat, House Number</span>
-                        </label>
-                        <div class="input-container">
-                            <input class="input-padding" type="text" formControlName="houseNumber" id="houseNumber">
-                        </div>
-                        <div class="text-danger font-12"
-                            *ngIf="addressForm.get('houseNumber')?.invalid && addressForm.get('houseNumber')?.touched">
-                            This field is required
-                        </div>
-                    </div>
-                    <div class="mt-4" [style]="{'position':'relative'}">
-                        <label class="input-lebal input-lebal2 ">
-                            <span class="required" [style]="{'margin':'5px'}">Area, Colony, Street</span>
-                        </label>
-                        <div class="input-container">
-                            <input class="input-padding" type="text" formControlName="line1" id="line1">
-                        </div>
-                        <div class="text-danger font-12"
-                            *ngIf="addressForm.get('line1')?.invalid && addressForm.get('line1')?.touched">
-                            This field is required
-                        </div>
-                    </div>
-                    <div class="mt-4" [style]="{'position':'relative'}">
-                        <label class="input-lebal input-lebal2 ">
-                            <span class="required" [style]="{'margin':'5px'}">Country</span>
-                        </label>
-                        <div class="input-container">
-                            <input class="input-padding" type="text" formControlName="country" id="country"
-                                [disabled]="true" [readonly]="true" />
-                        </div>
-                        <div class="text-danger font-12"
-                            *ngIf="addressForm.get('country')?.invalid && addressForm.get('country')?.touched">
-                            This field is required
-                        </div>
-                    </div>
-                    <div class="mt-4" [style]="{'position':'relative'}">
-                        <label class="input-lebal input-lebal2 ">
-                            <span class="required" [style]="{'margin':'5px'}">State</span>
-                        </label>
-                        <div class="input-container">
-                            <input class="input-padding" type="text" formControlName="state" [disabled]="true"
-                                [readonly]="true">
-                        </div>
-                        <div class="text-danger font-12"
-                            *ngIf="addressForm.get('state')?.invalid && addressForm.get('state')?.touched">
-                            This field is required
-                        </div>
-                    </div>
-                    <div class="mt-4" [style]="{'position':'relative'}">
-                        <label class="input-lebal input-lebal2 ">
-                            <span class="required" [style]="{'margin':'5px'}">City</span>
-                        </label>
-                        <div class="input-container">
-                            <input class="input-padding" type="text" formControlName="city">
-                        </div>
-                        <div class="text-danger font-12"
-                            *ngIf="addressForm.get('city')?.invalid && addressForm.get('city')?.touched">
-                            This field is required
-                        </div>
-                    </div>
+          }
 
-                    <!-- <div class="mt-3" [style]="{'position':'relative'}">
+          @if (!locationDetected) {
+            <div class="d-flex column-gap-2">
+              <app-ping-icon></app-ping-icon>
+              <span> Add Delivery Address </span>
+            </div>
+          }
+        </div>
+        <div class="form-content px-3 mt-4">
+          <div class="save-address">
+            <h5>Save address as</h5>
+          </div>
+          <form
+            [formGroup]="addressForm"
+            (ngSubmit)="onAddressSubmit()"
+            class="container px-0"
+          >
+            <div class="d-flex column-gap-2 overflow-auto">
+              <div
+                class="addressTypeDiv"
+                *ngFor="let type of addressType; let i = index"
+              >
+                <button
+                  type="button"
+                  [class.active]="activeTypeIndex === i"
+                  (click)="selectAddTypeIndex(i, type.value)"
+                >
+                  <ng-container [ngSwitch]="type.icon">
+                    <app-house-icon
+                      *ngSwitchCase="'app-house-icon'"
+                    ></app-house-icon>
+                    <app-bag-icon *ngSwitchCase="'app-bag-icon'"></app-bag-icon>
+                    <app-hotel-icon
+                      *ngSwitchCase="'app-hotel-icon'"
+                    ></app-hotel-icon>
+                    <app-family-icon
+                      *ngSwitchCase="'app-family-icon'"
+                    ></app-family-icon>
+                  </ng-container>
+                  <span>{{ type.name }}&nbsp;&nbsp;</span>
+                </button>
+              </div>
+            </div>
+            <div class="mt-4" [style]="{ position: 'relative' }">
+              <label class="input-lebal input-lebal2">
+                <span class="required" [style]="{ margin: '5px' }"
+                  >Full Name</span
+                >
+              </label>
+              <div class="input-container">
+                <input
+                  class="input-padding"
+                  type="text"
+                  formControlName="name"
+                  id="name"
+                />
+              </div>
+              <div
+                class="text-danger font-12"
+                *ngIf="
+                  addressForm.get('name')?.invalid &&
+                  addressForm.get('name')?.touched
+                "
+              >
+                Name is required
+              </div>
+            </div>
+            <div class="mt-4" [style]="{ position: 'relative' }">
+              <label class="input-lebal input-lebal2">
+                <span class="required" [style]="{ margin: '5px' }"
+                  >Mobile Number</span
+                >
+              </label>
+              <div class="input-container mobile-input">
+                <span>+91</span
+                ><input
+                  class="input-padding"
+                  type="number"
+                  maxlength="10"
+                  formControlName="phoneNo"
+                  id="phoneNo"
+                />
+              </div>
+              <div
+                class="text-danger font-12"
+                *ngIf="
+                  addressForm.get('phoneNo')?.invalid &&
+                  addressForm.get('phoneNo')?.touched
+                "
+              >
+                Enter valid mobile number
+              </div>
+            </div>
+            <div class="mt-4" [style]="{ position: 'relative' }">
+              <label class="input-lebal input-lebal2">
+                <span class="required" [style]="{ margin: '5px' }"
+                  >Pincode</span
+                >
+              </label>
+              <div class="input-container">
+                <input
+                  class="required"
+                  class="input-padding"
+                  type="text"
+                  formControlName="pinCode"
+                  maxlength="6"
+                  (change)="getUserAddressArea()"
+                />
+              </div>
+              <div
+                *ngIf="
+                  addressForm.get('pinCode')?.invalid &&
+                  addressForm.get('pinCode')?.touched
+                "
+                class="text-danger font-12"
+              >
+                Enter valid pincode
+              </div>
+            </div>
+            <div class="mt-4" [style]="{ position: 'relative' }">
+              <label class="input-lebal input-lebal2">
+                <span class="required" [style]="{ margin: '5px' }"
+                  >Flat, House Number</span
+                >
+              </label>
+              <div class="input-container">
+                <input
+                  class="input-padding"
+                  type="text"
+                  formControlName="houseNumber"
+                  id="houseNumber"
+                />
+              </div>
+              <div
+                class="text-danger font-12"
+                *ngIf="
+                  addressForm.get('houseNumber')?.invalid &&
+                  addressForm.get('houseNumber')?.touched
+                "
+              >
+                This field is required
+              </div>
+            </div>
+            <div class="mt-4" [style]="{ position: 'relative' }">
+              <label class="input-lebal input-lebal2">
+                <span class="required" [style]="{ margin: '5px' }"
+                  >Area, Colony, Street</span
+                >
+              </label>
+              <div class="input-container">
+                <input
+                  class="input-padding"
+                  type="text"
+                  formControlName="line1"
+                  id="line1"
+                />
+              </div>
+              <div
+                class="text-danger font-12"
+                *ngIf="
+                  addressForm.get('line1')?.invalid &&
+                  addressForm.get('line1')?.touched
+                "
+              >
+                This field is required
+              </div>
+            </div>
+            <div class="mt-4" [style]="{ position: 'relative' }">
+              <label class="input-lebal input-lebal2">
+                <span class="required" [style]="{ margin: '5px' }"
+                  >Country</span
+                >
+              </label>
+              <div class="input-container">
+                <input
+                  class="input-padding"
+                  type="text"
+                  formControlName="country"
+                  id="country"
+                  [disabled]="true"
+                  [readonly]="true"
+                />
+              </div>
+              <div
+                class="text-danger font-12"
+                *ngIf="
+                  addressForm.get('country')?.invalid &&
+                  addressForm.get('country')?.touched
+                "
+              >
+                This field is required
+              </div>
+            </div>
+            <div class="mt-4" [style]="{ position: 'relative' }">
+              <label class="input-lebal input-lebal2">
+                <span class="required" [style]="{ margin: '5px' }">State</span>
+              </label>
+              <div class="input-container">
+                <input
+                  class="input-padding"
+                  type="text"
+                  formControlName="state"
+                  [disabled]="true"
+                  [readonly]="true"
+                />
+              </div>
+              <div
+                class="text-danger font-12"
+                *ngIf="
+                  addressForm.get('state')?.invalid &&
+                  addressForm.get('state')?.touched
+                "
+              >
+                This field is required
+              </div>
+            </div>
+            <div class="mt-4" [style]="{ position: 'relative' }">
+              <label class="input-lebal input-lebal2">
+                <span class="required" [style]="{ margin: '5px' }">City</span>
+              </label>
+              <div class="input-container">
+                <input
+                  class="input-padding"
+                  type="text"
+                  formControlName="city"
+                />
+              </div>
+              <div
+                class="text-danger font-12"
+                *ngIf="
+                  addressForm.get('city')?.invalid &&
+                  addressForm.get('city')?.touched
+                "
+              >
+                This field is required
+              </div>
+            </div>
+
+            <!-- <div class="mt-3" [style]="{'position':'relative'}">
                         <label class="input-lebal input-lebal2">
                             <span [style]="{'margin':'5px'}">Complete Address</span>
                         </label>
@@ -852,113 +1362,155 @@
                         </div>
                     </div> -->
 
-
-                    <div class="mt-3" [style]="{'position':'relative'}">
-                        <label class="input-lebal input-lebal2">
-                            <span [style]="{'margin':'5px'}">Nearby Landmark (optional)</span>
-                        </label>
-                        <div class="input-container">
-                            <input class="input-padding" type="text" formControlName="landmark" id="landmark">
-                        </div>
-                    </div>
-
-                    <div class="text-center mt-3">
-                        <!-- [disabled]="addressForm.invalid" -->
-                        <button class="btn btn-primary mb-2" type="submit" [disabled]="addressForm.invalid">Save
-                            Changes</button> <br />
-                        <button class="btn btn-text" type="button" (click)="isShowAddressForm = false;">Cancel</button>
-
-                    </div>
-                </form>
+            <div class="mt-3" [style]="{ position: 'relative' }">
+              <label class="input-lebal input-lebal2">
+                <span [style]="{ margin: '5px' }"
+                  >Nearby Landmark (optional)</span
+                >
+              </label>
+              <div class="input-container">
+                <input
+                  class="input-padding"
+                  type="text"
+                  formControlName="landmark"
+                  id="landmark"
+                />
+              </div>
             </div>
 
+            <div class="text-center mt-3">
+              <!-- [disabled]="addressForm.invalid" -->
+              <button
+                class="btn btn-primary mb-2"
+                type="submit"
+                [disabled]="addressForm.invalid"
+              >
+                Save Changes
+              </button>
+              <br />
+              <button
+                class="btn btn-text"
+                type="button"
+                (click)="isShowAddressForm = false"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
         </div>
-        <button class="cross-btn" (click)="isShowAddressForm = false">
-            <app-cross-icon></app-cross-icon>
-        </button>
+      </div>
+      <button class="cross-btn" (click)="isShowAddressForm = false">
+        <app-cross-icon></app-cross-icon>
+      </button>
     </div>
-    }
+  }
 
-    @if(showAddressList) {
-
+  @if (showAddressList) {
     <div class="card-body delivary-address-form-container">
-        <div style="background-color: white;" class="modal-div selectAddress">
-            <h5 class="card-title" style="text-align: center;">Select Address</h5>
-            <hr class="border-top">
-            <div class="px-3 pointer" [style]="{'color': '#1D5CFF','font-size':'16px','font-weight':'500'}"
-                (click)="enterAddress()">
-                + Add new address
-            </div>
-            <div class="mt-3 px-3" *ngIf="userAddressList.length > 0">
-                <p class="hadingpara">
-                    Your saved addresses
-                </p>
-                <div class=" mt-1 d-flex flex-row justify-content-between align-items-center" style="cursor: pointer;"
-                    *ngFor="let add of userAddressList; let i = index" (click)="selectedAddress(add, i)">
-                    <div class="d-flex flex-row justify-content-between align-items-center">
-                        <div class="d-flex justify-content-center align-items-center"
-                            style="padding: 10px;  width: 32px; height: 32px; border: 1px solid rgba(212, 212, 212, 0.5); border-radius: 6px;">
-                            <app-house-icon></app-house-icon>
-                        </div>
-                        <div class="d-flex flex-column ps-2">
-                            <div class="type">
-                                {{add.type | titlecase }}
-                            </div>
-                            <div class="address">
-                                {{add.houseNumber}}, {{add.line1}}, {{add.landmark}}, {{add.city}} ,
-                                {{add.state}},
-                                {{add.counrty}}, {{add.pinCode}}
-                            </div>
-                        </div>
-                    </div>
-                    <div style="margin-left: 40px;">
-                        <app-three-dot-icon></app-three-dot-icon>
-                    </div>
+      <div style="background-color: white" class="modal-div selectAddress">
+        <h5 class="card-title" style="text-align: center">Select Address</h5>
+        <hr class="border-top" />
+        <div
+          class="px-3 pointer"
+          [style]="{
+            color: '#1D5CFF',
+            'font-size': '16px',
+            'font-weight': '500',
+          }"
+          (click)="enterAddress()"
+        >
+          + Add new address
+        </div>
+        <div class="mt-3 px-3" *ngIf="userAddressList.length > 0">
+          <p class="hadingpara">Your saved addresses</p>
+          <div
+            class="mt-1 d-flex flex-row justify-content-between align-items-center"
+            style="cursor: pointer"
+            *ngFor="let add of userAddressList; let i = index"
+            (click)="selectedAddress(add, i)"
+          >
+            <div
+              class="d-flex flex-row justify-content-between align-items-center"
+            >
+              <div
+                class="d-flex justify-content-center align-items-center"
+                style="
+                  padding: 10px;
+                  width: 32px;
+                  height: 32px;
+                  border: 1px solid rgba(212, 212, 212, 0.5);
+                  border-radius: 6px;
+                "
+              >
+                <app-house-icon></app-house-icon>
+              </div>
+              <div class="d-flex flex-column ps-2">
+                <div class="type">
+                  {{ add.type | titlecase }}
                 </div>
+                <div class="address">
+                  {{ add.houseNumber }}, {{ add.line1 }}, {{ add.landmark }},
+                  {{ add.city }} , {{ add.state }}, {{ add.counrty }},
+                  {{ add.pinCode }}
+                </div>
+              </div>
             </div>
+            <div style="margin-left: 40px">
+              <app-three-dot-icon></app-three-dot-icon>
+            </div>
+          </div>
         </div>
-        <button class="cross-btn" (click)="showAddressList = false">
-            <app-cross-icon></app-cross-icon>
-        </button>
-
+      </div>
+      <button class="cross-btn" (click)="showAddressList = false">
+        <app-cross-icon></app-cross-icon>
+      </button>
     </div>
-    }
+  }
 
-
-    @if (isCouponCode) {
+  @if (isCouponCode) {
     <div class="card-body coupon-modal-container">
-        <div style="background-color: white;" class="modal-div">
-            <div class="coupon-modal-title">
-                <h5 class="card-title">Apply Coupon</h5>
-            </div>
-            <hr>
-            <div class="mt-2 px-3">
-                <input class="otp-input" type="text" placeholder="Enter Coupon code here" [(ngModel)]="couponCode">
-            </div>
-            <div class="d-flex justify-content-center mt-3">
-                <button [disabled]="!couponCode" class="btn btn-primary mt-2 mb-2" (click)="applyCouponCode()">Apply
-                    Coupon</button>
-            </div>
-
+      <div style="background-color: white" class="modal-div">
+        <div class="coupon-modal-title">
+          <h5 class="card-title">Apply Coupon</h5>
         </div>
-        <button class="cross-btn" (click)="isCouponCode = false">
-            <app-cross-icon></app-cross-icon>
-        </button>
+        <hr />
+        <div class="mt-2 px-3">
+          <input
+            class="otp-input"
+            type="text"
+            placeholder="Enter Coupon code here"
+            [(ngModel)]="couponCode"
+          />
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+          <button
+            [disabled]="!couponCode"
+            class="btn btn-primary mt-2 mb-2"
+            (click)="applyCouponCode()"
+          >
+            Apply Coupon
+          </button>
+        </div>
+      </div>
+      <button class="cross-btn" (click)="isCouponCode = false">
+        <app-cross-icon></app-cross-icon>
+      </button>
     </div>
-    }
+  }
 
-    @if (isSelectTimeSlot) {
+  @if (isSelectTimeSlot) {
     <div class="card-body consultation-booking-modal-container">
-        <app-consultation-calendar [consultantIdSlug]="consultantSlugId" [style]="{'width':'100%','height':'100%'}"
-            (selectedAppointmentSlot)="getAppointmentSelectedSlot($event)"></app-consultation-calendar>
-        <button class="cross-btn" (click)="isSelectTimeSlot = false">
-            <app-cross-icon></app-cross-icon>
-        </button>
+      <app-consultation-calendar
+        [consultantIdSlug]="consultantSlugId"
+        [style]="{ width: '100%', height: '100%' }"
+        (selectedAppointmentSlot)="getAppointmentSelectedSlot($event)"
+      ></app-consultation-calendar>
+      <button class="cross-btn" (click)="isSelectTimeSlot = false">
+        <app-cross-icon></app-cross-icon>
+      </button>
     </div>
-    }
-
+  }
 </div>
-
 
 <!-- class="card modal-section" -->
 <!-- @if (mobileSize) {
@@ -967,29 +1519,43 @@
 </div>
 } -->
 <div *ngIf="isPayment">
-    <app-payment [orderDeliveryAddress]="selectedUserAddress"></app-payment>
+  <app-payment [orderDeliveryAddress]="selectedUserAddress"></app-payment>
 </div>
-
 
 <div class="mobile-base">
-    <!-- Modal -->
-    <div class="modal  modal-xl" #detailsModal id="productDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" [style]="{'position':' relative'}">
-        <div
-            class=" mobileModal modal-dialog modal-bottom modal-fullscreen-sm-down modal-fullscreen-md-down modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header mob-modal-header">
-                    <div class="btnCloseDiv">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()"
-                            aria-label="Close"></button>
-                    </div>
-                </div>
-                <div class="modal-body">
-
-                </div>
-            </div>
+  <!-- Modal -->
+  <div
+    class="modal modal-xl"
+    #detailsModal
+    id="productDetailModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    [style]="{ position: ' relative' }"
+  >
+    <div
+      class="mobileModal modal-dialog modal-bottom modal-fullscreen-sm-down modal-fullscreen-md-down modal-dialog-scrollable"
+    >
+      <div class="modal-content">
+        <div class="modal-header mob-modal-header">
+          <div class="btnCloseDiv">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              (click)="closeModal()"
+              aria-label="Close"
+            ></button>
+          </div>
         </div>
+        <div class="modal-body"></div>
+      </div>
     </div>
+  </div>
 </div>
 
-<app-login-popup *ngIf="showLoginPopup" (close)="showLoginPopup = false" (success)="onLogin()"></app-login-popup>
+<app-login-popup
+  *ngIf="showLoginPopup"
+  (close)="showLoginPopup = false"
+  (success)="onLogin()"
+></app-login-popup>
