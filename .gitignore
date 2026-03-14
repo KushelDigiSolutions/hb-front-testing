@@ -45,4 +45,4 @@ Thumbs.db
 .env.dev
 .env.local
 
-package-lock.json
+package-lock.json*.tar.gz
