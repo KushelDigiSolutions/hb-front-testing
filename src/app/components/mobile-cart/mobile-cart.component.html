@@ -1,37 +1,61 @@
-@if(showMobileCart && cartData && cartType == 'shop' && cartData?.shop && cartData.shop?.products?.length){
-<div class="mt-2 mobile-cart-footer">
-  <div *ngIf="cartData.shop?.products?.[0]?.productId" [style]="{'margin-bottom': '18px'}">
-    <div class="d-flex justify-content-between px-3 mt-1">
-      <div class="bottom-cart-category toggleSheet" (click)="onToggleSheet()">
-        <img class="img" [src]="s3Base + cartData.shop?.products?.[0]?.productId?.thumbnail?.savedName"
-          alt="">&nbsp;&nbsp;
-        <span>{{cartData.shop?.products?.length}} item</span>&nbsp;&nbsp;
-        <i class="bi" [ngClass]="showSheet? 'bi-caret-down-fill' : 'bi-caret-up-fill'"></i>
+@if (
+  showMobileCart &&
+  cartData &&
+  cartType == "shop" &&
+  cartData.shop &&
+  cartData.shop.products?.length
+) {
+  <div class="mt-2 mobile-cart-footer">
+    <div
+      *ngIf="cartData.shop.products[0]?.productId"
+      [style]="{ 'margin-bottom': '18px' }"
+    >
+      <div class="d-flex justify-content-between px-3 mt-1">
+        <div class="bottom-cart-category toggleSheet" (click)="onToggleSheet()">
+          <img
+            class="img"
+            [src]="
+              s3Base + cartData.shop.products[0].productId.thumbnail.savedName
+            "
+            alt=""
+          />&nbsp;&nbsp;
+          <span>{{ cartData.shop.products.length }} item</span>&nbsp;&nbsp;
+          <i
+            class="bi"
+            [ngClass]="showSheet ? 'bi-caret-down-fill' : 'bi-caret-up-fill'"
+          ></i>
+        </div>
+        <div class="bottom-cart-category" [style]="{ width: '174px' }">
+          <button
+            class="btn btn-primary"
+            [style]="{ width: '100%' }"
+            [routerLink]="['/cart', 'order']"
+          >
+            Next <i class="bi bi-caret-right-fill"></i>
+          </button>
+        </div>
       </div>
-      <div class="bottom-cart-category" [style]="{'width':'174px'}">
-        <button class="btn btn-primary" [style]="{'width':'100%'}" [routerLink]="['/cart','order']">Next
-          <i class="bi bi-caret-right-fill"></i></button>
+    </div>
+  </div>
+  @if (showSheet) {
+    <div class="backdrop" (click)="onToggleSheet()"></div>
+    <div class="bottomSheet">
+      <div class="text-center" (click)="onToggleSheet()">
+        <i class="bi bi-x-lg mb-4 closeSheet"></i>
+      </div>
+      <div class="sheet">
+        <div class="px-3 py-4 sheetHead">
+          <h5>What's in your cart</h5>
+        </div>
+        <div class="p-3 sheetBody">
+          <ng-container *ngIf="cartType == 'shop' && cartData.shop?.products">
+            <app-cart-product-list-item
+              *ngFor="let product of cartData.shop?.products"
+              [data]="product"
+            ></app-cart-product-list-item>
+          </ng-container>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-@if(showSheet){
-<div class="backdrop" (click)="onToggleSheet()"></div>
-<div class="bottomSheet">
-  <div class="text-center" (click)="onToggleSheet()">
-    <i class="bi bi-x-lg mb-4 closeSheet"></i>
-  </div>
-  <div class="sheet">
-    <div class="px-3 py-4 sheetHead">
-      <h5>What's in your cart</h5>
-    </div>
-    <div class="p-3 sheetBody">
-      <ng-container *ngIf="cartType == 'shop' && cartData.shop?.products">
-        <app-cart-product-list-item *ngFor="let product of cartData.shop?.products"
-          [data]="product"></app-cart-product-list-item>
-      </ng-container>
-    </div>
-  </div>
-</div>
-}
+  }
 }
