@@ -1,0 +1,1 @@
+var i=t=>{let n=t||navigator?.userAgent||navigator?.vendor||window.opera;return/windows phone/i.test(n)?"Windows Phone":/android/i.test(n)?"Android":/iPad|iPhone|iPod/.test(n)&&!window.MSStream?"iOS":/windows nt/i.test(n)?"Windows":/linux/i.test(n)?"Linux":/macintosh|mac os x/i.test(n)?"MacOS":"unknown"};export{i as a};
