@@ -1,0 +1,90 @@
+<!-- Global Popup Modal -->
+<div
+  *ngIf="isVisible"
+  class="modal-overlay"
+  [class.fade-out]="isAnimatingOut"
+  (click)="onOverlayClick($event)"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
+>
+  <div class="modal-box" [class.scale-out]="isAnimatingOut">
+
+    <!-- Decorative top stripe -->
+    <div class="modal-stripe"></div>
+
+    <!-- Close Button -->
+    <button class="close-btn" (click)="closeModal()" aria-label="Close notification">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <!-- Icon + Title -->
+    <div class="modal-header">
+      <div class="modal-icon-wrap">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+                stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 id="modal-title" class="modal-title">Temporary Service Update</h2>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+      <p class="modal-intro">
+        Due to a temporary technical issue, orders <strong>cannot be placed</strong> directly
+        through the website.
+      </p>
+
+      <div class="whatsapp-callout">
+        <span class="wa-icon">
+          <!-- WhatsApp SVG icon inline -->
+          <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="16" fill="#25D366"/>
+            <path d="M23.5 19.9c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.2-.8.9-1 1.1-.2.2-.4.2-.7.1-1-.4-1.9-.9-2.7-1.6-.7-.7-1.3-1.5-1.7-2.4-.2-.3 0-.5.1-.7l.5-.6c.1-.2.2-.4.3-.6.1-.2.1-.4 0-.6-.1-.2-.7-1.7-.9-2.3-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .2.2 2 3.2 5 4.4.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3z" fill="white"/>
+          </svg>
+        </span>
+        <span>You can still order easily via <strong>WhatsApp!</strong></span>
+      </div>
+
+      <p class="modal-subtitle">Please share these details with us:</p>
+
+      <ul class="detail-list">
+        <li>
+          <span class="dot"></span>
+          <span>Product Name(s)</span>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <span>Quantity</span>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <span>Full Delivery Address</span>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <span>Contact Number</span>
+        </li>
+      </ul>
+
+      <p class="modal-assurance">Our team will assist you shortly. 🌿</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="modal-footer">
+      <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="wa-cta-btn">
+        <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="16" fill="white" fill-opacity="0.25"/>
+          <path d="M23.5 19.9c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.2-.8.9-1 1.1-.2.2-.4.2-.7.1-1-.4-1.9-.9-2.7-1.6-.7-.7-1.3-1.5-1.7-2.4-.2-.3 0-.5.1-.7l.5-.6c.1-.2.2-.4.3-.6.1-.2.1-.4 0-.6-.1-.2-.7-1.7-.9-2.3-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .2.2 2 3.2 5 4.4.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3z" fill="white"/>
+        </svg>
+        Order via WhatsApp
+      </a>
+      <button class="dismiss-btn" (click)="closeModal()">Continue browsing</button>
+    </div>
+
+  </div>
+</div>
