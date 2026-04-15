@@ -38,8 +38,8 @@ export const environment = {
   production: true,
   mode: 'prod',
   appHost: 'https://healthybazar.com/',
-  apiUrl2: "https://api.healthybazar.com/api/v2/",
-  apiUrl: "https://api.healthybazar.com/api/v2/",
+  apiUrl2: "https://test.healthybazar.com/api/v2/",
+  apiUrl: "https://test.healthybazar.com/api/v2/",
   corporateUserAppHost: 'https://corporate.healthybazar.com/',
   adminHost: 'https://admin.healthybazar.com/',
 

@@ -58,7 +58,6 @@ import { DynamicScriptLoaderService } from './services/dynamic-script-loader.ser
 import { SpinnerService } from './services/spinner.service';
 import { OneSignal } from 'onesignal-ngx';
 import { DiscountStripComponent } from './components/discount-strip/discount-strip.component';
-import { PopupModalComponent } from './shared/components/popup-modal/popup-modal.component';
 
 declare var gtag: any;
 // register Swiper custom elements
@@ -88,7 +87,6 @@ register();
     AssessmentIconComponent,
     SpinnerComponent,
     DiscountStripComponent,
-    PopupModalComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
