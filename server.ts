@@ -26,9 +26,9 @@ export function app(): express.Express {
 
   server.get('/robots.txt', (req, res, next) => {
     let reqUrl = environment.apiUrl + 'robots.txt';
-    const _URL = new URL(reqUrl)
+    const _URL = new URL(reqUrl);
 
-    console.log('[_URL.port]', _URL.port)
+    console.log('[_URL.port]', _URL.port);
     const options = {
       hostname: _URL.hostname,
       port: _URL.port || (_URL.protocol == 'http:' ? 80 : 443),
@@ -37,35 +37,33 @@ export function app(): express.Express {
 
       headers: {
         apikey: environment.apikey,
-      }
+      },
     };
     console.log('[options]', options);
     try {
-      (reqUrl.indexOf('https://') == 0 ? https : http).get(options, (resp) => {
-        var body = ''
-        resp.on('data', function (data) {
-          body += data;
-        });
+      (reqUrl.indexOf('https://') == 0 ? https : http)
+        .get(options, (resp) => {
+          var body = '';
+          resp.on('data', function (data) {
+            body += data;
+          });
 
-        resp.on('end', function () {
-          console.log('[resp robots.txt]', resp.statusCode)
-          if (resp.statusCode == 200) {
-            res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-            res.send(body);
-          } else next();
+          resp.on('end', function () {
+            console.log('[resp robots.txt]', resp.statusCode);
+            if (resp.statusCode == 200) {
+              res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+              res.send(body);
+            } else next();
+          });
+        })
+        .on('error', (e) => {
+          console.log('[error]', e);
+          next();
         });
-      }).on('error', (e) => {
-        console.log('[error]', e)
-        next();
-      });
-
     } catch (e) {
       console.log('[robots e]', e);
-
     }
   });
-
-  
 
   server.get('/sitemap*.xml', (req, res, next) => {
     let { url } = req;
@@ -75,41 +73,43 @@ export function app(): express.Express {
       endpoint = url.substr(index + 1);
     }
     let reqUrl = 'https://api.healthybazar.com/generated/' + endpoint;
-    (reqUrl.indexOf('https://') == 0 ? https : http).get(reqUrl, (resp) => {
-      var body = ''
-      resp.on('data', function (data) {
-        body += data;
-      });
+    (reqUrl.indexOf('https://') == 0 ? https : http)
+      .get(reqUrl, (resp) => {
+        var body = '';
+        resp.on('data', function (data) {
+          body += data;
+        });
 
-      resp.on('end', function () {
-        if (resp.statusCode == 200) {
-          res.setHeader('Content-Type', 'text/xml; charset=utf-8');
-          res.send(body);
-        } else next();
+        resp.on('end', function () {
+          if (resp.statusCode == 200) {
+            res.setHeader('Content-Type', 'text/xml; charset=utf-8');
+            res.send(body);
+          } else next();
+        });
+      })
+      .on('error', (e) => {
+        next();
       });
-    }).on('error', (e) => {
-      next();
-    });
   });
 
-server.get('/test-redirect', (req, res) => {
-  console.log('Manual redirect hit');
-  res.redirect(301, '/target');
-});
+  server.get('/test-redirect', (req, res) => {
+    console.log('Manual redirect hit');
+    res.redirect(301, '/target');
+  });
 
   server.get('/sitemap*.xml', (req, res, next) => {
-      const rawPath = decodeURIComponent(req.path);
-      const path = rawPath.replace(/\/+$/, '').toLowerCase();
+    const rawPath = decodeURIComponent(req.path);
+    const path = rawPath.replace(/\/+$/, '').toLowerCase();
 
-      if (!redirects[path]) {
-        console.log('No redirect for:', path)
-      }
-      console.log(`[REDIRECT] ${req.originalUrl} -> ${redirects[path]}`);
-      if (req.method === 'GET' && redirects[path] && path !== redirects[path]) {
-        return res.redirect(301, redirects[path])
-      } else {
-         return next()
-      }
+    if (!redirects[path]) {
+      console.log('No redirect for:', path);
+    }
+    console.log(`[REDIRECT] ${req.originalUrl} -> ${redirects[path]}`);
+    if (req.method === 'GET' && redirects[path] && path !== redirects[path]) {
+      return res.redirect(301, redirects[path]);
+    } else {
+      return next();
+    }
   });
 
   server.set('view engine', 'html');
@@ -118,15 +118,16 @@ server.get('/test-redirect', (req, res) => {
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
-  server.get('*.*', express.static(browserDistFolder, {
-    maxAge: '1y'
-  }));
-
-
+  server.get(
+    '*.*',
+    express.static(browserDistFolder, {
+      maxAge: '1y',
+    }),
+  );
 
   // All regular routes use the Angular engine
   server.get('*', (req, res, next) => {
-    console.log("SSR")
+    console.log('SSR');
     const { protocol, originalUrl, baseUrl, headers } = req;
 
     commonEngine
@@ -138,7 +139,7 @@ server.get('/test-redirect', (req, res) => {
         providers: [
           { provide: APP_BASE_HREF, useValue: baseUrl },
           { provide: RESPONSE, useValue: res },
-          { provide: REQUEST, useValue: req }
+          { provide: REQUEST, useValue: req },
         ],
       })
       .then((html) => res.send(html))
@@ -158,4 +159,9 @@ function run(): void {
   });
 }
 
-run();
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  run();
+}
+
+// Export the Express app for Vercel serverless function
+export default app();

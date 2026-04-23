@@ -1,43 +1,45 @@
-@if (
-  showMobileCart &&
-  cartData &&
-  cartType == "shop" &&
-  cartData.shop &&
-  cartData.shop.products?.length
-) {
-  <div class="mt-2 mobile-cart-footer">
-    <div
-      *ngIf="cartData.shop.products[0]?.productId"
-      [style]="{ 'margin-bottom': '18px' }"
-    >
-      <div class="d-flex justify-content-between px-3 mt-1">
-        <div class="bottom-cart-category toggleSheet" (click)="onToggleSheet()">
-          <img
-            class="img"
-            [src]="
-              s3Base + cartData.shop.products[0].productId.thumbnail.savedName
-            "
-            alt=""
-          />&nbsp;&nbsp;
-          <span>{{ cartData.shop.products.length }} item</span>&nbsp;&nbsp;
-          <i
-            class="bi"
-            [ngClass]="showSheet ? 'bi-caret-down-fill' : 'bi-caret-up-fill'"
-          ></i>
-        </div>
-        <div class="bottom-cart-category" [style]="{ width: '174px' }">
-          <button
-            class="btn btn-primary"
-            [style]="{ width: '100%' }"
-            [routerLink]="['/cart', 'order']"
-          >
-            Next <i class="bi bi-caret-right-fill"></i>
-          </button>
-        </div>
+<div
+  *ngIf="
+    showMobileCart &&
+    cartData &&
+    cartType == 'shop' &&
+    cartData.shop &&
+    cartData.shop.products?.length
+  "
+  class="mt-2 mobile-cart-footer"
+>
+  <div
+    *ngIf="cartData.shop.products[0]?.productId"
+    [style]="{ 'margin-bottom': '18px' }"
+  >
+    <div class="d-flex justify-content-between px-3 mt-1">
+      <div class="bottom-cart-category toggleSheet" (click)="onToggleSheet()">
+        <img
+          class="img"
+          [src]="
+            s3Base + cartData.shop.products[0].productId.thumbnail.savedName
+          "
+          alt=""
+        />&nbsp;&nbsp;
+        <span>{{ cartData.shop.products.length }} item</span>&nbsp;&nbsp;
+        <i
+          class="bi"
+          [ngClass]="showSheet ? 'bi-caret-down-fill' : 'bi-caret-up-fill'"
+        ></i>
+      </div>
+      <div class="bottom-cart-category" [style]="{ width: '174px' }">
+        <button
+          class="btn btn-primary"
+          [style]="{ width: '100%' }"
+          [routerLink]="['/cart', 'order']"
+        >
+          Next <i class="bi bi-caret-right-fill"></i>
+        </button>
       </div>
     </div>
   </div>
-  @if (showSheet) {
+
+  <div *ngIf="showSheet">
     <div class="backdrop" (click)="onToggleSheet()"></div>
     <div class="bottomSheet">
       <div class="text-center" (click)="onToggleSheet()">
@@ -57,5 +59,5 @@
         </div>
       </div>
     </div>
-  }
-}
+  </div>
+</div>
