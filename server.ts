@@ -8,6 +8,7 @@ import { CommonEngine } from '@angular/ssr';
 import express, { Request, Response } from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
+import { existsSync } from 'node:fs';
 import http from 'http';
 import https from 'https';
 import bootstrap from './src/main.server';
@@ -16,11 +17,62 @@ import { REQUEST, RESPONSE } from './src/app/services/express.service';
 import { redirects } from './redirects';
 
 // The Express app is exported so that it can be used by serverless Functions.
+const distCandidates = [
+  resolve(process.cwd(), 'dist', 'healthybazar'),
+  resolve(
+    dirname(fileURLToPath(import.meta.url)),
+    '..',
+    'dist',
+    'healthybazar',
+  ),
+  resolve(
+    dirname(fileURLToPath(import.meta.url)),
+    '..',
+    '..',
+    'dist',
+    'healthybazar',
+  ),
+  resolve(
+    dirname(fileURLToPath(import.meta.url)),
+    '..',
+    '..',
+    '..',
+    'dist',
+    'healthybazar',
+  ),
+];
+
+function resolveDistBase(): string {
+  for (const candidate of distCandidates) {
+    if (existsSync(candidate)) {
+      return candidate;
+    }
+  }
+  throw new Error(
+    `Could not find Angular SSR dist folder. Checked: ${distCandidates.join(', ')}`,
+  );
+}
+
 export function app(): express.Express {
   const server = express();
-  const serverDistFolder = dirname(fileURLToPath(import.meta.url));
-  const browserDistFolder = resolve(serverDistFolder, '../browser');
+  const distBase = resolveDistBase();
+  const serverDistFolder = resolve(distBase, 'server');
+  const browserDistFolder = resolve(distBase, 'browser');
   const indexHtml = join(serverDistFolder, 'index.server.html');
+
+  if (
+    !existsSync(serverDistFolder) ||
+    !existsSync(browserDistFolder) ||
+    !existsSync(indexHtml)
+  ) {
+    console.error('SSR asset path missing', {
+      distBase,
+      serverDistFolder,
+      browserDistFolder,
+      indexHtml,
+    });
+    throw new Error('Missing SSR files in dist/healthybazar');
+  }
 
   const commonEngine = new CommonEngine();
 
